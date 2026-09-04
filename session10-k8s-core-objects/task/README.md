@@ -1,4 +1,4 @@
-# Session 10 — Kubernetes Core Objects — Task
+# Session 10 - Kubernetes Core Objects - Task
 
 - **Name:** Shubham Kumar
 - **Enrollment No:** 24BCS10320
@@ -10,7 +10,7 @@
 [`../Readme.md`](../Readme.md) links to a `core-objects.md` reference rather than stating a
 task, but the session ships manifests in
 [`../k8s-core-objects/`](../k8s-core-objects/). So I took the task to be: apply each core
-object, then demonstrate the behaviour that makes it different from the others — not just
+object, then demonstrate the behaviour that makes it different from the others - not just
 show it exists.
 
 Cluster: minikube v1.39.0, Kubernetes v1.37.0 (set up in
@@ -18,7 +18,7 @@ Cluster: minikube v1.39.0, Kubernetes v1.37.0 (set up in
 
 ---
 
-## 1. Pod — the unit of scheduling
+## 1. Pod - the unit of scheduling
 
 [`../k8s-core-objects/pod.yml`](../k8s-core-objects/pod.yml) defines **two** containers in one pod.
 
@@ -49,12 +49,12 @@ $ kubectl logs mypod -c app --tail=2
 
 `READY 2/2` is the point: a pod is not "a container", it is a group of containers that share
 a network namespace and lifecycle. Because there are two, `kubectl logs` needs `-c` to say
-which one — without it you get an error listing your choices. This is the sidecar pattern:
+which one - without it you get an error listing your choices. This is the sidecar pattern:
 `app` serves, `logger` runs alongside it.
 
 ---
 
-## 2. ReplicaSet — keeps N pods alive
+## 2. ReplicaSet - keeps N pods alive
 
 ```bash
 kubectl apply -f ../k8s-core-objects/replicaset.yml   # replicas: 3, selector app=web
@@ -90,13 +90,13 @@ $ kubectl get events --field-selector involvedObject.name=myapp-rs
 ```
 
 I caught the replacement at 2 seconds old, still `ContainerCreating`, and the controller
-logged `SuccessfulCreate` for it. **The replacement has a different name** — the ReplicaSet
+logged `SuccessfulCreate` for it. **The replacement has a different name** - the ReplicaSet
 guarantees *how many* pods match its selector, not that any particular pod survives. Pods
 are disposable; the count is the contract.
 
 ---
 
-## 3. Deployment — manages ReplicaSets, so it can roll
+## 3. Deployment - manages ReplicaSets, so it can roll
 
 ```bash
 kubectl apply -f ../k8s-core-objects/deployment.yml
@@ -114,7 +114,7 @@ REPLICASET         IMAGE   DESIRED   READY
 myapp-5b9587f95d   nginx   3         3
 ```
 
-Note the ownership chain: **Deployment → ReplicaSet → Pods**. I never created that
+Note the ownership chain: **Deployment -> ReplicaSet -> Pods**. I never created that
 ReplicaSet; the Deployment did, and its name carries a hash of the pod template.
 
 ### Rollout and rollback
@@ -135,7 +135,7 @@ myapp-754cfcff96   nginx:1.27-alpine   3         3         <- new
 ```
 
 **This is why Deployments exist.** Changing the image created a *second* ReplicaSet and
-shifted replicas from the old to the new one gradually — the `rollout status` output stepped
+shifted replicas from the old to the new one gradually - the `rollout status` output stepped
 through `1 out of 3 new replicas have been updated`, then 2, then
 `1 old replicas are pending termination`. The old ReplicaSet is kept at 0 replicas rather
 than deleted, which is what makes rollback instant:
@@ -156,11 +156,11 @@ myapp        nginx   3
 ```
 
 Rolling back just scales the old ReplicaSet back up. A bare ReplicaSet cannot do any of
-this — it has one template and no history.
+this - it has one template and no history.
 
 ---
 
-## 4. Service — a stable address for changing pods
+## 4. Service - a stable address for changing pods
 
 ```bash
 kubectl apply -f ../k8s-core-objects/service.yml   # NodePort 30080 -> 80, selector app=myapp
@@ -177,10 +177,10 @@ myapp-service-rsw5n   10.244.0.31,10.244.0.32,10.244.0.33
 ```
 
 The Service found all three pods by label and listed them as endpoints. It did not need to
-know their names or IPs in advance — the selector does the work, which is exactly why pods
+know their names or IPs in advance - the selector does the work, which is exactly why pods
 being disposable (section 2) is workable.
 
-Reached two ways. First by **cluster DNS from another pod** — I exec'd into the busybox
+Reached two ways. First by **cluster DNS from another pod** - I exec'd into the busybox
 `logger` container of `mypod` rather than creating anything new:
 
 ![Service reached by cluster DNS](screenshots/service-cluster-dns.png)
@@ -200,13 +200,13 @@ $ kubectl exec mypod -c logger -- sh -c 'for i in 1 2 3; do wget -qO- http://mya
 ```
 
 `10.96.0.10` is CoreDNS (the `kube-dns` Service), and it resolved the name to the Service's
-ClusterIP `10.101.63.237` — matching `kubectl get svc` above.
+ClusterIP `10.101.63.237` - matching `kubectl get svc` above.
 
 Note the two forms. The lookup used the **FQDN**, while the fetches used the bare
 `myapp-service` and still worked, because pods are given a DNS search list
 (`default.svc.cluster.local`, `svc.cluster.local`, `cluster.local`). Worth knowing that
 busybox's `nslookup` tries every suffix and prints `NXDOMAIN` for the ones that miss before
-hitting the right one — that output looks like a failure but is just the search walk, which
+hitting the right one - that output looks like a failure but is just the search walk, which
 is why I queried the FQDN directly here.
 
 Second, on the **NodePort from the node**:
@@ -221,13 +221,13 @@ nodePort 30080 -> HTTP 200
 | Type | Reachable from | Use |
 |---|---|---|
 | `ClusterIP` (default) | inside the cluster only | internal services |
-| `NodePort` | any node IP on a high port (30000–32767) | dev/testing, or behind your own load balancer |
+| `NodePort` | any node IP on a high port (30000-32767) | dev/testing, or behind your own load balancer |
 | `LoadBalancer` | external IP from the cloud provider | production on a cloud |
-| headless (`clusterIP: None`) | per-pod DNS, no load balancing | StatefulSets — see section 6 |
+| headless (`clusterIP: None`) | per-pod DNS, no load balancing | StatefulSets - see section 6 |
 
 ---
 
-## 5. DaemonSet — one pod per node
+## 5. DaemonSet - one pod per node
 
 ```bash
 kubectl apply -f ../k8s-core-objects/deamonset.yml
@@ -248,7 +248,7 @@ NAME                  NODE       STATUS
 node-exporter-qcr65   minikube   Running
 ```
 
-`DESIRED 1` — and I never wrote `replicas: 1` anywhere. A DaemonSet has **no replica count**;
+`DESIRED 1` - and I never wrote `replicas: 1` anywhere. A DaemonSet has **no replica count**;
 the desired number *is* the number of matching nodes. On a 10-node cluster this would be 10,
 and adding a node would automatically get a pod. That is the whole difference from a
 Deployment, and it is why node agents (metrics, log shippers, CNI) are DaemonSets.
@@ -263,7 +263,7 @@ node_context_switches_total 3.1923977e+07
 
 ---
 
-## 6. StatefulSet — stable identity and per-pod storage
+## 6. StatefulSet - stable identity and per-pod storage
 
 ```bash
 kubectl apply -f ../k8s-core-objects/statefulset.yml   # mysql, replicas: 3
@@ -292,12 +292,12 @@ mysql-1   2026-09-04T18:36:10Z   Running
 mysql-2   2026-09-04T18:36:12Z   Running
 ```
 
-`mysql-0` was created first, then `mysql-1`, then `mysql-2` — strictly one after another, and
+`mysql-0` was created first, then `mysql-1`, then `mysql-2` - strictly one after another, and
 the `statefulset-controller` logged each one separately. A Deployment issues all its pod
 creations at once; a StatefulSet will not create `mysql-1` until `mysql-0` is Ready. That is
 what lets a database elect a primary and have replicas join in a known sequence.
 
-The gaps here are only 1–3 seconds because this was a re-apply and the PersistentVolumeClaims
+The gaps here are only 1-3 seconds because this was a re-apply and the PersistentVolumeClaims
 already existed, so MySQL had no first-time initialisation to do. On the very first apply the
 same sequence took roughly 40 seconds end to end, with each pod visibly `Pending` while the
 one before it started.
@@ -324,11 +324,11 @@ mysql-persistent-storage-mysql-2   Bound   pvc-b25c48b2-...   5Gi   RWO   standa
 ```
 
 Each pod got its **own** 5Gi PersistentVolumeClaim, named after the pod. That comes from
-`volumeClaimTemplates` — a Deployment has no equivalent, so all its replicas would share one
+`volumeClaimTemplates` - a Deployment has no equivalent, so all its replicas would share one
 volume or none. Three separate databases need three separate disks, which is the reason
 StatefulSet exists.
 
-### A bug in the provided manifest — and the fix
+### A bug in the provided manifest - and the fix
 
 `statefulset.yml` declares `serviceName: "mysql"`, but **there is no Service named `mysql`
 anywhere in the repo**. The pods still start, so it looks fine, but the per-pod DNS a
@@ -342,7 +342,7 @@ $ kubectl get svc mysql
 Error from server (NotFound): services "mysql" not found
 ```
 
-I added the missing headless Service —
+I added the missing headless Service -
 [`../k8s-core-objects/mysql-headless-service.yml`](../k8s-core-objects/mysql-headless-service.yml):
 
 ```yaml
@@ -371,19 +371,19 @@ $ kubectl exec mysql-0 -- getent hosts mysql-0.mysql mysql-1.mysql mysql-2.mysql
 10.244.0.24     mysql-2.mysql.default.svc.cluster.local
 ```
 
-Each pod is now individually addressable. `clusterIP: None` is the key — a normal Service
+Each pod is now individually addressable. `clusterIP: None` is the key - a normal Service
 hands out one virtual IP and load-balances across pods, which is the opposite of what you
 want when you need to talk to *replica 2 specifically*.
 
 ---
 
-## Summary — which object for what
+## Summary - which object for what
 
 | Object | Guarantees | Reach for it when |
 |---|---|---|
-| **Pod** | one or more containers, co-scheduled, shared network | almost never directly — nothing recreates it |
+| **Pod** | one or more containers, co-scheduled, shared network | almost never directly - nothing recreates it |
 | **ReplicaSet** | N pods matching a selector stay alive | rarely directly; a Deployment owns one for you |
-| **Deployment** | ReplicaSets + rolling updates + rollback history | stateless apps — the normal default |
+| **Deployment** | ReplicaSets + rolling updates + rollback history | stateless apps - the normal default |
 | **Service** | stable IP/DNS in front of changing pods | anything that needs to be reachable |
 | **DaemonSet** | exactly one pod per (matching) node | node-level agents: metrics, logs, CNI |
 | **StatefulSet** | ordered startup, stable names, per-pod storage | databases, queues, anything with identity |
@@ -401,14 +401,14 @@ want when you need to talk to *replica 2 specifically*.
 - Services work by **label selector**, not by pod identity. Combined with pods being
   disposable, that is the core of how Kubernetes stays available while individual pods churn.
 - DaemonSets having no `replicas:` field is a genuine conceptual difference, not a syntax
-  quirk — the node count *is* the replica count.
+  quirk - the node count *is* the replica count.
 - Headless Services are not a lesser Service; they solve the opposite problem. Load balancing
   is exactly wrong for a stateful replica set.
 
 ## Problems I hit
 
 - **The StatefulSet manifest was incomplete.** It referenced a headless Service that did not
-  exist. The pods came up `3/3 Running`, so nothing looked wrong — the breakage only appeared
+  exist. The pods came up `3/3 Running`, so nothing looked wrong - the breakage only appeared
   when I actually tried the per-pod DNS and got `NXDOMAIN`. A good reminder that "pods are
   Running" is not the same as "this works".
 - **Two of my `kubectl -o jsonpath` commands failed** with

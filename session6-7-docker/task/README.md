@@ -1,4 +1,4 @@
-# Session 6–7 — Docker — Task 1: Hello World Applications
+# Session 6-7 - Docker - Task 1: Hello World Applications
 
 - **Name:** Shubham Kumar
 - **Enrollment No:** 24BCS10320
@@ -16,12 +16,12 @@ verify each one serves over HTTP from its container.
 |--------|---------|---------------|----------------|-----------|------------|
 | `nodejs-app/` | Node.js + Express | `node:22-alpine` | 3000 | 3001 | 251 MB |
 | `python-app/` | Python + Flask | `python:3.12-slim` | 5000 | 3002 | 208 MB |
-| `java-app/` | Java `HttpServer` | `eclipse-temurin:21-jdk` → `21-jre` | 8000 | 3003 | 454 MB |
+| `java-app/` | Java `HttpServer` | `eclipse-temurin:21-jdk` -> `21-jre` | 8000 | 3003 | 454 MB |
 | `Apache-app/` | Apache httpd | `httpd:2.4-alpine` | 80 | 3004 | 96.1 MB |
-| `React-app/` | React (Vite) | `node:22-alpine` → `nginx:alpine` | 80 | 3005 | 102 MB |
+| `React-app/` | React (Vite) | `node:22-alpine` -> `nginx:alpine` | 80 | 3005 | 102 MB |
 | `nginx-app/` | Nginx | `nginx:alpine` | 80 | 3006 | 102 MB |
 
-Two of these use a **multi-stage build** on purpose — `java-app` (compile with the JDK,
+Two of these use a **multi-stage build** on purpose - `java-app` (compile with the JDK,
 ship only the JRE) and `React-app` (build the bundle with Node, ship only static files
 on Nginx).
 
@@ -59,7 +59,7 @@ Each app in the browser:
 | ![React](screenshots/react-app.png) | ![Nginx](screenshots/nginx-app.png) |
 
 The Node, Python and Java pages print the container's own hostname, which is the
-container ID — that is what shows the response really came from inside the container
+container ID - that is what shows the response really came from inside the container
 and not from something running on the host.
 
 ## Proving the multi-stage builds actually dropped the build tooling
@@ -72,7 +72,7 @@ $ docker run --rm --entrypoint sh hello-java -c 'command -v javac || echo "no ja
 no javac (JRE only)
 ```
 
-The React image ships only `index.html` + `assets/` under `/usr/share/nginx/html` —
+The React image ships only `index.html` + `assets/` under `/usr/share/nginx/html` -
 no `node_modules` at all. The Java image contains `HelloWorldServer.class` and a JRE,
 no compiler.
 
@@ -80,7 +80,7 @@ no compiler.
 
 - Choosing the base image matters far more than anything in the Dockerfile: the same
   trivial app is 96 MB on `httpd:alpine` and 454 MB on a Temurin JRE.
-- `EXPOSE` is documentation only — it does not publish anything. The `-p host:container`
+- `EXPOSE` is documentation only - it does not publish anything. The `-p host:container`
   flag on `docker run` is what actually opens the port.
 - Copying `package.json` and running the install *before* copying source keeps the
   dependency layer cached, so editing source rebuilds in seconds instead of re-installing.
@@ -92,7 +92,7 @@ no compiler.
 - **`nginx:alpine` failed to pull mid-build**, twice, with
   `dial tcp: lookup production.cloudfront.docker.com: no such host`. This broke both
   `nginx-app` and `React-app` while the other four built fine. It was a transient DNS
-  failure against Docker's CDN, not a Dockerfile problem — a plain
+  failure against Docker's CDN, not a Dockerfile problem - a plain
   `docker pull nginx:alpine` succeeded on retry and both images then built first time.
   Worth remembering that a "build failure" can be purely network.
 - The React page looked blank to `curl` at first. That was expected, not a bug: Vite

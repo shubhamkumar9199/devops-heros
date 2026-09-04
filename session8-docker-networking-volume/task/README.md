@@ -1,4 +1,4 @@
-# Session 8 — Docker Networking & Volumes — Tasks
+# Session 8 - Docker Networking & Volumes - Tasks
 
 - **Name:** Shubham Kumar
 - **Enrollment No:** 24BCS10320
@@ -25,7 +25,7 @@ docker network connect net-backend backend-app          # backend now sits on BO
 docker run -d --name db-app --network net-backend -e MARIADB_ROOT_PASSWORD=secret mariadb:11
 ```
 
-Resulting topology — `backend-app` is the only container on two networks:
+Resulting topology - `backend-app` is the only container on two networks:
 
 | Container | Networks (with IP) |
 |-----------|--------------------|
@@ -39,7 +39,7 @@ Resulting topology — `backend-app` is the only container on two networks:
 
 ![Network isolation test output](screenshots/task1-connectivity.png)
 
-**1. frontend → backend** — same network, works:
+**1. frontend -> backend** - same network, works:
 
 ```text
 $ docker exec frontend-app ping -c 2 backend-app
@@ -49,7 +49,7 @@ PING backend-app (172.21.0.3): 56 data bytes
 2 packets transmitted, 2 packets received, 0% packet loss
 ```
 
-**2. frontend → db** — no shared network, fails:
+**2. frontend -> db** - no shared network, fails:
 
 ```text
 $ docker exec frontend-app ping -c 2 db-app; echo "exit code: $?"
@@ -57,7 +57,7 @@ ping: bad address 'db-app'
 exit code: 1
 ```
 
-**3. backend → db** — both on `net-backend`, works:
+**3. backend -> db** - both on `net-backend`, works:
 
 ```text
 $ docker exec backend-app ping -c 2 db-app
@@ -68,7 +68,7 @@ PING db-app (172.22.0.3): 56 data bytes
 ```
 
 The detail I found most interesting: test 2 fails with **`bad address`**, not with a
-timeout. The isolation happens at *DNS resolution*, before any packet is sent — Docker's
+timeout. The isolation happens at *DNS resolution*, before any packet is sent - Docker's
 embedded DNS server only resolves container names within networks the asking container is
 actually attached to. `db-app` is not a name `frontend-app` can even look up.
 
@@ -87,12 +87,12 @@ docker run -d --name apache-host-net --net=host httpd:alpine
 curl http://localhost:80
 ```
 
-### Result — and a platform difference worth documenting
+### Result - and a platform difference worth documenting
 
 ![Host network output](screenshots/task2-host-network.png)
 
 Note the `docker ps` output first: with `--net=host` the **PORTS column is empty**, because
-there is no port mapping — the container uses the host's network stack directly.
+there is no port mapping - the container uses the host's network stack directly.
 
 From the Windows host, port 80 was **not** reachable:
 
@@ -117,7 +117,7 @@ $ docker run --rm --net=host alpine:latest sh -c 'apk add -q curl; curl -s --max
 </html>
 ```
 
-**Why:** Docker Desktop on Windows does not run containers on Windows itself — it runs them
+**Why:** Docker Desktop on Windows does not run containers on Windows itself - it runs them
 inside a Linux VM. So `--net=host` means *the VM's* network, not Windows'. Apache really is
 on port 80 of the host network, just a host that isn't my laptop. Since there is no published
 port, Docker Desktop has nothing to forward from Windows into the VM, so `localhost:80` on
@@ -167,7 +167,7 @@ NAMES              STATUS
 nginx-bind-mount   Up About a minute
 ```
 
-The `Up About a minute` is the part that matters — the uptime never reset, so the container was
+The `Up About a minute` is the part that matters - the uptime never reset, so the container was
 not restarted between the two `curl` calls. The host directory *is* the directory Nginx serves
 from; there is no copy step.
 
@@ -188,7 +188,7 @@ they can talk by container name, as if they were on the same box.
 
 ### How it works
 
-- Container traffic is wrapped in **VXLAN** — the original layer-2 Ethernet frame is
+- Container traffic is wrapped in **VXLAN** - the original layer-2 Ethernet frame is
   encapsulated inside a UDP packet (default port **4789**) and sent across the physical network
   to the right host, which unwraps it.
 - Each participating host holds a **VXLAN tunnel endpoint (VTEP)**; Docker keeps the mapping of
@@ -200,17 +200,17 @@ they can talk by container name, as if they were on the same box.
 
 ### Main use cases
 
-1. **Docker Swarm / multi-host clusters** — services scheduled onto any node still reach each
+1. **Docker Swarm / multi-host clusters** - services scheduled onto any node still reach each
    other by service name.
-2. **Encrypted container-to-container traffic** — `docker network create --opt encrypted` adds
+2. **Encrypted container-to-container traffic** - `docker network create --opt encrypted` adds
    IPsec to the VXLAN tunnels, which matters when hosts talk over a network you do not control.
-3. **Service discovery and load balancing** — Swarm's built-in DNS resolves a service name to a
+3. **Service discovery and load balancing** - Swarm's built-in DNS resolves a service name to a
    virtual IP and spreads connections across that service's tasks, wherever they run.
 
 ### How it relates to Task 1
 
-Task 1's isolation was all on one host. The same *model* — named networks, DNS scoped to
-attached networks, a container able to join more than one — carries over to overlay networks.
+Task 1's isolation was all on one host. The same *model* - named networks, DNS scoped to
+attached networks, a container able to join more than one - carries over to overlay networks.
 The only difference is that the members can now live on different machines. So the
 `net-frontend` / `net-backend` split above is exactly how you would separate tiers in a Swarm,
 just spanning hosts.
@@ -220,13 +220,13 @@ just spanning hosts.
 ## What I learned overall
 
 - Container isolation is enforced at **DNS**, not only at the packet level. `bad address` vs a
-  hang is a genuinely useful diagnostic — one means "not on a shared network", the other means
+  hang is a genuinely useful diagnostic - one means "not on a shared network", the other means
   "resolved, but nothing answered".
 - Attaching one container to two networks (`docker network connect`) is the normal way to build
   a tiered app where the frontend cannot touch the database directly.
 - `--net=host` behaves differently on Docker Desktop than on Linux, because "host" is the VM.
   Anything relying on it is not portable.
-- A bind mount is a live view of a host directory, not a copy — great for development, and a bad
+- A bind mount is a live view of a host directory, not a copy - great for development, and a bad
   idea for anything you want the image to own.
 
 ## Problems I hit

@@ -1,4 +1,4 @@
-# Session 5 — Git & GitHub — Tasks
+# Session 5 - Git & GitHub - Tasks
 
 - **Name:** Shubham Kumar
 - **Enrollment No:** 24BCS10320
@@ -57,7 +57,7 @@ no changes added to commit (use "git add" and/or "git commit -a")
 exit=1
 ```
 
-**It refused, exit code 1.** Nothing was staged, so there was nothing to commit — git even
+**It refused, exit code 1.** Nothing was staged, so there was nothing to commit - git even
 suggests `-a` in the error. Now with `-a`:
 
 ```text
@@ -106,7 +106,7 @@ git commit -m 'chore: main-only commit'   # make main diverge
 
 ![git cherry-pick](screenshots/task2-cherry-pick.png)
 
-Before — the branches have diverged:
+Before - the branches have diverged:
 
 ```text
 $ git log --oneline --graph --all --decorate
@@ -145,7 +145,7 @@ Three things to read off this:
 
 - `feat: add B` now exists on **both** branches, under **different hashes**
   (`0d34b12` on feature, `55c46f7` on main), but the patch is identical (`b.txt | 1 +`).
-- `feature` is untouched — cherry-pick **copies**, it does not move or remove.
+- `feature` is untouched - cherry-pick **copies**, it does not move or remove.
 - `feat: add A` did **not** come along. That is the whole point: one commit, not the branch.
 
 ```text
@@ -155,7 +155,7 @@ $ git log main --format='  main:    %h  %s' | grep 'add B'
   main:    55c46f7  feat: add B
 ```
 
-### Why the new hash — and when it is *not* new
+### Why the new hash - and when it is *not* new
 
 I first assumed cherry-pick always produces a new hash. Then one run gave me the **same**
 hash on both branches, so I tested what actually decides it.
@@ -165,7 +165,7 @@ committer identity + date**. Cherry-pick preserves the author date but sets the 
 date to *now*. So the picked commit is byte-identical to the original only if the parent
 matches **and** the committer timestamp matches.
 
-Controlled experiment — `main` sitting exactly on `feat: add A`'s parent, changing nothing
+Controlled experiment - `main` sitting exactly on `feat: add A`'s parent, changing nothing
 but the committer date:
 
 ![Cherry-pick hash experiment](screenshots/task2-hash-experiment.png)
@@ -192,20 +192,20 @@ $ git log main -1 --format='main now: %h   committer=%cI'
 main now: fb4a6a8   committer=2026-09-04T23:59:59+00:00      <-- DIFFERENT hash
 ```
 
-Same parent, same tree, same message, same author date — and the hash still changed the
+Same parent, same tree, same message, same author date - and the hash still changed the
 moment the committer timestamp did. That is the deciding input.
 
 Which explains my accidental duplicate earlier: that run created the commit and
 cherry-picked it **within the same second**, so every hashed field matched and git produced
 the identical commit. Once a second or more elapses, the hash differs. So "cherry-pick
 creates a new commit" is true in practice, but it is the *timestamp* that usually makes it
-new — not some rule that git deliberately re-labels the commit.
+new - not some rule that git deliberately re-labels the commit.
 
 ### When to use it
 
 - Pulling one bug fix onto a release branch without dragging in everything else on `main`.
 - Recovering a commit made on the wrong branch.
-- Not a substitute for merging a whole branch — repeated cherry-picking creates duplicate
+- Not a substitute for merging a whole branch - repeated cherry-picking creates duplicate
   commits that can conflict awkwardly later.
 
 ---
@@ -214,11 +214,11 @@ new — not some rule that git deliberately re-labels the commit.
 
 - `git status --short` is the fastest way to see the staged/unstaged/untracked split: `M`
   vs ` M` vs `??`.
-- A refused commit exiting **1** matters in scripts and CI — `git commit -m` in a pipeline
+- A refused commit exiting **1** matters in scripts and CI - `git commit -m` in a pipeline
   will fail the step if nothing was staged.
 - A commit hash covers its parent, tree, message, author and committer plus **both**
   timestamps. My first explanation for the duplicate hash (that the parent being unchanged
-  was enough) was wrong — testing it showed the committer timestamp is what actually decides.
+  was enough) was wrong - testing it showed the committer timestamp is what actually decides.
   Worth the detour: I would have carried a wrong mental model otherwise.
 - `git switch` is the modern, clearer alternative to `git checkout` for changing branches.
 

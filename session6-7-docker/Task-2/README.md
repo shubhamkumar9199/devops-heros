@@ -1,4 +1,4 @@
-# Session 6–7 — Docker — Task 2: Multi-Stage Docker Build
+# Session 6-7 - Docker - Task 2: Multi-Stage Docker Build
 
 - **Name:** Shubham Kumar
 - **Enrollment No:** 24BCS10320
@@ -19,7 +19,7 @@ and verify the output in the browser and with `docker ps`.
    cd session6-7-docker/multi-stage-dockerfile
    ```
 
-2. Built the image from the two-stage Dockerfile (`builder` → `production`):
+2. Built the image from the two-stage Dockerfile (`builder` -> `production`):
 
    ```bash
    docker build -t multi-stage-app .
@@ -53,7 +53,7 @@ f8850046a249   multi-stage-app   Up 3 minutes   0.0.0.0:8080->3000/tcp, [::]:808
 The port column is the thing to read here: `0.0.0.0:8080->3000/tcp` is the `-p 8080:3000`
 mapping, so the app listens on 3000 inside the container and is reachable on 8080 from the host.
 
-## Did the multi-stage build actually save anything? — measured
+## Did the multi-stage build actually save anything? - measured
 
 I was curious whether this particular Dockerfile earns its second stage, so I built a
 single-stage equivalent of the same app and compared:
@@ -69,7 +69,7 @@ docker images --format '{{.Repository}}\t{{.Size}}'
 | `multi-stage-app` | 247 MB |
 
 **Only ~6 MB.** That surprised me, and the reason is worth writing down: both stages start
-from the same `node:24-alpine` base, and this app has no build step — nothing is compiled,
+from the same `node:24-alpine` base, and this app has no build step - nothing is compiled,
 so there is no build output to separate from build tooling. The second stage just re-runs
 `npm install --omit=dev`, which trims dev dependencies and nothing else. Almost the entire
 247 MB is the Node base image itself.
@@ -77,16 +77,16 @@ so there is no build output to separate from build tooling. The second stage jus
 Multi-stage pays off when the build stage produces something much smaller than the tools
 that made it. In [Task 1](../task/) the same pattern saved far more:
 
-- **React app** — built with Node, shipped on `nginx:alpine`: **102 MB**, and
+- **React app** - built with Node, shipped on `nginx:alpine`: **102 MB**, and
   `command -v node` inside it returns nothing. No `node_modules`, just static files.
-- **Java app** — compiled with the JDK, shipped on the JRE: `command -v javac` returns
+- **Java app** - compiled with the JDK, shipped on the JRE: `command -v javac` returns
   nothing, so the compiler is not in the shipped image.
 
 ## What I learned
 
 - A multi-stage build is not automatically smaller. It only helps if the final stage
   starts from a leaner base or drops genuinely heavy build tooling.
-- `COPY --from=<stage>` is the whole mechanism — anything not explicitly copied forward
+- `COPY --from=<stage>` is the whole mechanism - anything not explicitly copied forward
   is discarded with the build stage, which is also a security win (no compilers or
   source in the shipped image).
 - Naming stages (`AS builder`, `AS production`) makes the intent readable and lets you
@@ -96,4 +96,4 @@ that made it. In [Task 1](../task/) the same pattern saved far more:
 
 - I first wrote the `docker ps` format string as `{{.IMAGE}}` and got
   `can't evaluate field IMAGE in type *formatter.ContainerContext`. The Go template
-  fields are case-sensitive Go struct names — it has to be `{{.Image}}`.
+  fields are case-sensitive Go struct names - it has to be `{{.Image}}`.

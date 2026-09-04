@@ -1,4 +1,4 @@
-# Session 3 — Shell Scripting — Task
+# Session 3 - Shell Scripting - Task
 
 - **Name:** Shubham Kumar
 - **Enrollment No:** 24BCS10320
@@ -19,7 +19,7 @@ From [`../task.md`](../task.md), write a script that:
 
 ## The script
 
-[`task-script.sh`](task-script.sh) — the parts that matter:
+[`task-script.sh`](task-script.sh) - the parts that matter:
 
 ```bash
 # variables via command substitution
@@ -50,7 +50,7 @@ printf 'Shubham Kumar\n24BCS10320\nFirst shell script for the DevOps Heros cours
   | bash ./task-script.sh
 ```
 
-It also works normally — `bash ./task-script.sh` and answer the five prompts.
+It also works normally - `bash ./task-script.sh` and answer the five prompts.
 
 ## Output
 
@@ -86,7 +86,7 @@ root         101       1  0 17:19 ?        00:00:01 /usr/lib/systemd/systemd-ude
 ```
 
 The directory and log file it produced are committed at
-[`test_dir/process.log`](test_dir/process.log) — 40 lines of real `ps -ef` output.
+[`test_dir/process.log`](test_dir/process.log) - 40 lines of real `ps -ef` output.
 
 ## What I learned
 
@@ -95,10 +95,10 @@ The directory and log file it produced are committed at
 - Quoting matters: `mkdir -p "$dir_name"` with the quotes survives a directory name
   containing a space. Unquoted, `$dir_name` would word-split and create several directories.
 - `>` truncates and creates. `ps -ef > "$dir_name/$file_name"` needed the directory to exist
-  first, which is why `mkdir -p` comes before it — redirection will not create parent
+  first, which is why `mkdir -p` comes before it - redirection will not create parent
   directories.
 - `mkdir -p` is idempotent, so re-running the script does not fail on an existing directory.
-- `read -rp` — the `-r` stops backslashes in the input being treated as escapes, which is
+- `read -rp` - the `-r` stops backslashes in the input being treated as escapes, which is
   almost always what you want.
 
 ## Problems I hit
@@ -110,11 +110,13 @@ The directory and log file it produced are committed at
 - **A stray carriage return corrupted the directory name.** My first run created a
   directory that `ls test_dir/` then could not find. The answers were being piped in from a
   Windows process, which translated `
-` into `
-`, so `read` stored `test_dir` as the
+` into `
+
+`, so `read` stored `test_dir
+` as the
   name. WSL cannot put a CR in a filename on a Windows drive, so it encoded it as U+F00D and
-  git showed the path as `test_dirï`. Feeding the input as raw bytes fixed it.
+  git showed the path as `test_dir\357\200\215`. Feeding the input as raw bytes fixed it.
   A good lesson in why CRLF matters when text crosses between Windows and Linux.
 - Piping through `script` to force a pseudo-terminal *did* show the prompts, but all five
-  answers arrived at once, so the prompts printed in a block with no answers beside them —
+  answers arrived at once, so the prompts printed in a block with no answers beside them -
   less readable than the clean piped version, so I kept the piped one.

@@ -6,15 +6,15 @@ My notes and homework for the DevOps Heros sessions.
 
 | # | Session | Notes | Task |
 |---|---------|-------|------|
-| 1 | DevOps Engineer Roadmap | [session1.md](session1-devops-engineer-roadmap/session1.md) | — |
-| 2 | Linux | [session2.md](session2-linux/session2.md) | [task](session2-linux/task/) — **done** |
-| 3 | Shell Scripting | [task.md](session3-shell-scripting/task.md) | [task](session3-shell-scripting/task/) — **done** |
-| 4 | Networking | [ip.md](session4-networking/ip.md) | [task](session4-networking/task/) — **done** |
-| 5 | Git & GitHub | [resources.md](session5-git-github/resources.md) | [task](session5-git-github/task/) — **done** |
-| 6–7 | Docker | [docker.md](session6-7-docker/docker.md) | [Task 1](session6-7-docker/task/) · [Task 2](session6-7-docker/Task-2/) — **done** |
-| 8 | Docker Networking & Volumes | [README.md](session8-docker-networking-volume/README.md) | [task](session8-docker-networking-volume/task/) — **done** |
-| 9 | Kubernetes | [Readme.md](session9-k8s/Readme.md) | [task](session9-k8s/task/) — **done** |
-| 10 | Kubernetes Core Objects | [Readme.md](session10-k8s-core-objects/Readme.md) | [task](session10-k8s-core-objects/task/) — **done** |
+| 1 | DevOps Engineer Roadmap | [session1.md](session1-devops-engineer-roadmap/session1.md) | - |
+| 2 | Linux | [session2.md](session2-linux/session2.md) | [task](session2-linux/task/) - **done** |
+| 3 | Shell Scripting | [task.md](session3-shell-scripting/task.md) | [task](session3-shell-scripting/task/) - **done** |
+| 4 | Networking | [ip.md](session4-networking/ip.md) | [task](session4-networking/task/) - **done** |
+| 5 | Git & GitHub | [resources.md](session5-git-github/resources.md) | [task](session5-git-github/task/) - **done** |
+| 6-7 | Docker | [docker.md](session6-7-docker/docker.md) | [Task 1](session6-7-docker/task/) / [Task 2](session6-7-docker/Task-2/) - **done** |
+| 8 | Docker Networking & Volumes | [README.md](session8-docker-networking-volume/README.md) | [task](session8-docker-networking-volume/task/) - **done** |
+| 9 | Kubernetes | [Readme.md](session9-k8s/Readme.md) | [task](session9-k8s/task/) - **done** |
+| 10 | Kubernetes Core Objects | [Readme.md](session10-k8s-core-objects/Readme.md) | [task](session10-k8s-core-objects/task/) - **done** |
 
 ## Submission links
 
@@ -39,7 +39,7 @@ Everything was run locally and the output captured from those runs:
 | Sessions | Environment |
 |---|---|
 | 2, 3, 4, 5 | Ubuntu 24.04.2 LTS on WSL2 (kernel 6.6.87.2-microsoft-standard-WSL2) |
-| 6–7, 8 | Docker Engine 28.3.2 via Docker Desktop on Windows 11 |
+| 6-7, 8 | Docker Engine 28.3.2 via Docker Desktop on Windows 11 |
 | 9, 10 | minikube v1.39.0 / Kubernetes v1.37.0, `--driver=docker`, containerd runtime |
 
 ## How this repo is organised
@@ -55,20 +55,20 @@ sessionN-topic/
     screenshots/          my own screenshots
 ```
 
-Session 6–7 has two separate assignments, so it has both a `task/` folder (containerising
+Session 6-7 has two separate assignments, so it has both a `task/` folder (containerising
 six hello-world apps) and a `Task-2/` folder (the multi-stage build).
 
 ## Homework links
 
 - Homework doc: https://docs.google.com/document/d/1cjXFYf2Thm8cBEN-0C48B-v02cj3jGLd47lcO18prHE/edit?usp=sharing
-- Submission — Section A: https://forms.gle/ydjAJcwxjpjBXgxB8
-- Submission — Section B: https://forms.gle/pAuXQaokwVzhRzit6
+- Submission - Section A: https://forms.gle/ydjAJcwxjpjBXgxB8
+- Submission - Section B: https://forms.gle/pAuXQaokwVzhRzit6
 
 ## Credit
 
 The session notes, PDFs and demo apps come from the
 [DevOps Heros course repo](https://github.com/Nency-Ravaliya/devops-heros)
-by Nensi Ravaliya, used under the MIT License — see [LICENSE](LICENSE).
+by Nensi Ravaliya, used under the MIT License - see [LICENSE](LICENSE).
 
 Everything under the `task/` folders is my own work.
 
@@ -82,7 +82,7 @@ The verification screenshots in the `task/` folders were captured with a small
   returns HTTP 200 and fails loudly if it does not, so a screenshot only exists if the
   container really answered.
 - **Terminal shots** render the genuine stdout/stderr captured from running those exact
-  commands on this machine — the text is real output, just typeset for legibility
+  commands on this machine - the text is real output, just typeset for legibility
   instead of being a photo of a console.
 
 Automating it meant I could re-run every check after a change and regenerate all the

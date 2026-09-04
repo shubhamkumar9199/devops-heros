@@ -1,4 +1,4 @@
-# Session 2 — Linux — Tasks
+# Session 2 - Linux - Tasks
 
 - **Name:** Shubham Kumar
 - **Enrollment No:** 24BCS10320
@@ -46,7 +46,7 @@ Two things to read off this:
 
 - `file1.txt` and `hardlink.txt` share **inode 1690** and both report a link count of **2**.
   They are not original-and-copy; they are two names for one inode.
-- `softlink.txt` has its **own inode (50840)** and a link count of 1. Its size is 9 bytes —
+- `softlink.txt` has its **own inode (50840)** and a link count of 1. Its size is 9 bytes -
   exactly the length of the string `file1.txt`, because that is all it stores: a path.
 
 ### Now delete the original
@@ -66,11 +66,11 @@ exit=1
 ```
 
 The hard link's count dropped from **2 to 1** and the data is still there. The soft link
-still *exists* as a file but now points at a name that is gone — a dangling symlink.
+still *exists* as a file but now points at a name that is gone - a dangling symlink.
 
 This is what `rm` actually does: it removes a directory entry and decrements the inode's
 link count. The data is only freed when that count reaches zero. Deleting `file1.txt` did
-not "delete the file" — it deleted one of its two names.
+not "delete the file" - it deleted one of its two names.
 
 ### Comparison
 
@@ -146,7 +146,7 @@ $ ls -A /home/tu-adduser
 ```
 
 `useradd` wrote a `/home/tu-useradd` path into `/etc/passwd` **but never created that
-directory** — the user would log in with no home. It also left the shell as `/bin/sh`.
+directory** - the user would log in with no home. It also left the shell as `/bin/sh`.
 `adduser` created the home directory, populated it from `/etc/skel`, and set `/bin/bash`.
 
 | | `useradd` | `adduser` |
@@ -176,7 +176,7 @@ userdel -r tu-adduser
 ## What I learned
 
 - `ls -li` and the link count in `ls -l` are the quickest way to tell a hard link from a
-  copy — same inode, count above 1.
+  copy - same inode, count above 1.
 - A symlink's *size* is the length of the path it stores, which is a neat giveaway that it
   holds text and not data.
 - `rm` decrements a link count rather than destroying data, which reframes what "deleting a
