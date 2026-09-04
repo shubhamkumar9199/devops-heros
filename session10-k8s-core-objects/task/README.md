@@ -180,26 +180,41 @@ The Service found all three pods by label and listed them as endpoints. It did n
 know their names or IPs in advance — the selector does the work, which is exactly why pods
 being disposable (section 2) is workable.
 
-Reached three ways:
+Reached two ways. First by **cluster DNS from another pod** — I exec'd into the busybox
+`logger` container of `mypod` rather than creating anything new:
+
+![Service reached by cluster DNS](screenshots/service-cluster-dns.png)
 
 ```text
-# by DNS name, from another pod in the cluster
-$ nslookup myapp-service.default.svc.cluster.local
-Name:    myapp-service.default.svc.cluster.local
+$ kubectl exec mypod -c logger -- nslookup myapp-service.default.svc.cluster.local
+Server:		10.96.0.10
+Address:	10.96.0.10:53
+
+Name:	myapp-service.default.svc.cluster.local
 Address: 10.101.63.237
 
-$ wget -qO- http://myapp-service/     (x3)
+$ kubectl exec mypod -c logger -- sh -c 'for i in 1 2 3; do wget -qO- http://myapp-service/ | grep -o "<title>[^<]*</title>"; done'
 <title>Welcome to nginx!</title>
 <title>Welcome to nginx!</title>
 <title>Welcome to nginx!</title>
-
-# on the NodePort, from the node
-$ minikube ssh -- curl -s -o /dev/null -w '%{http_code}' http://localhost:30080/
-nodePort 30080 -> HTTP 200
 ```
 
-The short name `myapp-service` resolves from inside the cluster because pods get a DNS
-search domain — the full form is `<service>.<namespace>.svc.cluster.local`.
+`10.96.0.10` is CoreDNS (the `kube-dns` Service), and it resolved the name to the Service's
+ClusterIP `10.101.63.237` — matching `kubectl get svc` above.
+
+Note the two forms. The lookup used the **FQDN**, while the fetches used the bare
+`myapp-service` and still worked, because pods are given a DNS search list
+(`default.svc.cluster.local`, `svc.cluster.local`, `cluster.local`). Worth knowing that
+busybox's `nslookup` tries every suffix and prints `NXDOMAIN` for the ones that miss before
+hitting the right one — that output looks like a failure but is just the search walk, which
+is why I queried the FQDN directly here.
+
+Second, on the **NodePort from the node**:
+
+```text
+$ minikube ssh -- curl -s -o /dev/null -w 'nodePort 30080 -> HTTP %{http_code}\n' http://localhost:30080/
+nodePort 30080 -> HTTP 200
+```
 
 **Service types, and which to use:**
 
@@ -256,18 +271,36 @@ kubectl apply -f ../k8s-core-objects/statefulset.yml   # mysql, replicas: 3
 
 ### Pods are created one at a time, in order
 
-I polled while it came up, and caught the sequence:
+Rather than trying to catch the race by polling, the controller's own events and the pod
+creation timestamps record it permanently:
+
+![StatefulSet ordered creation](screenshots/statefulset-ordering.png)
 
 ```text
-check 1:  mysql-0  Pending
-check 2:  mysql-0  Running    mysql-1  Pending
-check 3:  mysql-0  Running    mysql-1  Running   mysql-2  Pending
-check 4:  mysql-0  Running    mysql-1  Running   mysql-2  Running
+$ kubectl describe sts mysql | sed -n '/Events:/,$p'
+Events:
+  Type    Reason            Age    From                    Message
+  ----    ------            ----   ----                    -------
+  Normal  SuccessfulCreate  2m17s  statefulset-controller  Create Pod mysql-0 in StatefulSet mysql successful
+  Normal  SuccessfulCreate  2m15s  statefulset-controller  Create Pod mysql-1 in StatefulSet mysql successful
+  Normal  SuccessfulCreate  2m14s  statefulset-controller  Create Pod mysql-2 in StatefulSet mysql successful
+
+$ kubectl get pods -l app=mysql -o custom-columns='NAME:.metadata.name,CREATED:.metadata.creationTimestamp,PHASE:.status.phase'
+NAME      CREATED                PHASE
+mysql-0   2026-09-04T18:36:09Z   Running
+mysql-1   2026-09-04T18:36:10Z   Running
+mysql-2   2026-09-04T18:36:12Z   Running
 ```
 
-A Deployment starts all replicas at once. A StatefulSet waits for `mysql-0` to be Ready
-before creating `mysql-1`. That ordering is what lets a database elect a primary and have
-replicas join it in a known sequence.
+`mysql-0` was created first, then `mysql-1`, then `mysql-2` — strictly one after another, and
+the `statefulset-controller` logged each one separately. A Deployment issues all its pod
+creations at once; a StatefulSet will not create `mysql-1` until `mysql-0` is Ready. That is
+what lets a database elect a primary and have replicas join in a known sequence.
+
+The gaps here are only 1–3 seconds because this was a re-apply and the PersistentVolumeClaims
+already existed, so MySQL had no first-time initialisation to do. On the very first apply the
+same sequence took roughly 40 seconds end to end, with each pod visibly `Pending` while the
+one before it started.
 
 Names are also **ordinal and stable**: `mysql-0/1/2`, not random suffixes. If `mysql-1` dies
 its replacement is called `mysql-1` again and gets the same storage back.

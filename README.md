@@ -16,6 +16,32 @@ My notes and homework for the DevOps Heros sessions.
 | 9 | Kubernetes | [Readme.md](session9-k8s/Readme.md) | [task](session9-k8s/task/) — **done** |
 | 10 | Kubernetes Core Objects | [Readme.md](session10-k8s-core-objects/Readme.md) | [task](session10-k8s-core-objects/task/) — **done** |
 
+## Submission links
+
+Direct links to each task write-up, for the homework form:
+
+| Topic | Write-up |
+|---|---|
+| Linux Fundamentals | [session2-linux/task](session2-linux/task/README.md) |
+| Shell Scripting | [session3-shell-scripting/task](session3-shell-scripting/task/README.md) |
+| Networking | [session4-networking/task](session4-networking/task/README.md) |
+| Git and GitHub | [session5-git-github/task](session5-git-github/task/README.md) |
+| Docker Fundamentals | [session6-7-docker/task](session6-7-docker/task/README.md) |
+| Docker Images (multi-stage) | [session6-7-docker/Task-2](session6-7-docker/Task-2/README.md) |
+| Docker Networking & Volumes | [session8-docker-networking-volume/task](session8-docker-networking-volume/task/README.md) |
+| Kubernetes | [session9-k8s/task](session9-k8s/task/README.md) |
+| Kubernetes Core Objects | [session10-k8s-core-objects/task](session10-k8s-core-objects/task/README.md) |
+
+## Where each task was run
+
+Everything was run locally and the output captured from those runs:
+
+| Sessions | Environment |
+|---|---|
+| 2, 3, 4, 5 | Ubuntu 24.04.2 LTS on WSL2 (kernel 6.6.87.2-microsoft-standard-WSL2) |
+| 6–7, 8 | Docker Engine 28.3.2 via Docker Desktop on Windows 11 |
+| 9, 10 | minikube v1.39.0 / Kubernetes v1.37.0, `--driver=docker`, containerd runtime |
+
 ## How this repo is organised
 
 Each `sessionN-*/` folder holds the course notes and demo files for that session.
@@ -28,6 +54,9 @@ sessionN-topic/
     README.md             my write-up: commands, output, what I learned
     screenshots/          my own screenshots
 ```
+
+Session 6–7 has two separate assignments, so it has both a `task/` folder (containerising
+six hello-world apps) and a `Task-2/` folder (the multi-stage build).
 
 ## Homework links
 
