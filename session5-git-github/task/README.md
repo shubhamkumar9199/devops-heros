@@ -62,7 +62,7 @@ suggests `-a` in the error. Now with `-a`:
 
 ```text
 $ git commit -a -m 'commit with -a'
-[main 5871121] commit with -a
+[main 20f36c1] commit with -a
  1 file changed, 1 insertion(+)
 
 $ git status --short
@@ -110,19 +110,20 @@ Before — the branches have diverged:
 
 ```text
 $ git log --oneline --graph --all --decorate
-* bcaec11 (HEAD -> main) chore: main-only commit
-| * ee7c94a (feature) feat: add B
+* 0d34b12 (feature) feat: add B
+* babe1b8 feat: add A
+| * 76ff254 (HEAD -> main) chore: main-only commit
 |/
-* 7878f54 feat: add A
-* 5871121 commit with -a
-* 050dfd5 initial commit
+* 20f36c1 commit with -a
+* 2734889 initial commit
 ```
 
-Pick only `feat: add B` across:
+`feature` carries two commits main has never seen. Pick only `feat: add B` across:
 
 ```text
-$ git cherry-pick ee7c94a
-[main d08fc6e] feat: add B
+$ git cherry-pick 0d34b12
+[main 55c46f7] feat: add B
+ Date: Fri Sep 4 18:00:15 2026 +0000
  1 file changed, 1 insertion(+)
  create mode 100644 b.txt
 ```
@@ -131,43 +132,74 @@ After:
 
 ```text
 $ git log --oneline --graph --all --decorate
-* d08fc6e (HEAD -> main) feat: add B
-* bcaec11 chore: main-only commit
-| * ee7c94a (feature) feat: add B
+* 55c46f7 (HEAD -> main) feat: add B
+* 76ff254 chore: main-only commit
+| * 0d34b12 (feature) feat: add B
+| * babe1b8 feat: add A
 |/
-* 7878f54 feat: add A
-* 5871121 commit with -a
-* 050dfd5 initial commit
+* 20f36c1 commit with -a
+* 2734889 initial commit
 ```
 
-The same change now exists on both branches under **different hashes**:
+Three things to read off this:
+
+- `feat: add B` now exists on **both** branches, under **different hashes**
+  (`0d34b12` on feature, `55c46f7` on main), but the patch is identical (`b.txt | 1 +`).
+- `feature` is untouched — cherry-pick **copies**, it does not move or remove.
+- `feat: add A` did **not** come along. That is the whole point: one commit, not the branch.
 
 ```text
-  feature: ee7c94a  feat: add B
-  main:    d08fc6e  feat: add B
+$ git log feature --format='  feature: %h  %s' | grep 'add B'
+  feature: 0d34b12  feat: add B
+$ git log main --format='  main:    %h  %s' | grep 'add B'
+  main:    55c46f7  feat: add B
 ```
 
-…but the patch is byte-for-byte identical (`b.txt | 1 +` in both). `feature` was left
-untouched — cherry-pick copies, it does not move.
+### Why the new hash — and when it is *not* new
 
-### A detail I did not expect
+I first assumed cherry-pick always produces a new hash. Then one run gave me the **same**
+hash on both branches, so I tested what actually decides it.
 
-The first time I tried this I cherry-picked `feat: add A` onto main **before** making main
-diverge. The result:
+A commit's SHA is a hash of its **parent, tree, message, author identity + date, and
+committer identity + date**. Cherry-pick preserves the author date but sets the committer
+date to *now*. So the picked commit is byte-identical to the original only if the parent
+matches **and** the committer timestamp matches.
+
+Controlled experiment — `main` sitting exactly on `feat: add A`'s parent, changing nothing
+but the committer date:
+
+![Cherry-pick hash experiment](screenshots/task2-hash-experiment.png)
 
 ```text
-  feature: 7878f54 feat: add A
-  main:    7878f54 feat: add A
+$ git log --oneline --graph --all --decorate
+* beeb093 (feature) feat: add A
+* 3926cee (HEAD -> main) initial commit
+
+$ git log feature -1 --format='picking %h   author=%aI   committer=%cI'
+picking beeb093   author=2026-09-04T18:22:06+00:00   committer=2026-09-04T18:22:06+00:00
+
+# 1) force the committer date to match the original
+$ GIT_COMMITTER_DATE="$(git log feature -1 --format=%cI)" git cherry-pick feature
+[main beeb093] feat: add A
+$ git log main -1 --format='main now: %h   committer=%cI'
+main now: beeb093   committer=2026-09-04T18:22:06+00:00      <-- SAME hash
+
+# 2) identical cherry-pick, only the committer date differs
+$ git reset -q --hard HEAD~1
+$ GIT_COMMITTER_DATE='2026-09-04T23:59:59+00:00' git cherry-pick feature
+[main fb4a6a8] feat: add A
+$ git log main -1 --format='main now: %h   committer=%cI'
+main now: fb4a6a8   committer=2026-09-04T23:59:59+00:00      <-- DIFFERENT hash
 ```
 
-**The same hash.** At that moment main was sitting exactly on `feat: add A`'s parent, so
-replaying the commit produced an identical parent, tree, message, author and timestamp — and
-a git commit hash is a hash of exactly those things. Identical inputs, identical hash.
+Same parent, same tree, same message, same author date — and the hash still changed the
+moment the committer timestamp did. That is the deciding input.
 
-That is why I redid the demo with main diverged. A commit's identity includes its parent, so
-"cherry-pick always creates a new commit" is really "cherry-pick creates a commit with a new
-parent, which usually changes the hash". When the parent happens to be unchanged, nothing
-changes.
+Which explains my accidental duplicate earlier: that run created the commit and
+cherry-picked it **within the same second**, so every hashed field matched and git produced
+the identical commit. Once a second or more elapses, the hash differs. So "cherry-pick
+creates a new commit" is true in practice, but it is the *timestamp* that usually makes it
+new — not some rule that git deliberately re-labels the commit.
 
 ### When to use it
 
@@ -184,14 +216,17 @@ changes.
   vs ` M` vs `??`.
 - A refused commit exiting **1** matters in scripts and CI — `git commit -m` in a pipeline
   will fail the step if nothing was staged.
-- A commit hash covers its parent, tree, message, author and committer plus timestamps.
-  Understanding that explained the identical-hash surprise above rather than leaving it as
-  something weird git did.
+- A commit hash covers its parent, tree, message, author and committer plus **both**
+  timestamps. My first explanation for the duplicate hash (that the parent being unchanged
+  was enough) was wrong — testing it showed the committer timestamp is what actually decides.
+  Worth the detour: I would have carried a wrong mental model otherwise.
 - `git switch` is the modern, clearer alternative to `git checkout` for changing branches.
 
 ## Problems I hit
 
-- My cherry-pick demo initially looked broken because the hash did not change. I assumed I
-  had cherry-picked onto the wrong branch. Actually the demo was too simple — no divergence
-  — so the "new" commit was genuinely the same commit. Diverging main first made the
-  intended behaviour visible.
+- My cherry-pick demo initially looked broken because the hash did **not** change, and I
+  first wrote it up as "main was already the parent, so the commit is identical". That
+  explanation did not survive a retest: with the same parent but a few seconds elapsed, the
+  hash *did* change. The real cause was that my first run completed inside one second, so
+  the committer timestamp matched too. Fixed the write-up and added the controlled
+  experiment above.

@@ -137,7 +137,7 @@ tu-adduser:x:1003:1003:,,,:/home/tu-adduser:/bin/bash
 
 $ ls -ld /home/tu-useradd /home/tu-adduser
 ls: cannot access '/home/tu-useradd': No such file or directory
-drwxr-x--- 2 tu-adduser tu-adduser 4096 Sep  4 17:47 /home/tu-adduser
+drwxr-x--- 2 tu-adduser tu-adduser 4096 Sep  4 18:00 /home/tu-adduser
 
 $ ls -A /home/tu-adduser
 .bash_logout
