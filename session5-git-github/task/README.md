@@ -1,4 +1,4 @@
-# Session 5 — Git __TITLE__ GitHub — Task
+# Session 5 — Git & GitHub — Task
 
 > **Status:** not started
 
