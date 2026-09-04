@@ -1,0 +1,21 @@
+# The StatefulSet in statefulset.yml declares `serviceName: "mysql"`, but no such
+# Service exists in this repo. Without it, the per-pod DNS names a StatefulSet is
+# supposed to provide (mysql-0.mysql, mysql-1.mysql, ...) return NXDOMAIN.
+#
+# clusterIP: None makes this a *headless* Service: it does not load-balance, it
+# publishes one DNS A record per ready pod instead. That is what gives each
+# StatefulSet pod its stable network identity.
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  clusterIP: None
+  selector:
+    app: mysql
+  ports:
+    - port: 3306
+      targetPort: 3306
+      name: mysql

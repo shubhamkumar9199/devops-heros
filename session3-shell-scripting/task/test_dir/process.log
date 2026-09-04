@@ -1,0 +1,40 @@
+UID          PID    PPID  C STIME TTY          TIME CMD
+root           1       0  0 17:19 ?        00:00:01 /sbin/init
+root           2       1  0 17:19 ?        00:00:00 /init
+root           6       2  0 17:19 ?        00:00:00 plan9 --control-socket 7 --log-level 4 --server-fd 8 --pipe-fd 10 
+root          55       1  0 17:19 ?        00:00:03 /usr/lib/systemd/systemd-journald
+root         101       1  0 17:19 ?        00:00:01 /usr/lib/systemd/systemd-udevd
+systemd+     172       1  0 17:19 ?        00:00:00 /usr/lib/systemd/systemd-resolved
+systemd+     176       1  0 17:19 ?        00:00:00 /usr/lib/systemd/systemd-timesyncd
+root         185       1  0 17:19 ?        00:00:00 /usr/sbin/cron -f -P
+message+     186       1  0 17:19 ?        00:00:00 @dbus-daemon --system --address=systemd: --nofork --nopidfile --sy
+redis        193       1  0 17:19 ?        00:00:06 /usr/bin/redis-server 127.0.0.1:6379
+root         200       1  0 17:19 ?        00:00:00 /usr/lib/systemd/systemd-logind
+root         203       1  0 17:19 ?        00:00:00 /usr/libexec/wsl-pro-service -vv
+syslog       212       1  0 17:19 ?        00:00:00 /usr/sbin/rsyslogd -n -iNONE
+root         223       1  0 17:19 ?        00:00:00 /sbin/agetty -o -p -- \u --noclear --keep-baud - 115200,38400,9600
+root         226       1  0 17:19 tty1     00:00:00 /sbin/agetty -o -p -- \u --noclear - linux
+root         232       1  0 17:19 ?        00:00:00 /usr/bin/python3 /usr/share/unattended-upgrades/unattended-upgrade
+root         347       2  0 17:19 ?        00:00:00 /init
+root         348     347  0 17:19 ?        00:00:00 /init
+shubham      349     348  0 17:19 pts/0    00:00:00 sh
+root         351       2  0 17:19 pts/1    00:00:00 /bin/login -f
+root         378       2  0 17:19 pts/3    00:00:00 /bin/login -f
+shubham      434       1  0 17:19 ?        00:00:00 /usr/lib/systemd/systemd --user
+shubham      435     434  0 17:19 ?        00:00:00 (sd-pam)
+root         462       1  0 17:19 ?        00:00:00 /usr/lib/systemd/systemd --user
+root         463     462  0 17:19 ?        00:00:00 (sd-pam)
+shubham      474     351  0 17:19 pts/1    00:00:00 -bash
+root         516     378  0 17:19 pts/3    00:00:00 -bash
+root         851     347  0 17:19 ?        00:00:00 /init
+root         852     851  0 17:19 pts/2    00:00:00 /mnt/wsl/docker-desktop/docker-desktop-user-distro proxy --distro-
+polkitd     1199       1  0 17:23 ?        00:00:00 /usr/lib/polkit-1/polkitd --no-debug
+root        3135     101  0 18:15 ?        00:00:00 (udev-worker)
+root        3137     101  0 18:15 ?        00:00:00 (udev-worker)
+root        3138     101  0 18:15 ?        00:00:00 (udev-worker)
+root        3141     101  0 18:15 ?        00:00:00 (udev-worker)
+root        3142       2  0 18:15 ?        00:00:00 /init
+root        3143    3142  0 18:15 ?        00:00:00 /init
+shubham     3144    3143  0 18:15 pts/4    00:00:00 bash -s
+shubham     3146    3144  0 18:15 pts/4    00:00:00 bash ./task-script.sh
+shubham     3155    3146  0 18:15 pts/4    00:00:00 ps -ef

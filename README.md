@@ -7,14 +7,14 @@ My notes and homework for the DevOps Heros sessions.
 | # | Session | Notes | Task |
 |---|---------|-------|------|
 | 1 | DevOps Engineer Roadmap | [session1.md](session1-devops-engineer-roadmap/session1.md) | — |
-| 2 | Linux | [session2.md](session2-linux/session2.md) | [task](session2-linux/task/) — not started |
-| 3 | Shell Scripting | [task.md](session3-shell-scripting/task.md) | [task](session3-shell-scripting/task/) — not started |
-| 4 | Networking | [ip.md](session4-networking/ip.md) | [task](session4-networking/task/) — not started |
-| 5 | Git & GitHub | [resources.md](session5-git-github/resources.md) | [task](session5-git-github/task/) — not started |
+| 2 | Linux | [session2.md](session2-linux/session2.md) | [task](session2-linux/task/) — **done** |
+| 3 | Shell Scripting | [task.md](session3-shell-scripting/task.md) | [task](session3-shell-scripting/task/) — **done** |
+| 4 | Networking | [ip.md](session4-networking/ip.md) | [task](session4-networking/task/) — **done** |
+| 5 | Git & GitHub | [resources.md](session5-git-github/resources.md) | [task](session5-git-github/task/) — **done** |
 | 6–7 | Docker | [docker.md](session6-7-docker/docker.md) | [Task 1](session6-7-docker/task/) · [Task 2](session6-7-docker/Task-2/) — **done** |
 | 8 | Docker Networking & Volumes | [README.md](session8-docker-networking-volume/README.md) | [task](session8-docker-networking-volume/task/) — **done** |
-| 9 | Kubernetes | [Readme.md](session9-k8s/Readme.md) | [task](session9-k8s/task/) — not started |
-| 10 | Kubernetes Core Objects | [Readme.md](session10-k8s-core-objects/Readme.md) | [task](session10-k8s-core-objects/task/) — not started |
+| 9 | Kubernetes | [Readme.md](session9-k8s/Readme.md) | [task](session9-k8s/task/) — **done** |
+| 10 | Kubernetes Core Objects | [Readme.md](session10-k8s-core-objects/Readme.md) | [task](session10-k8s-core-objects/task/) — **done** |
 
 ## How this repo is organised
 
