@@ -14,7 +14,9 @@ My notes and homework for the DevOps Heros sessions.
 | 6-7 | Docker | [docker.md](session6-7-docker/docker.md) | [Task 1](session6-7-docker/task/) / [Task 2](session6-7-docker/Task-2/) - **done** |
 | 8 | Docker Networking & Volumes | [README.md](session8-docker-networking-volume/README.md) | [task](session8-docker-networking-volume/task/) - **done** |
 | 9 | Kubernetes | [Readme.md](session9-k8s/Readme.md) | [task](session9-k8s/task/) - **done** |
-| 10 | Kubernetes Core Objects | [Readme.md](session10-k8s-core-objects/Readme.md) | [task](session10-k8s-core-objects/task/) - **done** |
+| 10 | Kubernetes Core Objects | [Readme.md](session10-k8s-core-objects/Readme.md) | [task](session10-k8s-core-objects/task/) - **done** / [pod lifecycle & deployment strategies](session10-k8s-core-objects/task/pod-lifecycle-and-deployment-strategies.md) - *write-up only* |
+| 11 | Kubernetes Services | [service.md](session-11-kubernetes-services/service.md) | [task](session-11-kubernetes-services/task/) - *write-up only* |
+| 12 | Ingress, ConfigMaps & Secrets | [lab.md](session-12-ingress-configmaps-secrets/lab.md) | [task](session-12-ingress-configmaps-secrets/task/) - *write-up only* |
 
 ## Submission links
 
@@ -31,16 +33,25 @@ Direct links to each task write-up, for the homework form:
 | Docker Networking & Volumes | [session8-docker-networking-volume/task](session8-docker-networking-volume/task/README.md) |
 | Kubernetes | [session9-k8s/task](session9-k8s/task/README.md) |
 | Kubernetes Core Objects | [session10-k8s-core-objects/task](session10-k8s-core-objects/task/README.md) |
+| Pod Lifecycle & Deployment Strategies | [session10-k8s-core-objects/task](session10-k8s-core-objects/task/pod-lifecycle-and-deployment-strategies.md) |
+| Kubernetes Services | [session-11-kubernetes-services/task](session-11-kubernetes-services/task/README.md) |
+| Ingress, ConfigMaps & Secrets | [session-12-ingress-configmaps-secrets/task](session-12-ingress-configmaps-secrets/task/README.md) |
 
 ## Where each task was run
-
-Everything was run locally and the output captured from those runs:
 
 | Sessions | Environment |
 |---|---|
 | 2, 3, 4, 5 | Ubuntu 24.04.2 LTS on WSL2 (kernel 6.6.87.2-microsoft-standard-WSL2) |
 | 6-7, 8 | Docker Engine 28.3.2 via Docker Desktop on Windows 11 |
 | 9, 10 | minikube v1.39.0 / Kubernetes v1.37.0, `--driver=docker`, containerd runtime |
+
+For sessions 2 through 10, everything was run locally and the output captured from
+those runs.
+
+**The three write-ups marked *write-up only* above are the exception.** Their
+terminal output is expected output derived from the session manifests, not captured
+from a live cluster, and they have no screenshots yet. Each one says so at the top.
+I will re-run them and replace the output once I have a cluster available.
 
 ## How this repo is organised
 
@@ -57,6 +68,10 @@ sessionN-topic/
 
 Session 6-7 has two separate assignments, so it has both a `task/` folder (containerising
 six hello-world apps) and a `Task-2/` folder (the multi-stage build).
+
+Session 10 ships several independent lab folders, so its `task/` holds two write-ups:
+`README.md` for the core objects, and `pod-lifecycle-and-deployment-strategies.md` for
+the pod lifecycle, the four deployment strategies and the troubleshooting drills.
 
 ## Homework links
 
