@@ -24,9 +24,11 @@ Result: targets were UP. Stopping Node Exporter triggered `NodeExporterUnavailab
 
 ## GitOps
 
-Git stores the desired configuration; Argo CD reconciles the cluster with it. Application and bootstrap manifests are in `gitops/` and point to this repository. Synchronization and self-healing are pending workflow execution. [GitOps workflow](../../.github/workflows/gitops-demo.yml).
+Git stores the desired configuration; Argo CD reconciles the cluster with it. Application and bootstrap manifests are in `gitops/` and point to this repository. [GitHub run passed](https://github.com/shubhamkumar9199/devops-heros/actions/runs/37653684465): the application synchronized, served HTTP and restored two replicas after a manual scale-down. [GitOps workflow](../../.github/workflows/gitops-demo.yml).
 
 ## Screenshots
+
+![GitOps reconciliation](screenshots/github-gitops.png)
 
 ![Alert Firing](screenshots/alert-firing.png)
 
@@ -37,6 +39,8 @@ Git stores the desired configuration; Argo CD reconciles the cluster with it. Ap
 ![Targets](screenshots/targets.png)
 
 ## Command output
+
+- [GitOps run](logs/github-run.log)
 
 - [alert firing](logs/alert-firing.log)
 - [alert recovered](logs/alert-recovered.log)

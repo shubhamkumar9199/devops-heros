@@ -1,0 +1,332 @@
+reconcile	Set up job	﻿2026-10-07T16:39:02.2834711Z Current runner version: '2.337.0'
+reconcile	Set up job	2026-10-07T16:39:02.2859651Z ##[group]Runner Image Provisioner
+reconcile	Set up job	2026-10-07T16:39:02.2860502Z Hosted Compute Agent
+reconcile	Set up job	2026-10-07T16:39:02.2861032Z Version: 20260901.588
+reconcile	Set up job	2026-10-07T16:39:02.2861669Z Commit: f88ec8081b781fac6c440065ac7ff9e710ce3d0b
+reconcile	Set up job	2026-10-07T16:39:02.2862336Z Build Date: 2026-09-01T19:56:44Z
+reconcile	Set up job	2026-10-07T16:39:02.2862938Z Worker ID: {26882804-7b8e-4b26-87cf-66830eb8e9fd}
+reconcile	Set up job	2026-10-07T16:39:02.2863606Z Azure Region: westus3
+reconcile	Set up job	2026-10-07T16:39:02.2864171Z ##[endgroup]
+reconcile	Set up job	2026-10-07T16:39:02.2866181Z ##[group]Operating System
+reconcile	Set up job	2026-10-07T16:39:02.2866787Z Ubuntu
+reconcile	Set up job	2026-10-07T16:39:02.2867249Z 24.04.5
+reconcile	Set up job	2026-10-07T16:39:02.2867744Z LTS
+reconcile	Set up job	2026-10-07T16:39:02.2868260Z ##[endgroup]
+reconcile	Set up job	2026-10-07T16:39:02.2868814Z ##[group]Runner Image
+reconcile	Set up job	2026-10-07T16:39:02.2869376Z Image: ubuntu-24.04
+reconcile	Set up job	2026-10-07T16:39:02.2869891Z Version: 20260927.320.1
+reconcile	Set up job	2026-10-07T16:39:02.2870902Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260927.320/images/ubuntu/Ubuntu2404-Readme.md
+reconcile	Set up job	2026-10-07T16:39:02.2872472Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260927.320
+reconcile	Set up job	2026-10-07T16:39:02.2873408Z ##[endgroup]
+reconcile	Set up job	2026-10-07T16:39:02.2874456Z ##[group]GITHUB_TOKEN Permissions
+reconcile	Set up job	2026-10-07T16:39:02.2876750Z Contents: read
+reconcile	Set up job	2026-10-07T16:39:02.2877378Z Metadata: read
+reconcile	Set up job	2026-10-07T16:39:02.2877942Z ##[endgroup]
+reconcile	Set up job	2026-10-07T16:39:02.2880007Z Secret source: Actions
+reconcile	Set up job	2026-10-07T16:39:02.2880910Z Cache mode: write
+reconcile	Set up job	2026-10-07T16:39:02.2881550Z Prepare workflow directory
+reconcile	Set up job	2026-10-07T16:39:02.3207751Z Prepare all required actions
+reconcile	Set up job	2026-10-07T16:39:02.3257514Z Getting action download info
+reconcile	Set up job	2026-10-07T16:39:02.6802534Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+reconcile	Set up job	2026-10-07T16:39:02.7742786Z Download action repository 'helm/kind-action@v1.10.0' (SHA:0025e74a8c7512023d06dc019c617aa3cf561fde)
+reconcile	Set up job	2026-10-07T16:39:03.0233553Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+reconcile	Set up job	2026-10-07T16:39:03.1992064Z Complete job name: reconcile
+reconcile	Run actions/checkout@v4	﻿2026-10-07T16:39:03.2666515Z ##[group]Run actions/checkout@v4
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.2667511Z with:
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.2668046Z   repository: shubhamkumar9199/devops-heros
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.2776596Z   token: ***
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.2777109Z   ssh-strict: true
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.2777509Z   ssh-user: git
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.2777912Z   persist-credentials: true
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.2778355Z   clean: true
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.2778758Z   sparse-checkout-cone-mode: true
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.2779228Z   fetch-depth: 1
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.2779614Z   fetch-tags: false
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.2780011Z   show-progress: true
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.2780406Z   lfs: false
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.2780780Z   submodules: false
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.2781187Z   set-safe-directory: true
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.2781647Z   allow-unsafe-pr-checkout: false
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.2782980Z ##[endgroup]
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.3843505Z Syncing repository: shubhamkumar9199/devops-heros
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.3847140Z ##[group]Getting Git version info
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.3848488Z Working directory is '/home/runner/work/devops-heros/devops-heros'
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.3850509Z [command]/usr/bin/git version
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.3953222Z git version 2.55.0
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.3984754Z ##[endgroup]
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4001070Z Temporarily overriding HOME='/home/runner/work/_temp/f6e5c381-9273-41ae-9eff-50d19ce70671' before making global git config changes
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4002366Z Adding repository directory to the temporary git global config as a safe directory
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4007032Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/devops-heros/devops-heros
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4052838Z Deleting the contents of '/home/runner/work/devops-heros/devops-heros'
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4057750Z ##[group]Initializing the repository
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4062728Z [command]/usr/bin/git init /home/runner/work/devops-heros/devops-heros
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4168621Z hint: Using 'master' as the name for the initial branch. This default branch name
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4170660Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4172106Z hint: to use in all of your new repositories, which will suppress this warning,
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4173072Z hint: call:
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4173736Z hint:
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4174575Z hint: 	git config --global init.defaultBranch <name>
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4175819Z hint:
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4176767Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4178271Z hint: 'development'. The just-created branch can be renamed via this command:
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4179573Z hint:
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4180280Z hint: 	git branch -m <name>
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4181083Z hint:
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4182116Z hint: Disable this message with "git config set advice.defaultBranchName false"
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4184013Z Initialized empty Git repository in /home/runner/work/devops-heros/devops-heros/.git/
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4186591Z [command]/usr/bin/git remote add origin https://github.com/shubhamkumar9199/devops-heros
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4228322Z ##[endgroup]
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4229735Z ##[group]Disabling automatic garbage collection
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4232662Z [command]/usr/bin/git config --local gc.auto 0
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4259755Z ##[endgroup]
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4260906Z ##[group]Setting up auth
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4267652Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4303875Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4618248Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4648411Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4846612Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.4868719Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.5042527Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.5073867Z ##[endgroup]
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.5075193Z ##[group]Fetching the repository
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:03.5084685Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +e9e5530966c6fdc4af71e231b46db440da2f9b7d:refs/remotes/origin/main
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:04.9693820Z From https://github.com/shubhamkumar9199/devops-heros
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:04.9696982Z  * [new ref]         e9e5530966c6fdc4af71e231b46db440da2f9b7d -> origin/main
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:04.9702525Z ##[endgroup]
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:04.9704939Z ##[group]Determining the checkout info
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:04.9708697Z ##[endgroup]
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:04.9710381Z [command]/usr/bin/git sparse-checkout disable
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:04.9748591Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:04.9773630Z ##[group]Checking out the ref
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:04.9777533Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:05.0400076Z Switched to a new branch 'main'
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:05.0402602Z branch 'main' set up to track 'origin/main'.
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:05.0415234Z ##[endgroup]
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:05.0451069Z [command]/usr/bin/git log -1 --format=%H
+reconcile	Run actions/checkout@v4	2026-10-07T16:39:05.0471062Z e9e5530966c6fdc4af71e231b46db440da2f9b7d
+reconcile	Run helm/kind-action@v1.10.0	﻿2026-10-07T16:39:05.0773035Z ##[group]Run helm/kind-action@v1.10.0
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:05.0774311Z with:
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:05.0775172Z   version: v0.22.0
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:05.0776254Z   cluster_name: chart-testing
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:05.0777332Z   wait: 60s
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:05.0778352Z   verbosity: 0
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:05.0779277Z   kubectl_version: v1.29.3
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:05.0780339Z   ignore_failed_clean: false
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:05.0781402Z ##[endgroup]
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:05.1126061Z Installing kind...
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:05.1137373Z /opt/hostedtoolcache/kind/v0.22.0/amd64/kind/bin ~/work/devops-heros/devops-heros
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:05.9136253Z kind-linux-amd64: OK
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:05.9166091Z ~/work/devops-heros/devops-heros
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:05.9167124Z Adding kind directory to PATH...
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:05.9167741Z Installing kubectl...
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:06.6449550Z Adding kubectl directory to PATH...
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:06.6472991Z kind v0.22.0 go1.20.13 linux/amd64
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:06.6836421Z Client Version: v1.29.3
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:06.6853840Z Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:06.6854587Z Creating kind cluster...
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:06.9582178Z Creating cluster "chart-testing" ...
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:06.9583159Z  • Ensuring node image (kindest/node:v1.29.2) 🖼  ...
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:16.3285065Z  ✓ Ensuring node image (kindest/node:v1.29.2) 🖼
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:16.3285943Z  • Preparing nodes 📦   ...
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:17.9340587Z  ✓ Preparing nodes 📦 
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:17.9608567Z  • Writing configuration 📜  ...
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:18.1318496Z  ✓ Writing configuration 📜
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:18.1319053Z  • Starting control-plane 🕹️  ...
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:29.6594054Z  ✓ Starting control-plane 🕹️
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:29.6594881Z  • Installing CNI 🔌  ...
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:29.9034961Z  ✓ Installing CNI 🔌
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:29.9036072Z  • Installing StorageClass 💾  ...
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:30.1808723Z  ✓ Installing StorageClass 💾
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:30.2047449Z  • Waiting ≤ 1m0s for control-plane = Ready ⏳  ...
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:46.6075897Z  ✓ Waiting ≤ 1m0s for control-plane = Ready ⏳
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:46.6076549Z  • Ready after 16s 💚
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:46.7358427Z Set kubectl context to "kind-chart-testing"
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:46.7359132Z You can now use your cluster with:
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:46.7359498Z 
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:46.7359748Z kubectl cluster-info --context kind-chart-testing
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:46.7360186Z 
+reconcile	Run helm/kind-action@v1.10.0	2026-10-07T16:39:46.7360596Z Thanks for using kind! 😊
+reconcile	Install Argo CD Core and verify self-healing	﻿2026-10-07T16:39:46.7454048Z ##[group]Run ln -s "$GITHUB_WORKSPACE" "$HOME/devops-heros"
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:46.7454637Z ^[[36;1mln -s "$GITHUB_WORKSPACE" "$HOME/devops-heros"^[[0m
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:46.7455148Z ^[[36;1mbash assignment-scripts/session20-gitops.sh | tee gitops-evidence.log^[[0m
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:46.7456017Z ^[[36;1mkubectl get application session20-mini -n argocd -o yaml > application-status.yaml^[[0m
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:46.7456505Z ^[[36;1mkubectl get pods -n session20 -o wide^[[0m
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:46.7457112Z ^[[36;1mkubectl run http-check -n session20 --image=busybox:1.36 --restart=Never --command -- sh -c 'wget -qO- http://session20-mini'^[[0m
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:46.7457952Z ^[[36;1mkubectl wait --for=jsonpath='{.status.phase}'=Succeeded pod/http-check -n session20 --timeout=120s^[[0m
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:46.7458571Z ^[[36;1mkubectl logs http-check -n session20^[[0m
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:46.7665066Z shell: /usr/bin/bash -e {0}
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:46.7665710Z ##[endgroup]
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:46.7777938Z + export PATH=/home/runner/.local/bin:/opt/hostedtoolcache/kind/v0.22.0/amd64/kubectl/bin/:/opt/hostedtoolcache/kind/v0.22.0/amd64/kind/bin/:/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:46.7781705Z + PATH=/home/runner/.local/bin:/opt/hostedtoolcache/kind/v0.22.0/amd64/kubectl/bin/:/opt/hostedtoolcache/kind/v0.22.0/amd64/kind/bin/:/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:46.7784554Z + cd /home/runner/devops-heros/session20-monitoring-observability-gitops/gitops
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:46.7786225Z + kubectl create namespace argocd --dry-run=client -o yaml
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:46.7786786Z + kubectl apply -f -
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:46.8854336Z namespace/argocd created
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:46.8896300Z + test 0 '!=' 1
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:46.8899569Z + kubectl apply -n argocd --server-side --force-conflicts --request-timeout=120s -f https://raw.githubusercontent.com/argoproj/argo-cd/v3.5.4/manifests/core-install.yaml
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:48.4566877Z customresourcedefinition.apiextensions.k8s.io/applications.argoproj.io serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:48.8587613Z customresourcedefinition.apiextensions.k8s.io/applicationsets.argoproj.io serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:48.8707621Z customresourcedefinition.apiextensions.k8s.io/appprojects.argoproj.io serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:48.8754338Z serviceaccount/argocd-application-controller serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:48.8784949Z serviceaccount/argocd-applicationset-controller serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:48.8813917Z serviceaccount/argocd-redis serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:48.8857886Z serviceaccount/argocd-repo-server serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:48.8937434Z role.rbac.authorization.k8s.io/argocd-application-controller serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:48.8994641Z role.rbac.authorization.k8s.io/argocd-applicationset-controller serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:48.9042074Z role.rbac.authorization.k8s.io/argocd-redis serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:48.9095064Z clusterrole.rbac.authorization.k8s.io/argocd-application-controller serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:48.9180524Z rolebinding.rbac.authorization.k8s.io/argocd-application-controller serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:48.9220314Z rolebinding.rbac.authorization.k8s.io/argocd-applicationset-controller serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:48.9261010Z rolebinding.rbac.authorization.k8s.io/argocd-redis serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:48.9320440Z clusterrolebinding.rbac.authorization.k8s.io/argocd-application-controller serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:48.9391341Z configmap/argocd-cm serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:48.9426872Z configmap/argocd-cmd-params-cm serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:48.9459144Z configmap/argocd-gpg-keys-cm serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:48.9492066Z configmap/argocd-rbac-cm serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:48.9549483Z configmap/argocd-ssh-known-hosts-cm serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:48.9594904Z configmap/argocd-tls-certs-cm serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:48.9624098Z secret/argocd-secret serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:48.9701109Z service/argocd-applicationset-controller serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:48.9774063Z service/argocd-metrics serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:48.9856587Z service/argocd-redis serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:48.9923207Z service/argocd-repo-server serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:49.0048127Z deployment.apps/argocd-applicationset-controller serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:49.0105706Z deployment.apps/argocd-redis serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:49.0361023Z deployment.apps/argocd-repo-server serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:49.0673298Z statefulset.apps/argocd-application-controller serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:49.0803589Z networkpolicy.networking.k8s.io/argocd-application-controller-network-policy serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:49.0901659Z networkpolicy.networking.k8s.io/argocd-applicationset-controller-network-policy serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:49.1057625Z networkpolicy.networking.k8s.io/argocd-redis-network-policy serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:49.1160921Z networkpolicy.networking.k8s.io/argocd-repo-server-network-policy serverside-applied
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:49.1189049Z + kubectl scale deployment/argocd-applicationset-controller -n argocd --replicas=0
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:49.2234536Z deployment.apps/argocd-applicationset-controller scaled
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:49.2251316Z + kubectl rollout status deployment/argocd-repo-server -n argocd --timeout=300s
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:39:49.3346923Z Waiting for deployment "argocd-repo-server" rollout to finish: 0 of 1 updated replicas are available...
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:10.0339710Z deployment "argocd-repo-server" successfully rolled out
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:10.0353655Z + kubectl rollout status statefulset/argocd-application-controller -n argocd --timeout=300s
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:10.0956030Z partitioned roll out complete: 1 new pods have been updated...
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:10.0967136Z + kubectl apply -f bootstrap/project.yaml -f bootstrap/application.yaml
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:10.2341453Z appproject.argoproj.io/default created
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:10.2400835Z application.argoproj.io/session20-mini created
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:10.2420482Z ++ seq 1 60
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:10.2440655Z + for attempt in $(seq 1 60)
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:10.2443536Z ++ kubectl get application session20-mini -n argocd -o 'jsonpath={.status.sync.status}'
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:10.3303696Z + status=
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:10.3310376Z + test '' = Synced
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:10.3311216Z + sleep 5
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:15.3328009Z + for attempt in $(seq 1 60)
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:15.3333497Z ++ kubectl get application session20-mini -n argocd -o 'jsonpath={.status.sync.status}'
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:15.3959281Z + status=Synced
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:15.3960474Z + test Synced = Synced
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:15.3961240Z + break
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:15.3961903Z + kubectl get application -n argocd
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:15.4662620Z NAME             SYNC STATUS   HEALTH STATUS
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:15.4666859Z session20-mini   Synced        Progressing
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:15.4676070Z + kubectl rollout status deployment/session20-mini -n session20 --timeout=180s
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:15.5259572Z Waiting for deployment "session20-mini" rollout to finish: 0 of 2 updated replicas are available...
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:16.4322925Z Waiting for deployment "session20-mini" rollout to finish: 1 of 2 updated replicas are available...
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:17.4368167Z deployment "session20-mini" successfully rolled out
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:17.4379647Z + kubectl get pods,svc -n session20
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:17.4927175Z NAME                                  READY   STATUS    RESTARTS   AGE
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:17.4928290Z pod/session20-mini-545cdfb4cd-pkbck   1/1     Running   0          4s
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:17.4929160Z pod/session20-mini-545cdfb4cd-v9rkl   1/1     Running   0          4s
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:17.4929910Z 
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:17.4930465Z NAME                     TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:17.4931161Z service/session20-mini   ClusterIP   10.96.158.184   <none>        80/TCP    4s
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:17.4937040Z + kubectl scale deployment/session20-mini -n session20 --replicas=1
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:17.5446407Z ++ seq 1 40
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:17.5446851Z deployment.apps/session20-mini scaled
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:17.5454605Z + for attempt in $(seq 1 40)
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:17.5461084Z ++ kubectl get deployment session20-mini -n session20 -o 'jsonpath={.spec.replicas}'
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:17.6187676Z + replicas=1
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:17.6191217Z + test 1 = 2
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:17.6192899Z + sleep 3
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:20.6197461Z + for attempt in $(seq 1 40)
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:20.6201568Z ++ kubectl get deployment session20-mini -n session20 -o 'jsonpath={.spec.replicas}'
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:20.6693618Z + replicas=2
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:20.6694364Z + test 2 = 2
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:20.6694807Z + break
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:20.6695287Z + test 2 = 2
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:20.6695982Z + kubectl get application -n argocd
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:20.7155858Z NAME             SYNC STATUS   HEALTH STATUS
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:20.7164037Z session20-mini   Synced        Healthy
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:20.7165561Z + kubectl rollout status deployment/session20-mini -n session20 --timeout=180s
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:20.7680921Z deployment "session20-mini" successfully rolled out
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:20.7691584Z + kubectl get deployment/session20-mini -n session20
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:20.8170545Z NAME             READY   UP-TO-DATE   AVAILABLE   AGE
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:20.8180018Z session20-mini   2/2     2            2           7s
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:20.8180860Z + kubectl get application/session20-mini -n argocd -o 'jsonpath={.status.sync.revision}'
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:20.9636314Z e9e5530966c6fdc4af71e231b46db440da2f9b7dNAME                              READY   STATUS    RESTARTS   AGE   IP            NODE                          NOMINATED NODE   READINESS GATES
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:20.9638052Z session20-mini-545cdfb4cd-twqw8   1/1     Running   0          3s    10.244.0.10   chart-testing-control-plane   <none>           <none>
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:20.9639492Z session20-mini-545cdfb4cd-v9rkl   1/1     Running   0          7s    10.244.0.9    chart-testing-control-plane   <none>           <none>
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:21.0142626Z pod/http-check created
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:24.5048088Z pod/http-check condition met
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:24.5663434Z <!DOCTYPE html>
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:24.5663729Z <html>
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:24.5663925Z <head>
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:24.5664134Z <title>Welcome to nginx!</title>
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:24.5664390Z <style>
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:24.5664596Z html { color-scheme: light dark; }
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:24.5664870Z body { width: 35em; margin: 0 auto;
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:24.5665198Z font-family: Tahoma, Verdana, Arial, sans-serif; }
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:24.5665774Z </style>
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:24.5666060Z </head>
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:24.5666342Z <body>
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:24.5666639Z <h1>Welcome to nginx!</h1>
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:24.5667014Z <p>If you see this page, the nginx web server is successfully installed and
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:24.5667426Z working. Further configuration is required.</p>
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:24.5667646Z 
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:24.5667795Z <p>For online documentation and support please refer to
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:24.5668156Z <a href="http://nginx.org/">nginx.org</a>.<br/>
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:24.5668455Z Commercial support is available at
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:24.5668756Z <a href="http://nginx.com/">nginx.com</a>.</p>
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:24.5668956Z 
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:24.5669062Z <p><em>Thank you for using nginx.</em></p>
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:24.5669364Z </body>
+reconcile	Install Argo CD Core and verify self-healing	2026-10-07T16:40:24.5669542Z </html>
+reconcile	Run actions/upload-artifact@v4	﻿2026-10-07T16:40:24.5744446Z ##[group]Run actions/upload-artifact@v4
+reconcile	Run actions/upload-artifact@v4	2026-10-07T16:40:24.5744764Z with:
+reconcile	Run actions/upload-artifact@v4	2026-10-07T16:40:24.5745016Z   name: gitops-reconciliation-evidence
+reconcile	Run actions/upload-artifact@v4	2026-10-07T16:40:24.5745585Z   path: gitops-evidence.log
+reconcile	Run actions/upload-artifact@v4	application-status.yaml
+reconcile	Run actions/upload-artifact@v4	
+reconcile	Run actions/upload-artifact@v4	2026-10-07T16:40:24.5745939Z   if-no-files-found: warn
+reconcile	Run actions/upload-artifact@v4	2026-10-07T16:40:24.5746190Z   compression-level: 6
+reconcile	Run actions/upload-artifact@v4	2026-10-07T16:40:24.5746417Z   overwrite: false
+reconcile	Run actions/upload-artifact@v4	2026-10-07T16:40:24.5746643Z   include-hidden-files: false
+reconcile	Run actions/upload-artifact@v4	2026-10-07T16:40:24.5746887Z ##[endgroup]
+reconcile	Run actions/upload-artifact@v4	2026-10-07T16:40:24.7428812Z (node:13149) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+reconcile	Run actions/upload-artifact@v4	2026-10-07T16:40:24.7429575Z (Use `node --trace-deprecation ...` to show where the warning was created)
+reconcile	Run actions/upload-artifact@v4	2026-10-07T16:40:24.7492639Z Multiple search paths detected. Calculating the least common ancestor of all paths
+reconcile	Run actions/upload-artifact@v4	2026-10-07T16:40:24.7500791Z The least common ancestor is /home/runner/work/devops-heros/devops-heros. This will be the root directory of the artifact
+reconcile	Run actions/upload-artifact@v4	2026-10-07T16:40:24.7502203Z With the provided path, there will be 2 files uploaded
+reconcile	Run actions/upload-artifact@v4	2026-10-07T16:40:24.7503092Z Artifact name is valid!
+reconcile	Run actions/upload-artifact@v4	2026-10-07T16:40:24.7503542Z Root directory input is valid!
+reconcile	Run actions/upload-artifact@v4	2026-10-07T16:40:25.0873335Z Beginning upload of artifact content to blob storage
+reconcile	Run actions/upload-artifact@v4	2026-10-07T16:40:25.1063190Z (node:13149) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+reconcile	Run actions/upload-artifact@v4	2026-10-07T16:40:25.3301074Z Uploaded bytes 2191
+reconcile	Run actions/upload-artifact@v4	2026-10-07T16:40:25.3943464Z Finished uploading artifact content to blob storage!
+reconcile	Run actions/upload-artifact@v4	2026-10-07T16:40:25.3944337Z SHA256 digest of uploaded artifact zip is 4cd7e683974f4ad96d309fa122de66965d14b27002cd7dfee66b1fb7018e198c
+reconcile	Run actions/upload-artifact@v4	2026-10-07T16:40:25.3946359Z Finalizing artifact upload
+reconcile	Run actions/upload-artifact@v4	2026-10-07T16:40:25.6269668Z Artifact gitops-reconciliation-evidence.zip successfully finalized. Artifact ID 11496938029
+reconcile	Run actions/upload-artifact@v4	2026-10-07T16:40:25.6270982Z Artifact gitops-reconciliation-evidence has been successfully uploaded! Final size is 2191 bytes. Artifact ID is 11496938029
+reconcile	Run actions/upload-artifact@v4	2026-10-07T16:40:25.6277389Z Artifact download URL: https://github.com/shubhamkumar9199/devops-heros/actions/runs/37653684465/artifacts/11496938029
+reconcile	Post Run helm/kind-action@v1.10.0	﻿2026-10-07T16:40:25.6418984Z Post job cleanup.
+reconcile	Post Run helm/kind-action@v1.10.0	2026-10-07T16:40:25.6823956Z Deleting cluster "chart-testing" ...
+reconcile	Post Run helm/kind-action@v1.10.0	2026-10-07T16:40:27.1980468Z Deleted nodes: ["chart-testing-control-plane"]
+reconcile	Post Run actions/checkout@v4	﻿2026-10-07T16:40:27.2082654Z Post job cleanup.
+reconcile	Post Run actions/checkout@v4	2026-10-07T16:40:27.2996575Z [command]/usr/bin/git version
+reconcile	Post Run actions/checkout@v4	2026-10-07T16:40:27.3035605Z git version 2.55.0
+reconcile	Post Run actions/checkout@v4	2026-10-07T16:40:27.3072304Z Temporarily overriding HOME='/home/runner/work/_temp/3c036674-3a50-408f-89a3-aafebc1a0ad7' before making global git config changes
+reconcile	Post Run actions/checkout@v4	2026-10-07T16:40:27.3073854Z Adding repository directory to the temporary git global config as a safe directory
+reconcile	Post Run actions/checkout@v4	2026-10-07T16:40:27.3076189Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/devops-heros/devops-heros
+reconcile	Post Run actions/checkout@v4	2026-10-07T16:40:27.3112352Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+reconcile	Post Run actions/checkout@v4	2026-10-07T16:40:27.3143983Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+reconcile	Post Run actions/checkout@v4	2026-10-07T16:40:27.3344860Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+reconcile	Post Run actions/checkout@v4	2026-10-07T16:40:27.3371488Z http.https://github.com/.extraheader
+reconcile	Post Run actions/checkout@v4	2026-10-07T16:40:27.3381830Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+reconcile	Post Run actions/checkout@v4	2026-10-07T16:40:27.3414744Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+reconcile	Post Run actions/checkout@v4	2026-10-07T16:40:27.3629857Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+reconcile	Post Run actions/checkout@v4	2026-10-07T16:40:27.3662297Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+reconcile	Complete job	﻿2026-10-07T16:40:27.4018267Z Cleaning up orphan processes
+reconcile	Complete job	2026-10-07T16:40:27.4313880Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4, helm/kind-action@v1.10.0. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

@@ -1,0 +1,560 @@
+calculator	Set up job	﻿2026-10-07T16:38:59.5113044Z Current runner version: '2.337.0'
+calculator	Set up job	2026-10-07T16:38:59.5141407Z ##[group]Runner Image Provisioner
+calculator	Set up job	2026-10-07T16:38:59.5142337Z Hosted Compute Agent
+calculator	Set up job	2026-10-07T16:38:59.5142988Z Version: 20261002.596
+calculator	Set up job	2026-10-07T16:38:59.5143672Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+calculator	Set up job	2026-10-07T16:38:59.5144427Z Build Date: 2026-10-02T22:28:27Z
+calculator	Set up job	2026-10-07T16:38:59.5145170Z Worker ID: {bf4010ad-d1d4-4f75-b21f-f2c6514073dd}
+calculator	Set up job	2026-10-07T16:38:59.5145908Z Region: eastus2
+calculator	Set up job	2026-10-07T16:38:59.5146434Z Cloud: Azure
+calculator	Set up job	2026-10-07T16:38:59.5147077Z ##[endgroup]
+calculator	Set up job	2026-10-07T16:38:59.5148812Z ##[group]Operating System
+calculator	Set up job	2026-10-07T16:38:59.5149585Z Ubuntu
+calculator	Set up job	2026-10-07T16:38:59.5150146Z 24.04.5
+calculator	Set up job	2026-10-07T16:38:59.5150636Z LTS
+calculator	Set up job	2026-10-07T16:38:59.5151241Z ##[endgroup]
+calculator	Set up job	2026-10-07T16:38:59.5151793Z ##[group]Runner Image
+calculator	Set up job	2026-10-07T16:38:59.5152427Z Image: ubuntu-24.04
+calculator	Set up job	2026-10-07T16:38:59.5153044Z Version: 20261004.327.1
+calculator	Set up job	2026-10-07T16:38:59.5154101Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md
+calculator	Set up job	2026-10-07T16:38:59.5155923Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327
+calculator	Set up job	2026-10-07T16:38:59.5156972Z ##[endgroup]
+calculator	Set up job	2026-10-07T16:38:59.5158276Z ##[group]GITHUB_TOKEN Permissions
+calculator	Set up job	2026-10-07T16:38:59.5160832Z Contents: read
+calculator	Set up job	2026-10-07T16:38:59.5161469Z Metadata: read
+calculator	Set up job	2026-10-07T16:38:59.5162011Z ##[endgroup]
+calculator	Set up job	2026-10-07T16:38:59.5164618Z Secret source: Actions
+calculator	Set up job	2026-10-07T16:38:59.5165647Z Cache mode: write
+calculator	Set up job	2026-10-07T16:38:59.5166647Z Prepare workflow directory
+calculator	Set up job	2026-10-07T16:38:59.5563772Z Prepare all required actions
+calculator	Set up job	2026-10-07T16:38:59.5611887Z Getting action download info
+calculator	Set up job	2026-10-07T16:38:59.7903976Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+calculator	Set up job	2026-10-07T16:38:59.8800954Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+calculator	Set up job	2026-10-07T16:38:59.9549519Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+calculator	Set up job	2026-10-07T16:39:00.1678690Z Complete job name: calculator
+calculator	Run actions/checkout@v4	﻿2026-10-07T16:39:00.2560043Z ##[group]Run actions/checkout@v4
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.2560929Z with:
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.2561409Z   repository: shubhamkumar9199/devops-heros
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.2565193Z   token: ***
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.2565631Z   ssh-strict: true
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.2566064Z   ssh-user: git
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.2566506Z   persist-credentials: true
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.2566987Z   clean: true
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.2567422Z   sparse-checkout-cone-mode: true
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.2567928Z   fetch-depth: 1
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.2568654Z   fetch-tags: false
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.2569105Z   show-progress: true
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.2569540Z   lfs: false
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.2569941Z   submodules: false
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.2570382Z   set-safe-directory: true
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.2570885Z   allow-unsafe-pr-checkout: false
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.2571704Z ##[endgroup]
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.3606589Z Syncing repository: shubhamkumar9199/devops-heros
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.3609487Z ##[group]Getting Git version info
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.3610740Z Working directory is '/home/runner/work/devops-heros/devops-heros'
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.3616155Z [command]/usr/bin/git version
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.3733394Z git version 2.55.0
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.3755782Z ##[endgroup]
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.3776599Z Temporarily overriding HOME='/home/runner/work/_temp/3f5651a7-3a55-4be3-b26f-32687912b73a' before making global git config changes
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.3779114Z Adding repository directory to the temporary git global config as a safe directory
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.3781936Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/devops-heros/devops-heros
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.3832813Z Deleting the contents of '/home/runner/work/devops-heros/devops-heros'
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.3837034Z ##[group]Initializing the repository
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.3849039Z [command]/usr/bin/git init /home/runner/work/devops-heros/devops-heros
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.3938676Z hint: Using 'master' as the name for the initial branch. This default branch name
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.3940968Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.3942960Z hint: to use in all of your new repositories, which will suppress this warning,
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.3944549Z hint: call:
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.3945714Z hint:
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.3946705Z hint: 	git config --global init.defaultBranch <name>
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.3947863Z hint:
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.3949232Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.3950978Z hint: 'development'. The just-created branch can be renamed via this command:
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.3952301Z hint:
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.3953009Z hint: 	git branch -m <name>
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.3953926Z hint:
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.3955115Z hint: Disable this message with "git config set advice.defaultBranchName false"
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.3957051Z Initialized empty Git repository in /home/runner/work/devops-heros/devops-heros/.git/
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.3960292Z [command]/usr/bin/git remote add origin https://github.com/shubhamkumar9199/devops-heros
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.4005119Z ##[endgroup]
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.4005963Z ##[group]Disabling automatic garbage collection
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.4010725Z [command]/usr/bin/git config --local gc.auto 0
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.4044020Z ##[endgroup]
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.4045370Z ##[group]Setting up auth
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.4052355Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.4084100Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.4453406Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.4494481Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.4724551Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.4761770Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.5015095Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.5054416Z ##[endgroup]
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.5055343Z ##[group]Fetching the repository
+calculator	Run actions/checkout@v4	2026-10-07T16:39:00.5064179Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +e9e5530966c6fdc4af71e231b46db440da2f9b7d:refs/remotes/origin/main
+calculator	Run actions/checkout@v4	2026-10-07T16:39:01.0849022Z From https://github.com/shubhamkumar9199/devops-heros
+calculator	Run actions/checkout@v4	2026-10-07T16:39:01.0850822Z  * [new ref]         e9e5530966c6fdc4af71e231b46db440da2f9b7d -> origin/main
+calculator	Run actions/checkout@v4	2026-10-07T16:39:01.0881307Z ##[endgroup]
+calculator	Run actions/checkout@v4	2026-10-07T16:39:01.0882993Z ##[group]Determining the checkout info
+calculator	Run actions/checkout@v4	2026-10-07T16:39:01.0884821Z ##[endgroup]
+calculator	Run actions/checkout@v4	2026-10-07T16:39:01.0885904Z [command]/usr/bin/git sparse-checkout disable
+calculator	Run actions/checkout@v4	2026-10-07T16:39:01.0929631Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+calculator	Run actions/checkout@v4	2026-10-07T16:39:01.0966523Z ##[group]Checking out the ref
+calculator	Run actions/checkout@v4	2026-10-07T16:39:01.0981516Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+calculator	Run actions/checkout@v4	2026-10-07T16:39:01.1724364Z Switched to a new branch 'main'
+calculator	Run actions/checkout@v4	2026-10-07T16:39:01.1728754Z branch 'main' set up to track 'origin/main'.
+calculator	Run actions/checkout@v4	2026-10-07T16:39:01.1740532Z ##[endgroup]
+calculator	Run actions/checkout@v4	2026-10-07T16:39:01.1789384Z [command]/usr/bin/git log -1 --format=%H
+calculator	Run actions/checkout@v4	2026-10-07T16:39:01.1816612Z e9e5530966c6fdc4af71e231b46db440da2f9b7d
+calculator	Run actions/setup-python@v5	﻿2026-10-07T16:39:01.2183825Z ##[group]Run actions/setup-python@v5
+calculator	Run actions/setup-python@v5	2026-10-07T16:39:01.2185136Z with:
+calculator	Run actions/setup-python@v5	2026-10-07T16:39:01.2186090Z   python-version: 3.12
+calculator	Run actions/setup-python@v5	2026-10-07T16:39:01.2187182Z   check-latest: false
+calculator	Run actions/setup-python@v5	2026-10-07T16:39:01.2196182Z   token: ***
+calculator	Run actions/setup-python@v5	2026-10-07T16:39:01.2197435Z   update-environment: true
+calculator	Run actions/setup-python@v5	2026-10-07T16:39:01.2198725Z   allow-prereleases: false
+calculator	Run actions/setup-python@v5	2026-10-07T16:39:01.2199852Z   freethreaded: false
+calculator	Run actions/setup-python@v5	2026-10-07T16:39:01.2200868Z ##[endgroup]
+calculator	Run actions/setup-python@v5	2026-10-07T16:39:01.3600674Z ##[group]Installed versions
+calculator	Run actions/setup-python@v5	2026-10-07T16:39:01.3690220Z (node:2357) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+calculator	Run actions/setup-python@v5	2026-10-07T16:39:01.3693680Z (Use `node --trace-deprecation ...` to show where the warning was created)
+calculator	Run actions/setup-python@v5	2026-10-07T16:39:01.3695597Z Successfully set up CPython (3.12.15)
+calculator	Run actions/setup-python@v5	2026-10-07T16:39:01.3697611Z ##[endgroup]
+calculator	Run pip install -r requirements.txt	﻿2026-10-07T16:39:01.3903017Z ##[group]Run pip install -r requirements.txt
+calculator	Run pip install -r requirements.txt	2026-10-07T16:39:01.3904567Z ^[[36;1mpip install -r requirements.txt^[[0m
+calculator	Run pip install -r requirements.txt	2026-10-07T16:39:01.4216686Z shell: /usr/bin/bash -e {0}
+calculator	Run pip install -r requirements.txt	2026-10-07T16:39:01.4218399Z env:
+calculator	Run pip install -r requirements.txt	2026-10-07T16:39:01.4219769Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+calculator	Run pip install -r requirements.txt	2026-10-07T16:39:01.4221846Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+calculator	Run pip install -r requirements.txt	2026-10-07T16:39:01.4223963Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+calculator	Run pip install -r requirements.txt	2026-10-07T16:39:01.4225864Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+calculator	Run pip install -r requirements.txt	2026-10-07T16:39:01.4227589Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+calculator	Run pip install -r requirements.txt	2026-10-07T16:39:01.4229298Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+calculator	Run pip install -r requirements.txt	2026-10-07T16:39:01.4230641Z ##[endgroup]
+calculator	Run pip install -r requirements.txt	2026-10-07T16:39:02.2962584Z Collecting pytest (from -r requirements.txt (line 1))
+calculator	Run pip install -r requirements.txt	2026-10-07T16:39:02.3679204Z   Downloading pytest-9.1.1-py3-none-any.whl.metadata (7.6 kB)
+calculator	Run pip install -r requirements.txt	2026-10-07T16:39:02.3916301Z Collecting iniconfig>=1.0.1 (from pytest->-r requirements.txt (line 1))
+calculator	Run pip install -r requirements.txt	2026-10-07T16:39:02.3990187Z   Downloading iniconfig-2.3.1-py3-none-any.whl.metadata (2.8 kB)
+calculator	Run pip install -r requirements.txt	2026-10-07T16:39:02.4238556Z Collecting packaging>=22 (from pytest->-r requirements.txt (line 1))
+calculator	Run pip install -r requirements.txt	2026-10-07T16:39:02.4313076Z   Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+calculator	Run pip install -r requirements.txt	2026-10-07T16:39:02.4573418Z Collecting pluggy<2,>=1.5 (from pytest->-r requirements.txt (line 1))
+calculator	Run pip install -r requirements.txt	2026-10-07T16:39:02.4663173Z   Downloading pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+calculator	Run pip install -r requirements.txt	2026-10-07T16:39:02.4963880Z Collecting pygments>=2.7.2 (from pytest->-r requirements.txt (line 1))
+calculator	Run pip install -r requirements.txt	2026-10-07T16:39:02.5050724Z   Downloading pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+calculator	Run pip install -r requirements.txt	2026-10-07T16:39:02.5288962Z Downloading pytest-9.1.1-py3-none-any.whl (386 kB)
+calculator	Run pip install -r requirements.txt	2026-10-07T16:39:02.5764025Z Downloading pluggy-1.6.0-py3-none-any.whl (20 kB)
+calculator	Run pip install -r requirements.txt	2026-10-07T16:39:02.5888298Z Downloading iniconfig-2.3.1-py3-none-any.whl (7.6 kB)
+calculator	Run pip install -r requirements.txt	2026-10-07T16:39:02.5983292Z Downloading packaging-26.3-py3-none-any.whl (129 kB)
+calculator	Run pip install -r requirements.txt	2026-10-07T16:39:02.6138437Z Downloading pygments-2.21.0-py3-none-any.whl (1.3 MB)
+calculator	Run pip install -r requirements.txt	2026-10-07T16:39:02.6755809Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 22.2 MB/s  0:00:00
+calculator	Run pip install -r requirements.txt	2026-10-07T16:39:02.7325896Z Installing collected packages: pygments, pluggy, packaging, iniconfig, pytest
+calculator	Run pip install -r requirements.txt	2026-10-07T16:39:03.8637041Z 
+calculator	Run pip install -r requirements.txt	2026-10-07T16:39:03.8650515Z Successfully installed iniconfig-2.3.1 packaging-26.3 pluggy-1.6.0 pygments-2.21.0 pytest-9.1.1
+calculator	Run python -m pytest -v	﻿2026-10-07T16:39:03.9159712Z ##[group]Run python -m pytest -v
+calculator	Run python -m pytest -v	2026-10-07T16:39:03.9160102Z ^[[36;1mpython -m pytest -v^[[0m
+calculator	Run python -m pytest -v	2026-10-07T16:39:03.9227860Z shell: /usr/bin/bash -e {0}
+calculator	Run python -m pytest -v	2026-10-07T16:39:03.9228386Z env:
+calculator	Run python -m pytest -v	2026-10-07T16:39:03.9228712Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+calculator	Run python -m pytest -v	2026-10-07T16:39:03.9229223Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+calculator	Run python -m pytest -v	2026-10-07T16:39:03.9229726Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+calculator	Run python -m pytest -v	2026-10-07T16:39:03.9230192Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+calculator	Run python -m pytest -v	2026-10-07T16:39:03.9230647Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+calculator	Run python -m pytest -v	2026-10-07T16:39:03.9231097Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+calculator	Run python -m pytest -v	2026-10-07T16:39:03.9231508Z ##[endgroup]
+calculator	Run python -m pytest -v	2026-10-07T16:39:04.2006521Z ============================= test session starts ==============================
+calculator	Run python -m pytest -v	2026-10-07T16:39:04.2008938Z platform linux -- Python 3.12.15, pytest-9.1.1, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.12.15/x64/bin/python
+calculator	Run python -m pytest -v	2026-10-07T16:39:04.2010421Z cachedir: .pytest_cache
+calculator	Run python -m pytest -v	2026-10-07T16:39:04.2011475Z rootdir: /home/runner/work/devops-heros/devops-heros/session-16-github-actions/demo
+calculator	Run python -m pytest -v	2026-10-07T16:39:04.2116600Z collecting ... collected 9 items
+calculator	Run python -m pytest -v	2026-10-07T16:39:04.2117128Z 
+calculator	Run python -m pytest -v	2026-10-07T16:39:04.2127187Z tests/test_calculator.py::test_add PASSED                                [ 11%]
+calculator	Run python -m pytest -v	2026-10-07T16:39:04.2135356Z tests/test_calculator.py::test_subtract PASSED                           [ 22%]
+calculator	Run python -m pytest -v	2026-10-07T16:39:04.2143760Z tests/test_calculator.py::test_multiply PASSED                           [ 33%]
+calculator	Run python -m pytest -v	2026-10-07T16:39:04.2153145Z tests/test_calculator.py::test_divide PASSED                             [ 44%]
+calculator	Run python -m pytest -v	2026-10-07T16:39:04.2161471Z tests/test_calculator.py::test_divide_by_zero PASSED                     [ 55%]
+calculator	Run python -m pytest -v	2026-10-07T16:39:04.2277365Z tests/test_calculator.py::test_signed_zero_and_fractional_inputs[add--8-3--5] PASSED [ 66%]
+calculator	Run python -m pytest -v	2026-10-07T16:39:04.2287947Z tests/test_calculator.py::test_signed_zero_and_fractional_inputs[subtract-2-7--5] PASSED [ 77%]
+calculator	Run python -m pytest -v	2026-10-07T16:39:04.2299874Z tests/test_calculator.py::test_signed_zero_and_fractional_inputs[multiply-12-0-0] PASSED [ 88%]
+calculator	Run python -m pytest -v	2026-10-07T16:39:04.2407978Z tests/test_calculator.py::test_signed_zero_and_fractional_inputs[divide-5-2-2.5] PASSED [100%]
+calculator	Run python -m pytest -v	2026-10-07T16:39:04.2409088Z 
+calculator	Run python -m pytest -v	2026-10-07T16:39:04.2409663Z ============================== 9 passed in 0.03s ===============================
+calculator	Run bash build.sh	﻿2026-10-07T16:39:04.3527751Z ##[group]Run bash build.sh
+calculator	Run bash build.sh	2026-10-07T16:39:04.3528441Z ^[[36;1mbash build.sh^[[0m
+calculator	Run bash build.sh	2026-10-07T16:39:04.3594794Z shell: /usr/bin/bash -e {0}
+calculator	Run bash build.sh	2026-10-07T16:39:04.3595109Z env:
+calculator	Run bash build.sh	2026-10-07T16:39:04.3595444Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+calculator	Run bash build.sh	2026-10-07T16:39:04.3596014Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+calculator	Run bash build.sh	2026-10-07T16:39:04.3596575Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+calculator	Run bash build.sh	2026-10-07T16:39:04.3597096Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+calculator	Run bash build.sh	2026-10-07T16:39:04.3597598Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+calculator	Run bash build.sh	2026-10-07T16:39:04.3598257Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+calculator	Run bash build.sh	2026-10-07T16:39:04.3598691Z ##[endgroup]
+calculator	Run bash build.sh	2026-10-07T16:39:04.3700051Z Starting build...
+calculator	Run bash build.sh	2026-10-07T16:39:04.3739786Z Application copied to build directory.
+calculator	Run bash build.sh	2026-10-07T16:39:04.3764316Z Build completed successfully.
+calculator	Run actions/upload-artifact@v4	﻿2026-10-07T16:39:04.3830164Z ##[group]Run actions/upload-artifact@v4
+calculator	Run actions/upload-artifact@v4	2026-10-07T16:39:04.3830495Z with:
+calculator	Run actions/upload-artifact@v4	2026-10-07T16:39:04.3830705Z   name: calculator-build
+calculator	Run actions/upload-artifact@v4	2026-10-07T16:39:04.3830975Z   path: session-16-github-actions/demo/build
+calculator	Run actions/upload-artifact@v4	2026-10-07T16:39:04.3831275Z   if-no-files-found: warn
+calculator	Run actions/upload-artifact@v4	2026-10-07T16:39:04.3831514Z   compression-level: 6
+calculator	Run actions/upload-artifact@v4	2026-10-07T16:39:04.3831732Z   overwrite: false
+calculator	Run actions/upload-artifact@v4	2026-10-07T16:39:04.3831953Z   include-hidden-files: false
+calculator	Run actions/upload-artifact@v4	2026-10-07T16:39:04.3832183Z env:
+calculator	Run actions/upload-artifact@v4	2026-10-07T16:39:04.3832432Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+calculator	Run actions/upload-artifact@v4	2026-10-07T16:39:04.3832885Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+calculator	Run actions/upload-artifact@v4	2026-10-07T16:39:04.3833309Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+calculator	Run actions/upload-artifact@v4	2026-10-07T16:39:04.3833687Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+calculator	Run actions/upload-artifact@v4	2026-10-07T16:39:04.3834064Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+calculator	Run actions/upload-artifact@v4	2026-10-07T16:39:04.3834441Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+calculator	Run actions/upload-artifact@v4	2026-10-07T16:39:04.3834794Z ##[endgroup]
+calculator	Run actions/upload-artifact@v4	2026-10-07T16:39:04.5573977Z (node:2402) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+calculator	Run actions/upload-artifact@v4	2026-10-07T16:39:04.5575691Z (Use `node --trace-deprecation ...` to show where the warning was created)
+calculator	Run actions/upload-artifact@v4	2026-10-07T16:39:04.5709239Z With the provided path, there will be 2 files uploaded
+calculator	Run actions/upload-artifact@v4	2026-10-07T16:39:04.5758654Z Artifact name is valid!
+calculator	Run actions/upload-artifact@v4	2026-10-07T16:39:04.5768759Z Root directory input is valid!
+calculator	Run actions/upload-artifact@v4	2026-10-07T16:39:04.7965623Z Beginning upload of artifact content to blob storage
+calculator	Run actions/upload-artifact@v4	2026-10-07T16:39:04.8167388Z (node:2402) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+calculator	Run actions/upload-artifact@v4	2026-10-07T16:39:04.8380141Z Uploaded bytes 902
+calculator	Run actions/upload-artifact@v4	2026-10-07T16:39:04.8503699Z Finished uploading artifact content to blob storage!
+calculator	Run actions/upload-artifact@v4	2026-10-07T16:39:04.8504770Z SHA256 digest of uploaded artifact zip is 995029f7f050bd05836734386e9f4c45c80982346bfac8106110ca7b9d73e129
+calculator	Run actions/upload-artifact@v4	2026-10-07T16:39:04.8506711Z Finalizing artifact upload
+calculator	Run actions/upload-artifact@v4	2026-10-07T16:39:05.0652074Z Artifact calculator-build.zip successfully finalized. Artifact ID 11496739003
+calculator	Run actions/upload-artifact@v4	2026-10-07T16:39:05.0653960Z Artifact calculator-build has been successfully uploaded! Final size is 902 bytes. Artifact ID is 11496739003
+calculator	Run actions/upload-artifact@v4	2026-10-07T16:39:05.0661726Z Artifact download URL: https://github.com/shubhamkumar9199/devops-heros/actions/runs/37653691195/artifacts/11496739003
+calculator	Post Run actions/setup-python@v5	﻿2026-10-07T16:39:05.0834485Z Post job cleanup.
+calculator	Post Run actions/setup-python@v5	2026-10-07T16:39:05.2007832Z (node:2414) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+calculator	Post Run actions/setup-python@v5	2026-10-07T16:39:05.2009301Z (Use `node --trace-deprecation ...` to show where the warning was created)
+calculator	Post Run actions/checkout@v4	﻿2026-10-07T16:39:05.2254711Z Post job cleanup.
+calculator	Post Run actions/checkout@v4	2026-10-07T16:39:05.3136665Z [command]/usr/bin/git version
+calculator	Post Run actions/checkout@v4	2026-10-07T16:39:05.3182584Z git version 2.55.0
+calculator	Post Run actions/checkout@v4	2026-10-07T16:39:05.3223393Z Temporarily overriding HOME='/home/runner/work/_temp/880ce590-acca-484b-8308-c01b7de33b67' before making global git config changes
+calculator	Post Run actions/checkout@v4	2026-10-07T16:39:05.3224827Z Adding repository directory to the temporary git global config as a safe directory
+calculator	Post Run actions/checkout@v4	2026-10-07T16:39:05.3231208Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/devops-heros/devops-heros
+calculator	Post Run actions/checkout@v4	2026-10-07T16:39:05.3269615Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+calculator	Post Run actions/checkout@v4	2026-10-07T16:39:05.3308617Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+calculator	Post Run actions/checkout@v4	2026-10-07T16:39:05.3566636Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+calculator	Post Run actions/checkout@v4	2026-10-07T16:39:05.3596417Z http.https://github.com/.extraheader
+calculator	Post Run actions/checkout@v4	2026-10-07T16:39:05.3607649Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+calculator	Post Run actions/checkout@v4	2026-10-07T16:39:05.3650658Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+calculator	Post Run actions/checkout@v4	2026-10-07T16:39:05.3931925Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+calculator	Post Run actions/checkout@v4	2026-10-07T16:39:05.3979607Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+calculator	Complete job	﻿2026-10-07T16:39:05.4365295Z Cleaning up orphan processes
+calculator	Complete job	2026-10-07T16:39:05.4697587Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+taskboard	Set up job	﻿2026-10-07T16:39:00.1138876Z Current runner version: '2.337.0'
+taskboard	Set up job	2026-10-07T16:39:00.1164994Z ##[group]Runner Image Provisioner
+taskboard	Set up job	2026-10-07T16:39:00.1165993Z Hosted Compute Agent
+taskboard	Set up job	2026-10-07T16:39:00.1166621Z Version: 20260901.588
+taskboard	Set up job	2026-10-07T16:39:00.1167279Z Commit: f88ec8081b781fac6c440065ac7ff9e710ce3d0b
+taskboard	Set up job	2026-10-07T16:39:00.1168120Z Build Date: 2026-09-01T19:56:44Z
+taskboard	Set up job	2026-10-07T16:39:00.1168885Z Worker ID: {6fb96be9-cd9b-40d5-afef-5058a21f363c}
+taskboard	Set up job	2026-10-07T16:39:00.1170003Z Azure Region: westus3
+taskboard	Set up job	2026-10-07T16:39:00.1170645Z ##[endgroup]
+taskboard	Set up job	2026-10-07T16:39:00.1172290Z ##[group]Operating System
+taskboard	Set up job	2026-10-07T16:39:00.1173070Z Ubuntu
+taskboard	Set up job	2026-10-07T16:39:00.1173667Z 24.04.5
+taskboard	Set up job	2026-10-07T16:39:00.1174239Z LTS
+taskboard	Set up job	2026-10-07T16:39:00.1174798Z ##[endgroup]
+taskboard	Set up job	2026-10-07T16:39:00.1175373Z ##[group]Runner Image
+taskboard	Set up job	2026-10-07T16:39:00.1176290Z Image: ubuntu-24.04
+taskboard	Set up job	2026-10-07T16:39:00.1177064Z Version: 20260927.320.1
+taskboard	Set up job	2026-10-07T16:39:00.1178365Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260927.320/images/ubuntu/Ubuntu2404-Readme.md
+taskboard	Set up job	2026-10-07T16:39:00.1180551Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260927.320
+taskboard	Set up job	2026-10-07T16:39:00.1181833Z ##[endgroup]
+taskboard	Set up job	2026-10-07T16:39:00.1183035Z ##[group]GITHUB_TOKEN Permissions
+taskboard	Set up job	2026-10-07T16:39:00.1185255Z Contents: read
+taskboard	Set up job	2026-10-07T16:39:00.1185916Z Metadata: read
+taskboard	Set up job	2026-10-07T16:39:00.1186862Z ##[endgroup]
+taskboard	Set up job	2026-10-07T16:39:00.1189064Z Secret source: Actions
+taskboard	Set up job	2026-10-07T16:39:00.1190437Z Cache mode: write
+taskboard	Set up job	2026-10-07T16:39:00.1191399Z Prepare workflow directory
+taskboard	Set up job	2026-10-07T16:39:00.1606674Z Prepare all required actions
+taskboard	Set up job	2026-10-07T16:39:00.1654504Z Getting action download info
+taskboard	Set up job	2026-10-07T16:39:00.4771130Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+taskboard	Set up job	2026-10-07T16:39:00.5779876Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+taskboard	Set up job	2026-10-07T16:39:00.7715699Z Complete job name: taskboard
+taskboard	Run actions/checkout@v4	﻿2026-10-07T16:39:00.8502249Z ##[group]Run actions/checkout@v4
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.8503139Z with:
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.8503647Z   repository: shubhamkumar9199/devops-heros
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.8507793Z   token: ***
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.8508228Z   ssh-strict: true
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.8508670Z   ssh-user: git
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.8509387Z   persist-credentials: true
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.8509900Z   clean: true
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.8510349Z   sparse-checkout-cone-mode: true
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.8510882Z   fetch-depth: 1
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.8511329Z   fetch-tags: false
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.8511801Z   show-progress: true
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.8512249Z   lfs: false
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.8512667Z   submodules: false
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.8513117Z   set-safe-directory: true
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.8513634Z   allow-unsafe-pr-checkout: false
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.8514427Z ##[endgroup]
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9559007Z Syncing repository: shubhamkumar9199/devops-heros
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9562015Z ##[group]Getting Git version info
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9563018Z Working directory is '/home/runner/work/devops-heros/devops-heros'
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9564287Z [command]/usr/bin/git version
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9616220Z git version 2.55.0
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9637881Z ##[endgroup]
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9670325Z Temporarily overriding HOME='/home/runner/work/_temp/a9681477-3e28-495f-9b62-6ce79b5a616e' before making global git config changes
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9673703Z Adding repository directory to the temporary git global config as a safe directory
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9676901Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/devops-heros/devops-heros
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9712440Z Deleting the contents of '/home/runner/work/devops-heros/devops-heros'
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9718244Z ##[group]Initializing the repository
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9724267Z [command]/usr/bin/git init /home/runner/work/devops-heros/devops-heros
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9823004Z hint: Using 'master' as the name for the initial branch. This default branch name
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9825020Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9826874Z hint: to use in all of your new repositories, which will suppress this warning,
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9828257Z hint: call:
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9829024Z hint:
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9830496Z hint: 	git config --global init.defaultBranch <name>
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9831665Z hint:
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9832910Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9834408Z hint: 'development'. The just-created branch can be renamed via this command:
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9835589Z hint:
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9836397Z hint: 	git branch -m <name>
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9837317Z hint:
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9838594Z hint: Disable this message with "git config set advice.defaultBranchName false"
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9840569Z Initialized empty Git repository in /home/runner/work/devops-heros/devops-heros/.git/
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9843368Z [command]/usr/bin/git remote add origin https://github.com/shubhamkumar9199/devops-heros
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9894406Z ##[endgroup]
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9895698Z ##[group]Disabling automatic garbage collection
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9899669Z [command]/usr/bin/git config --local gc.auto 0
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9932164Z ##[endgroup]
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9933214Z ##[group]Setting up auth
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9940867Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:00.9975351Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:01.0327244Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:01.0368848Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:01.0608925Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:01.0648372Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:01.0889121Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:01.0932657Z ##[endgroup]
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:01.0933708Z ##[group]Fetching the repository
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:01.0942840Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +e9e5530966c6fdc4af71e231b46db440da2f9b7d:refs/remotes/origin/main
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:02.6855265Z From https://github.com/shubhamkumar9199/devops-heros
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:02.6858858Z  * [new ref]         e9e5530966c6fdc4af71e231b46db440da2f9b7d -> origin/main
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:02.6867290Z ##[endgroup]
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:02.6870175Z ##[group]Determining the checkout info
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:02.6872918Z ##[endgroup]
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:02.6874553Z [command]/usr/bin/git sparse-checkout disable
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:02.6921935Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:02.6956929Z ##[group]Checking out the ref
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:02.6967096Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:02.7703467Z Switched to a new branch 'main'
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:02.7711282Z branch 'main' set up to track 'origin/main'.
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:02.7721269Z ##[endgroup]
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:02.7767932Z [command]/usr/bin/git log -1 --format=%H
+taskboard	Run actions/checkout@v4	2026-10-07T16:39:02.7795097Z e9e5530966c6fdc4af71e231b46db440da2f9b7d
+taskboard	Run actions/setup-python@v5	﻿2026-10-07T16:39:02.8179478Z ##[group]Run actions/setup-python@v5
+taskboard	Run actions/setup-python@v5	2026-10-07T16:39:02.8180836Z with:
+taskboard	Run actions/setup-python@v5	2026-10-07T16:39:02.8181762Z   python-version: 3.12
+taskboard	Run actions/setup-python@v5	2026-10-07T16:39:02.8182833Z   check-latest: false
+taskboard	Run actions/setup-python@v5	2026-10-07T16:39:02.8193665Z   token: ***
+taskboard	Run actions/setup-python@v5	2026-10-07T16:39:02.8194687Z   update-environment: true
+taskboard	Run actions/setup-python@v5	2026-10-07T16:39:02.8195836Z   allow-prereleases: false
+taskboard	Run actions/setup-python@v5	2026-10-07T16:39:02.8196976Z   freethreaded: false
+taskboard	Run actions/setup-python@v5	2026-10-07T16:39:02.8198216Z ##[endgroup]
+taskboard	Run actions/setup-python@v5	2026-10-07T16:39:02.9573936Z ##[group]Installed versions
+taskboard	Run actions/setup-python@v5	2026-10-07T16:39:02.9656007Z (node:2356) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+taskboard	Run actions/setup-python@v5	2026-10-07T16:39:02.9659928Z (Use `node --trace-deprecation ...` to show where the warning was created)
+taskboard	Run actions/setup-python@v5	2026-10-07T16:39:02.9661793Z Successfully set up CPython (3.12.14)
+taskboard	Run actions/setup-python@v5	2026-10-07T16:39:02.9678848Z ##[endgroup]
+taskboard	Run pip install -r requirements.txt	﻿2026-10-07T16:39:02.9876503Z ##[group]Run pip install -r requirements.txt
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:02.9878140Z ^[[36;1mpip install -r requirements.txt^[[0m
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:03.0159412Z shell: /usr/bin/bash -e {0}
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:03.0160801Z env:
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:03.0162096Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.14/x64
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:03.0164190Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib/pkgconfig
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:03.0166138Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:03.0167865Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:03.0169777Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:03.0171539Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:03.0173017Z ##[endgroup]
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:03.8809121Z Collecting fastapi==0.115.6 (from -r requirements.txt (line 1))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:03.9280085Z   Downloading fastapi-0.115.6-py3-none-any.whl.metadata (27 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:03.9779159Z Collecting uvicorn==0.34.0 (from uvicorn[standard]==0.34.0->-r requirements.txt (line 2))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:03.9815801Z   Downloading uvicorn-0.34.0-py3-none-any.whl.metadata (6.5 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:04.3246040Z Collecting sqlalchemy==2.0.36 (from -r requirements.txt (line 3))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:04.3283810Z   Downloading SQLAlchemy-2.0.36-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (9.7 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:04.3549784Z Collecting psycopg==3.2.3 (from psycopg[binary]==3.2.3->-r requirements.txt (line 4))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:04.3594400Z   Downloading psycopg-3.2.3-py3-none-any.whl.metadata (4.3 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:04.3826993Z Collecting pydantic-settings==2.7.1 (from -r requirements.txt (line 5))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:04.3861376Z   Downloading pydantic_settings-2.7.1-py3-none-any.whl.metadata (3.5 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:04.4070555Z Collecting prometheus-fastapi-instrumentator==7.0.2 (from -r requirements.txt (line 6))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:04.4115723Z   Downloading prometheus_fastapi_instrumentator-7.0.2-py3-none-any.whl.metadata (13 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:04.4365352Z Collecting alembic==1.14.0 (from -r requirements.txt (line 7))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:04.4411742Z   Downloading alembic-1.14.0-py3-none-any.whl.metadata (7.4 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:04.4743187Z Collecting pytest==8.3.4 (from -r requirements.txt (line 8))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:04.4779071Z   Downloading pytest-8.3.4-py3-none-any.whl.metadata (7.5 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:04.5011111Z Collecting httpx==0.28.1 (from -r requirements.txt (line 9))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:04.5053235Z   Downloading httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:04.5370430Z Collecting starlette<0.42.0,>=0.40.0 (from fastapi==0.115.6->-r requirements.txt (line 1))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:04.5404622Z   Downloading starlette-0.41.3-py3-none-any.whl.metadata (6.0 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:04.6576472Z Collecting pydantic!=1.8,!=1.8.1,!=2.0.0,!=2.0.1,!=2.1.0,<3.0.0,>=1.7.4 (from fastapi==0.115.6->-r requirements.txt (line 1))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:04.6617459Z   Downloading pydantic-2.13.5-py3-none-any.whl.metadata (110 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:04.6985100Z Collecting typing-extensions>=4.8.0 (from fastapi==0.115.6->-r requirements.txt (line 1))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:04.7026713Z   Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:04.7265052Z Collecting click>=7.0 (from uvicorn==0.34.0->uvicorn[standard]==0.34.0->-r requirements.txt (line 2))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:04.7302644Z   Downloading click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:04.7476059Z Collecting h11>=0.8 (from uvicorn==0.34.0->uvicorn[standard]==0.34.0->-r requirements.txt (line 2))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:04.7513180Z   Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:04.9096924Z Collecting greenlet!=0.4.17 (from sqlalchemy==2.0.36->-r requirements.txt (line 3))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:04.9134249Z   Downloading greenlet-3.5.6-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (3.8 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:04.9399943Z Collecting python-dotenv>=0.21.0 (from pydantic-settings==2.7.1->-r requirements.txt (line 5))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:04.9435865Z   Downloading python_dotenv-1.2.4-py3-none-any.whl.metadata (29 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:04.9725071Z Collecting prometheus-client<1.0.0,>=0.8.0 (from prometheus-fastapi-instrumentator==7.0.2->-r requirements.txt (line 6))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:04.9767290Z   Downloading prometheus_client-0.26.0-py3-none-any.whl.metadata (2.1 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:05.0141984Z Collecting Mako (from alembic==1.14.0->-r requirements.txt (line 7))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:05.0182277Z   Downloading mako-1.4.3-py3-none-any.whl.metadata (2.9 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:05.0431650Z Collecting iniconfig (from pytest==8.3.4->-r requirements.txt (line 8))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:05.0472658Z   Downloading iniconfig-2.3.1-py3-none-any.whl.metadata (2.8 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:05.0732779Z Collecting packaging (from pytest==8.3.4->-r requirements.txt (line 8))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:05.0768042Z   Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:05.0949596Z Collecting pluggy<2,>=1.5 (from pytest==8.3.4->-r requirements.txt (line 8))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:05.0983677Z   Downloading pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:05.1244561Z Collecting anyio (from httpx==0.28.1->-r requirements.txt (line 9))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:05.1282907Z   Downloading anyio-4.15.1-py3-none-any.whl.metadata (4.7 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:05.1704855Z Collecting certifi (from httpx==0.28.1->-r requirements.txt (line 9))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:05.1741277Z   Downloading certifi-2026.7.22-py3-none-any.whl.metadata (2.5 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:05.1955582Z Collecting httpcore==1.* (from httpx==0.28.1->-r requirements.txt (line 9))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:05.1991422Z   Downloading httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:05.2204853Z Collecting idna (from httpx==0.28.1->-r requirements.txt (line 9))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:05.2238857Z   Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:05.3847116Z Collecting psycopg-binary==3.2.3 (from psycopg[binary]==3.2.3->-r requirements.txt (line 4))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:05.3884032Z   Downloading psycopg_binary-3.2.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (2.8 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:05.4265429Z Collecting httptools>=0.6.3 (from uvicorn[standard]==0.34.0->-r requirements.txt (line 2))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:05.4302585Z   Downloading httptools-0.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (3.5 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:05.4732303Z Collecting pyyaml>=5.1 (from uvicorn[standard]==0.34.0->-r requirements.txt (line 2))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:05.4766011Z   Downloading pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:05.5206223Z Collecting uvloop!=0.15.0,!=0.15.1,>=0.14.0 (from uvicorn[standard]==0.34.0->-r requirements.txt (line 2))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:05.5243383Z   Downloading uvloop-0.23.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (5.1 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:05.6056174Z Collecting watchfiles>=0.13 (from uvicorn[standard]==0.34.0->-r requirements.txt (line 2))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:05.6093734Z   Downloading watchfiles-1.3.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.9 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:05.7271936Z Collecting websockets>=10.4 (from uvicorn[standard]==0.34.0->-r requirements.txt (line 2))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:05.7312026Z   Downloading websockets-17.2-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (6.3 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:05.7508159Z Collecting annotated-types>=0.6.0 (from pydantic!=1.8,!=1.8.1,!=2.0.0,!=2.0.1,!=2.1.0,<3.0.0,>=1.7.4->fastapi==0.115.6->-r requirements.txt (line 1))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:05.7544781Z   Downloading annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.4376463Z Collecting pydantic-core==2.46.5 (from pydantic!=1.8,!=1.8.1,!=2.0.0,!=2.0.1,!=2.1.0,<3.0.0,>=1.7.4->fastapi==0.115.6->-r requirements.txt (line 1))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.4416073Z   Downloading pydantic_core-2.46.5-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.6 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.4605858Z Collecting typing-inspection>=0.4.2 (from pydantic!=1.8,!=1.8.1,!=2.0.0,!=2.0.1,!=2.1.0,<3.0.0,>=1.7.4->fastapi==0.115.6->-r requirements.txt (line 1))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.4641175Z   Downloading typing_inspection-0.4.4-py3-none-any.whl.metadata (2.6 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.5390581Z Collecting MarkupSafe>=2.0 (from Mako->alembic==1.14.0->-r requirements.txt (line 7))
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.5431053Z   Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.5515635Z Downloading fastapi-0.115.6-py3-none-any.whl (94 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.5576374Z Downloading uvicorn-0.34.0-py3-none-any.whl (62 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.5634002Z Downloading SQLAlchemy-2.0.36-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.2 MB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.5888184Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.2/3.2 MB 159.1 MB/s  0:00:00
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.5924048Z Downloading psycopg-3.2.3-py3-none-any.whl (197 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.5984766Z Downloading pydantic_settings-2.7.1-py3-none-any.whl (29 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.6039787Z Downloading prometheus_fastapi_instrumentator-7.0.2-py3-none-any.whl (18 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.6091671Z Downloading alembic-1.14.0-py3-none-any.whl (233 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.6149714Z Downloading pytest-8.3.4-py3-none-any.whl (343 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.6210939Z Downloading httpx-0.28.1-py3-none-any.whl (73 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.6282333Z Downloading psycopg_binary-3.2.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.2 MB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.6449712Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.2/4.2 MB 274.6 MB/s  0:00:00
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.6484091Z Downloading httpcore-1.0.9-py3-none-any.whl (78 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.6540011Z Downloading pluggy-1.6.0-py3-none-any.whl (20 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.6599353Z Downloading prometheus_client-0.26.0-py3-none-any.whl (64 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.6667706Z Downloading pydantic-2.13.5-py3-none-any.whl (472 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.6744956Z Downloading pydantic_core-2.46.5-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.6880784Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 176.7 MB/s  0:00:00
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.6918500Z Downloading starlette-0.41.3-py3-none-any.whl (73 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.6982909Z Downloading anyio-4.15.1-py3-none-any.whl (132 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.7044654Z Downloading annotated_types-0.8.0-py3-none-any.whl (13 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.7154671Z Downloading click-8.5.0-py3-none-any.whl (125 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.7323331Z Downloading greenlet-3.5.6-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (621 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.7582825Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 621.4/621.4 kB 15.4 MB/s  0:00:00
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.7623766Z Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.9028950Z Downloading httptools-0.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (523 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.9104696Z Downloading idna-3.20-py3-none-any.whl (69 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.9159508Z Downloading python_dotenv-1.2.4-py3-none-any.whl (23 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.9217748Z Downloading pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (807 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.9468232Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 807.9/807.9 kB 24.7 MB/s  0:00:00
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.9503525Z Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.9557873Z Downloading typing_inspection-0.4.4-py3-none-any.whl (14 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.9612548Z Downloading uvloop-0.23.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (4.5 MB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.9785051Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.5/4.5 MB 298.3 MB/s  0:00:00
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.9823821Z Downloading watchfiles-1.3.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (458 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.9891825Z Downloading websockets-17.2-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (225 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:06.9948554Z Downloading certifi-2026.7.22-py3-none-any.whl (136 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:07.0005217Z Downloading iniconfig-2.3.1-py3-none-any.whl (7.6 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:07.0055470Z Downloading mako-1.4.3-py3-none-any.whl (80 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:07.0113396Z Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:07.0168033Z Downloading packaging-26.3-py3-none-any.whl (129 kB)
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:07.1997293Z Installing collected packages: websockets, uvloop, typing-extensions, pyyaml, python-dotenv, psycopg-binary, prometheus-client, pluggy, packaging, MarkupSafe, iniconfig, idna, httptools, h11, greenlet, click, certifi, annotated-types, uvicorn, typing-inspection, sqlalchemy, pytest, pydantic-core, psycopg, Mako, httpcore, anyio, watchfiles, starlette, pydantic, httpx, alembic, pydantic-settings, prometheus-fastapi-instrumentator, fastapi
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:10.6176455Z 
+taskboard	Run pip install -r requirements.txt	2026-10-07T16:39:10.6212620Z Successfully installed Mako-1.4.3 MarkupSafe-3.0.4 alembic-1.14.0 annotated-types-0.8.0 anyio-4.15.1 certifi-2026.7.22 click-8.5.0 fastapi-0.115.6 greenlet-3.5.6 h11-0.16.0 httpcore-1.0.9 httptools-0.8.0 httpx-0.28.1 idna-3.20 iniconfig-2.3.1 packaging-26.3 pluggy-1.6.0 prometheus-client-0.26.0 prometheus-fastapi-instrumentator-7.0.2 psycopg-3.2.3 psycopg-binary-3.2.3 pydantic-2.13.5 pydantic-core-2.46.5 pydantic-settings-2.7.1 pytest-8.3.4 python-dotenv-1.2.4 pyyaml-6.0.3 sqlalchemy-2.0.36 starlette-0.41.3 typing-extensions-4.16.0 typing-inspection-0.4.4 uvicorn-0.34.0 uvloop-0.23.0 watchfiles-1.3.0 websockets-17.2
+taskboard	Run pytest -v	﻿2026-10-07T16:39:10.7391863Z ##[group]Run pytest -v
+taskboard	Run pytest -v	2026-10-07T16:39:10.7392185Z ^[[36;1mpytest -v^[[0m
+taskboard	Run pytest -v	2026-10-07T16:39:10.7460121Z shell: /usr/bin/bash -e {0}
+taskboard	Run pytest -v	2026-10-07T16:39:10.7460428Z env:
+taskboard	Run pytest -v	2026-10-07T16:39:10.7460738Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.14/x64
+taskboard	Run pytest -v	2026-10-07T16:39:10.7461260Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib/pkgconfig
+taskboard	Run pytest -v	2026-10-07T16:39:10.7461789Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+taskboard	Run pytest -v	2026-10-07T16:39:10.7462253Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+taskboard	Run pytest -v	2026-10-07T16:39:10.7462721Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+taskboard	Run pytest -v	2026-10-07T16:39:10.7463186Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib
+taskboard	Run pytest -v	2026-10-07T16:39:10.7463582Z ##[endgroup]
+taskboard	Run pytest -v	2026-10-07T16:39:11.5744613Z ============================= test session starts ==============================
+taskboard	Run pytest -v	2026-10-07T16:39:11.5746006Z platform linux -- Python 3.12.14, pytest-8.3.4, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.12.14/x64/bin/python
+taskboard	Run pytest -v	2026-10-07T16:39:11.5747074Z cachedir: .pytest_cache
+taskboard	Run pytest -v	2026-10-07T16:39:11.5747818Z rootdir: /home/runner/work/devops-heros/devops-heros/session21-python/taskboard/backend
+taskboard	Run pytest -v	2026-10-07T16:39:11.5748639Z configfile: pytest.ini
+taskboard	Run pytest -v	2026-10-07T16:39:11.5749058Z plugins: anyio-4.15.1
+taskboard	Run pytest -v	2026-10-07T16:39:12.3175254Z collecting ... collected 10 items
+taskboard	Run pytest -v	2026-10-07T16:39:12.3175837Z 
+taskboard	Run pytest -v	2026-10-07T16:39:12.3378491Z tests/test_api.py::test_health PASSED                                    [ 10%]
+taskboard	Run pytest -v	2026-10-07T16:39:12.3497715Z tests/test_api.py::test_root PASSED                                      [ 20%]
+taskboard	Run pytest -v	2026-10-07T16:39:12.3745518Z tests/test_api.py::test_create_and_read_task PASSED                      [ 30%]
+taskboard	Run pytest -v	2026-10-07T16:39:12.3891370Z tests/test_api.py::test_list_tasks PASSED                                [ 40%]
+taskboard	Run pytest -v	2026-10-07T16:39:12.4214823Z tests/test_api.py::test_update_task PASSED                               [ 50%]
+taskboard	Run pytest -v	2026-10-07T16:39:12.4552751Z tests/test_api.py::test_delete_task PASSED                               [ 60%]
+taskboard	Run pytest -v	2026-10-07T16:39:12.4964610Z tests/test_api.py::test_missing_task PASSED                              [ 70%]
+taskboard	Run pytest -v	2026-10-07T16:39:12.5091211Z tests/test_api.py::test_invalid_payload PASSED                           [ 80%]
+taskboard	Run pytest -v	2026-10-07T16:39:12.5683806Z tests/test_api.py::test_stats PASSED                                     [ 90%]
+taskboard	Run pytest -v	2026-10-07T16:39:12.5815265Z tests/test_api.py::test_metrics PASSED                                   [100%]
+taskboard	Run pytest -v	2026-10-07T16:39:12.5816166Z 
+taskboard	Run pytest -v	2026-10-07T16:39:12.5816767Z =============================== warnings summary ===============================
+taskboard	Run pytest -v	2026-10-07T16:39:12.5817968Z ../../../../../../../../opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/starlette/testclient.py:40
+taskboard	Run pytest -v	2026-10-07T16:39:12.5820222Z   /opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/starlette/testclient.py:40: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+taskboard	Run pytest -v	2026-10-07T16:39:12.5822219Z     _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+taskboard	Run pytest -v	2026-10-07T16:39:12.5823067Z 
+taskboard	Run pytest -v	2026-10-07T16:39:12.5823369Z app/main.py:16
+taskboard	Run pytest -v	2026-10-07T16:39:12.5824305Z   /home/runner/work/devops-heros/devops-heros/session21-python/taskboard/backend/app/main.py:16: DeprecationWarning: 
+taskboard	Run pytest -v	2026-10-07T16:39:12.5825502Z           on_event is deprecated, use lifespan event handlers instead.
+taskboard	Run pytest -v	2026-10-07T16:39:12.5826224Z   
+taskboard	Run pytest -v	2026-10-07T16:39:12.5826683Z           Read more about it in the
+taskboard	Run pytest -v	2026-10-07T16:39:12.5827524Z           [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+taskboard	Run pytest -v	2026-10-07T16:39:12.5828373Z           
+taskboard	Run pytest -v	2026-10-07T16:39:12.5828848Z     @app.on_event("startup")
+taskboard	Run pytest -v	2026-10-07T16:39:12.5829518Z 
+taskboard	Run pytest -v	2026-10-07T16:39:12.5830229Z ../../../../../../../../opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/fastapi/applications.py:4495
+taskboard	Run pytest -v	2026-10-07T16:39:12.5831683Z   /opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/fastapi/applications.py:4495: DeprecationWarning: 
+taskboard	Run pytest -v	2026-10-07T16:39:12.5833208Z           on_event is deprecated, use lifespan event handlers instead.
+taskboard	Run pytest -v	2026-10-07T16:39:12.5833912Z   
+taskboard	Run pytest -v	2026-10-07T16:39:12.5834373Z           Read more about it in the
+taskboard	Run pytest -v	2026-10-07T16:39:12.5835193Z           [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+taskboard	Run pytest -v	2026-10-07T16:39:12.5836014Z           
+taskboard	Run pytest -v	2026-10-07T16:39:12.5836509Z     return self.router.on_event(event_type)
+taskboard	Run pytest -v	2026-10-07T16:39:12.5836984Z 
+taskboard	Run pytest -v	2026-10-07T16:39:12.5837484Z -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+taskboard	Run pytest -v	2026-10-07T16:39:12.5838391Z ======================== 10 passed, 3 warnings in 1.01s ========================
+taskboard	Post Run actions/setup-python@v5	﻿2026-10-07T16:39:12.8501586Z Post job cleanup.
+taskboard	Post Run actions/setup-python@v5	2026-10-07T16:39:12.9716191Z (node:2419) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+taskboard	Post Run actions/setup-python@v5	2026-10-07T16:39:12.9717291Z (Use `node --trace-deprecation ...` to show where the warning was created)
+taskboard	Post Run actions/checkout@v4	﻿2026-10-07T16:39:13.0062226Z Post job cleanup.
+taskboard	Post Run actions/checkout@v4	2026-10-07T16:39:13.0988037Z [command]/usr/bin/git version
+taskboard	Post Run actions/checkout@v4	2026-10-07T16:39:13.1041450Z git version 2.55.0
+taskboard	Post Run actions/checkout@v4	2026-10-07T16:39:13.1084745Z Temporarily overriding HOME='/home/runner/work/_temp/e4b5e4b5-a2a1-4757-bdbc-215ad8c48608' before making global git config changes
+taskboard	Post Run actions/checkout@v4	2026-10-07T16:39:13.1086471Z Adding repository directory to the temporary git global config as a safe directory
+taskboard	Post Run actions/checkout@v4	2026-10-07T16:39:13.1093246Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/devops-heros/devops-heros
+taskboard	Post Run actions/checkout@v4	2026-10-07T16:39:13.1500999Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+taskboard	Post Run actions/checkout@v4	2026-10-07T16:39:13.1541246Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+taskboard	Post Run actions/checkout@v4	2026-10-07T16:39:13.1817874Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+taskboard	Post Run actions/checkout@v4	2026-10-07T16:39:13.3045007Z http.https://github.com/.extraheader
+taskboard	Post Run actions/checkout@v4	2026-10-07T16:39:13.3062668Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+taskboard	Post Run actions/checkout@v4	2026-10-07T16:39:13.3994232Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+taskboard	Post Run actions/checkout@v4	2026-10-07T16:39:13.4236971Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+taskboard	Post Run actions/checkout@v4	2026-10-07T16:39:13.4272912Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+taskboard	Complete job	﻿2026-10-07T16:39:13.5227241Z Cleaning up orphan processes
+taskboard	Complete job	2026-10-07T16:39:13.5555659Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

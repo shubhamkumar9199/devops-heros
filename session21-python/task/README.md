@@ -34,3 +34,5 @@ Result: 10 API tests passed. A task created in the browser was retrieved through
 
 - [compose tests](logs/compose-tests.log)
 - [frontend build](logs/frontend-build.log)
+
+[GitHub API tests passed](https://github.com/shubhamkumar9199/devops-heros/actions/runs/37653691195).

@@ -23,15 +23,19 @@ kubectl get pvc,hpa,pods -n production-webapp
 kubectl top pods -n production-webapp
 ```
 
-The 500 MiB PVC became Bound. Read/write checks passed, and CPU load increased replicas from 2 to 5. Readiness controls traffic; liveness restarts an unhealthy container; startup protects initialization. The separate HTTP load-generator workflow is prepared for execution after publication.
+The 500 MiB PVC became Bound. Read/write checks passed, and CPU load increased replicas from 2 to 5. Readiness controls traffic; liveness restarts an unhealthy container; startup protects initialization. [GitHub load test passed](https://github.com/shubhamkumar9199/devops-heros/actions/runs/37653689884): the HTTP load generator ran and CPU load triggered autoscaling.
 
 ## Screenshots
+
+![GitHub autoscaling](screenshots/github-hpa.png)
 
 ![Hpa](screenshots/hpa.png)
 
 ![Storage](screenshots/storage.png)
 
 ## Command output
+
+- [GitHub HPA run](logs/github-hpa.log)
 
 - [cluster](logs/cluster.log)
 - [hpa](logs/hpa.log)

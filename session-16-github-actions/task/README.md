@@ -21,12 +21,15 @@ Result: 9 tests passed and the build completed. The Docker example calculated `9
 
 A runner executes jobs; jobs contain steps. Secrets supply sensitive runtime values, and artifacts retain build output. CI checks changes; CD deploys validated changes.
 
-[Workflow](../../.github/workflows/homework-ci.yml). GitHub execution is pending.
+[Workflow](../../.github/workflows/homework-ci.yml). [GitHub run passed](https://github.com/shubhamkumar9199/devops-heros/actions/runs/37653691195): calculator tests, build artifact and 10 application API tests.
 
 ## Screenshots
+
+![GitHub CI](screenshots/github-ci.png)
 
 ![Calculator](screenshots/calculator.png)
 
 ## Command output
 
 - [calculator](logs/calculator.log)
+- [GitHub CI](logs/github-ci.log)

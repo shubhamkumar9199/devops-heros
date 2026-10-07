@@ -1,0 +1,440 @@
+autoscale	Set up job	﻿2026-10-07T16:39:00.6735043Z Current runner version: '2.337.0'
+autoscale	Set up job	2026-10-07T16:39:00.6771065Z ##[group]Runner Image Provisioner
+autoscale	Set up job	2026-10-07T16:39:00.6772604Z Hosted Compute Agent
+autoscale	Set up job	2026-10-07T16:39:00.6773742Z Version: 20261002.596
+autoscale	Set up job	2026-10-07T16:39:00.6774784Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+autoscale	Set up job	2026-10-07T16:39:00.6776128Z Build Date: 2026-10-02T22:28:27Z
+autoscale	Set up job	2026-10-07T16:39:00.6777263Z Worker ID: {5550644d-635d-43f1-bb29-c20aa27edfbd}
+autoscale	Set up job	2026-10-07T16:39:00.6778467Z Region: eastus
+autoscale	Set up job	2026-10-07T16:39:00.6779327Z Cloud: Azure
+autoscale	Set up job	2026-10-07T16:39:00.6780247Z ##[endgroup]
+autoscale	Set up job	2026-10-07T16:39:00.6783038Z ##[group]Operating System
+autoscale	Set up job	2026-10-07T16:39:00.6784120Z Ubuntu
+autoscale	Set up job	2026-10-07T16:39:00.6785009Z 24.04.5
+autoscale	Set up job	2026-10-07T16:39:00.6785830Z LTS
+autoscale	Set up job	2026-10-07T16:39:00.6786661Z ##[endgroup]
+autoscale	Set up job	2026-10-07T16:39:00.6787755Z ##[group]Runner Image
+autoscale	Set up job	2026-10-07T16:39:00.6788723Z Image: ubuntu-24.04
+autoscale	Set up job	2026-10-07T16:39:00.6789667Z Version: 20261004.327.1
+autoscale	Set up job	2026-10-07T16:39:00.6791567Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md
+autoscale	Set up job	2026-10-07T16:39:00.6794899Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327
+autoscale	Set up job	2026-10-07T16:39:00.6796561Z ##[endgroup]
+autoscale	Set up job	2026-10-07T16:39:00.6798440Z ##[group]GITHUB_TOKEN Permissions
+autoscale	Set up job	2026-10-07T16:39:00.6802586Z Contents: read
+autoscale	Set up job	2026-10-07T16:39:00.6803582Z Metadata: read
+autoscale	Set up job	2026-10-07T16:39:00.6804573Z ##[endgroup]
+autoscale	Set up job	2026-10-07T16:39:00.6807403Z Secret source: Actions
+autoscale	Set up job	2026-10-07T16:39:00.6809075Z Cache mode: write
+autoscale	Set up job	2026-10-07T16:39:00.6810605Z Prepare workflow directory
+autoscale	Set up job	2026-10-07T16:39:00.7274908Z Prepare all required actions
+autoscale	Set up job	2026-10-07T16:39:00.7344987Z Getting action download info
+autoscale	Set up job	2026-10-07T16:39:00.9603114Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+autoscale	Set up job	2026-10-07T16:39:01.0566446Z Download action repository 'helm/kind-action@v1.10.0' (SHA:0025e74a8c7512023d06dc019c617aa3cf561fde)
+autoscale	Set up job	2026-10-07T16:39:01.1776091Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+autoscale	Set up job	2026-10-07T16:39:01.3937692Z Complete job name: autoscale
+autoscale	Run actions/checkout@v4	﻿2026-10-07T16:39:01.4720074Z ##[group]Run actions/checkout@v4
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.4720987Z with:
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.4721455Z   repository: shubhamkumar9199/devops-heros
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.4725455Z   token: ***
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.4725890Z   ssh-strict: true
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.4726312Z   ssh-user: git
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.4726746Z   persist-credentials: true
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.4727209Z   clean: true
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.4727645Z   sparse-checkout-cone-mode: true
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.4728153Z   fetch-depth: 1
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.4728570Z   fetch-tags: false
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.4729002Z   show-progress: true
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.4729445Z   lfs: false
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.4729848Z   submodules: false
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.4730287Z   set-safe-directory: true
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.4730782Z   allow-unsafe-pr-checkout: false
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.4731536Z ##[endgroup]
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.5783845Z Syncing repository: shubhamkumar9199/devops-heros
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.5786772Z ##[group]Getting Git version info
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.5787589Z Working directory is '/home/runner/work/devops-heros/devops-heros'
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.5788910Z [command]/usr/bin/git version
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.5883726Z git version 2.55.0
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.5907713Z ##[endgroup]
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.5929541Z Temporarily overriding HOME='/home/runner/work/_temp/9e7195a0-ee8a-4aa0-b4bb-0464df3179c7' before making global git config changes
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.5932225Z Adding repository directory to the temporary git global config as a safe directory
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.5936051Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/devops-heros/devops-heros
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.5995656Z Deleting the contents of '/home/runner/work/devops-heros/devops-heros'
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.6001258Z ##[group]Initializing the repository
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.6006602Z [command]/usr/bin/git init /home/runner/work/devops-heros/devops-heros
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.6146873Z hint: Using 'master' as the name for the initial branch. This default branch name
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.6149139Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.6151103Z hint: to use in all of your new repositories, which will suppress this warning,
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.6153335Z hint: call:
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.6154272Z hint:
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.6155399Z hint: 	git config --global init.defaultBranch <name>
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.6156620Z hint:
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.6157788Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.6159910Z hint: 'development'. The just-created branch can be renamed via this command:
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.6161418Z hint:
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.6162385Z hint: 	git branch -m <name>
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.6163280Z hint:
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.6164429Z hint: Disable this message with "git config set advice.defaultBranchName false"
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.6166345Z Initialized empty Git repository in /home/runner/work/devops-heros/devops-heros/.git/
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.6169393Z [command]/usr/bin/git remote add origin https://github.com/shubhamkumar9199/devops-heros
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.6227692Z ##[endgroup]
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.6229202Z ##[group]Disabling automatic garbage collection
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.6232299Z [command]/usr/bin/git config --local gc.auto 0
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.6272979Z ##[endgroup]
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.6274583Z ##[group]Setting up auth
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.6280832Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.6343687Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.6836749Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.6884152Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.7162897Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.7215713Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.7479659Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.7525349Z ##[endgroup]
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.7526873Z ##[group]Fetching the repository
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:01.7536939Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +e9e5530966c6fdc4af71e231b46db440da2f9b7d:refs/remotes/origin/main
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:02.2587603Z From https://github.com/shubhamkumar9199/devops-heros
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:02.2590192Z  * [new ref]         e9e5530966c6fdc4af71e231b46db440da2f9b7d -> origin/main
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:02.2624067Z ##[endgroup]
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:02.2625445Z ##[group]Determining the checkout info
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:02.2627050Z ##[endgroup]
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:02.2627974Z [command]/usr/bin/git sparse-checkout disable
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:02.2664497Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:02.2704575Z ##[group]Checking out the ref
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:02.2712303Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:02.3496342Z Switched to a new branch 'main'
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:02.3500189Z branch 'main' set up to track 'origin/main'.
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:02.3512486Z ##[endgroup]
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:02.3562936Z [command]/usr/bin/git log -1 --format=%H
+autoscale	Run actions/checkout@v4	2026-10-07T16:39:02.3590655Z e9e5530966c6fdc4af71e231b46db440da2f9b7d
+autoscale	Run helm/kind-action@v1.10.0	﻿2026-10-07T16:39:02.3915681Z ##[group]Run helm/kind-action@v1.10.0
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:02.3917034Z with:
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:02.3917962Z   version: v0.22.0
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:02.3919012Z   cluster_name: chart-testing
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:02.3920338Z   wait: 60s
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:02.3921273Z   verbosity: 0
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:02.3922504Z   kubectl_version: v1.29.3
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:02.3923654Z   ignore_failed_clean: false
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:02.3924770Z ##[endgroup]
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:02.4296244Z Installing kind...
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:02.4312182Z /opt/hostedtoolcache/kind/v0.22.0/amd64/kind/bin ~/work/devops-heros/devops-heros
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:02.8168115Z kind-linux-amd64: OK
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:02.8206263Z ~/work/devops-heros/devops-heros
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:02.8206856Z Adding kind directory to PATH...
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:02.8207300Z Installing kubectl...
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:03.1749968Z Adding kubectl directory to PATH...
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:03.1772304Z kind v0.22.0 go1.20.13 linux/amd64
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:03.2160750Z Client Version: v1.29.3
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:03.2161725Z Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:03.2176452Z Creating kind cluster...
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:03.7087973Z Creating cluster "chart-testing" ...
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:03.7088859Z  • Ensuring node image (kindest/node:v1.29.2) 🖼  ...
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:13.5256398Z  ✓ Ensuring node image (kindest/node:v1.29.2) 🖼
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:13.5257131Z  • Preparing nodes 📦   ...
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:15.3304464Z  ✓ Preparing nodes 📦 
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:15.3586599Z  • Writing configuration 📜  ...
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:15.5483829Z  ✓ Writing configuration 📜
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:15.5485184Z  • Starting control-plane 🕹️  ...
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:26.5509179Z  ✓ Starting control-plane 🕹️
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:26.5509891Z  • Installing CNI 🔌  ...
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:26.8227613Z  ✓ Installing CNI 🔌
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:26.8229190Z  • Installing StorageClass 💾  ...
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:27.1270228Z  ✓ Installing StorageClass 💾
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:27.1552130Z  • Waiting ≤ 1m0s for control-plane = Ready ⏳  ...
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:43.7875697Z  ✓ Waiting ≤ 1m0s for control-plane = Ready ⏳
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:43.7893791Z  • Ready after 17s 💚
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:43.9384683Z Set kubectl context to "kind-chart-testing"
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:43.9385311Z You can now use your cluster with:
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:43.9385555Z 
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:43.9385710Z kubectl cluster-info --context kind-chart-testing
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:43.9385986Z 
+autoscale	Run helm/kind-action@v1.10.0	2026-10-07T16:39:43.9386603Z Not sure what to do next? 😅  Check out https://kind.sigs.k8s.io/docs/user/quick-start/
+autoscale	Metrics and application	﻿2026-10-07T16:39:43.9508782Z ##[group]Run ln -s "$GITHUB_WORKSPACE" "$HOME/devops-heros"
+autoscale	Metrics and application	2026-10-07T16:39:43.9509335Z ^[[36;1mln -s "$GITHUB_WORKSPACE" "$HOME/devops-heros"^[[0m
+autoscale	Metrics and application	2026-10-07T16:39:43.9510004Z ^[[36;1mkubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.7.2/components.yaml^[[0m
+autoscale	Metrics and application	2026-10-07T16:39:43.9511066Z ^[[36;1mkubectl patch deployment metrics-server -n kube-system --type=json -p='[{"op":"add","path":"/spec/template/spec/containers/0/args/-","value":"--kubelet-insecure-tls"}]'^[[0m
+autoscale	Metrics and application	2026-10-07T16:39:43.9512289Z ^[[36;1mkubectl rollout status deployment/metrics-server -n kube-system --timeout=180s^[[0m
+autoscale	Metrics and application	2026-10-07T16:39:43.9512793Z ^[[36;1mcd 'session-13-storage-hpa-probes'^[[0m
+autoscale	Metrics and application	2026-10-07T16:39:43.9513165Z ^[[36;1mkubectl apply -f mini-project/namespace.yaml^[[0m
+autoscale	Metrics and application	2026-10-07T16:39:43.9513538Z ^[[36;1mkubectl apply -f mini-project/^[[0m
+autoscale	Metrics and application	2026-10-07T16:39:43.9514013Z ^[[36;1mkubectl rollout status deployment/web-app -n production-webapp --timeout=180s^[[0m
+autoscale	Metrics and application	2026-10-07T16:39:43.9514673Z ^[[36;1mkubectl wait --for=condition=Ready pod/load-generator -n production-webapp --timeout=120s^[[0m
+autoscale	Metrics and application	2026-10-07T16:39:43.9515233Z ^[[36;1mkubectl get pods -n production-webapp^[[0m
+autoscale	Metrics and application	2026-10-07T16:39:43.9515537Z ^[[36;1msleep 30^[[0m
+autoscale	Metrics and application	2026-10-07T16:39:43.9848930Z shell: /usr/bin/bash -e {0}
+autoscale	Metrics and application	2026-10-07T16:39:43.9849407Z ##[endgroup]
+autoscale	Metrics and application	2026-10-07T16:39:44.4766948Z serviceaccount/metrics-server created
+autoscale	Metrics and application	2026-10-07T16:39:44.4823915Z clusterrole.rbac.authorization.k8s.io/system:aggregated-metrics-reader created
+autoscale	Metrics and application	2026-10-07T16:39:44.4898539Z clusterrole.rbac.authorization.k8s.io/system:metrics-server created
+autoscale	Metrics and application	2026-10-07T16:39:44.5004860Z rolebinding.rbac.authorization.k8s.io/metrics-server-auth-reader created
+autoscale	Metrics and application	2026-10-07T16:39:44.5136870Z clusterrolebinding.rbac.authorization.k8s.io/metrics-server:system:auth-delegator created
+autoscale	Metrics and application	2026-10-07T16:39:44.5176298Z clusterrolebinding.rbac.authorization.k8s.io/system:metrics-server created
+autoscale	Metrics and application	2026-10-07T16:39:44.5386938Z service/metrics-server created
+autoscale	Metrics and application	2026-10-07T16:39:44.5524185Z deployment.apps/metrics-server created
+autoscale	Metrics and application	2026-10-07T16:39:44.5654963Z apiservice.apiregistration.k8s.io/v1beta1.metrics.k8s.io created
+autoscale	Metrics and application	2026-10-07T16:39:44.6726162Z deployment.apps/metrics-server patched
+autoscale	Metrics and application	2026-10-07T16:39:44.7897815Z Waiting for deployment "metrics-server" rollout to finish: 0 out of 1 new replicas have been updated...
+autoscale	Metrics and application	2026-10-07T16:39:44.7904169Z Waiting for deployment "metrics-server" rollout to finish: 1 old replicas are pending termination...
+autoscale	Metrics and application	2026-10-07T16:40:15.1068561Z Waiting for deployment "metrics-server" rollout to finish: 1 old replicas are pending termination...
+autoscale	Metrics and application	2026-10-07T16:40:15.1254860Z Waiting for deployment "metrics-server" rollout to finish: 1 old replicas are pending termination...
+autoscale	Metrics and application	2026-10-07T16:40:15.1403647Z deployment "metrics-server" successfully rolled out
+autoscale	Metrics and application	2026-10-07T16:40:15.2699230Z namespace/production-webapp created
+autoscale	Metrics and application	2026-10-07T16:40:15.4991113Z deployment.apps/web-app created
+autoscale	Metrics and application	2026-10-07T16:40:15.5087738Z horizontalpodautoscaler.autoscaling/web-app-hpa created
+autoscale	Metrics and application	2026-10-07T16:40:15.5255483Z pod/load-generator created
+autoscale	Metrics and application	2026-10-07T16:40:15.5967390Z namespace/production-webapp unchanged
+autoscale	Metrics and application	2026-10-07T16:40:15.6068323Z persistentvolumeclaim/web-data created
+autoscale	Metrics and application	2026-10-07T16:40:15.6367163Z service/web-service created
+autoscale	Metrics and application	2026-10-07T16:40:15.7017678Z Waiting for deployment "web-app" rollout to finish: 0 of 2 updated replicas are available...
+autoscale	Metrics and application	2026-10-07T16:40:31.1298414Z Waiting for deployment "web-app" rollout to finish: 1 of 2 updated replicas are available...
+autoscale	Metrics and application	2026-10-07T16:40:31.1386093Z deployment "web-app" successfully rolled out
+autoscale	Metrics and application	2026-10-07T16:40:31.2957585Z pod/load-generator condition met
+autoscale	Metrics and application	2026-10-07T16:40:31.3481744Z NAME                       READY   STATUS    RESTARTS   AGE
+autoscale	Metrics and application	2026-10-07T16:40:31.3482682Z load-generator             1/1     Running   0          16s
+autoscale	Metrics and application	2026-10-07T16:40:31.3487938Z web-app-795c977586-gx8jz   1/1     Running   0          16s
+autoscale	Metrics and application	2026-10-07T16:40:31.3488919Z web-app-795c977586-vgwp8   1/1     Running   0          16s
+autoscale	Load and verify scaling	﻿2026-10-07T16:41:01.3576071Z ##[group]Run bash assignment-scripts/session13-load.sh | tee hpa-evidence.log
+autoscale	Load and verify scaling	2026-10-07T16:41:01.3576702Z ^[[36;1mbash assignment-scripts/session13-load.sh | tee hpa-evidence.log^[[0m
+autoscale	Load and verify scaling	2026-10-07T16:41:01.3577342Z ^[[36;1mreplicas=$(kubectl get deployment web-app -n production-webapp -o jsonpath='{.spec.replicas}')^[[0m
+autoscale	Load and verify scaling	2026-10-07T16:41:01.3577864Z ^[[36;1mtest "$replicas" -gt 2^[[0m
+autoscale	Load and verify scaling	2026-10-07T16:41:01.3578177Z ^[[36;1mkubectl get hpa,pods -n production-webapp^[[0m
+autoscale	Load and verify scaling	2026-10-07T16:41:01.3578610Z ^[[36;1mkubectl logs load-generator -n production-webapp --tail=10^[[0m
+autoscale	Load and verify scaling	2026-10-07T16:41:01.3659089Z shell: /usr/bin/bash -e {0}
+autoscale	Load and verify scaling	2026-10-07T16:41:01.3659374Z ##[endgroup]
+autoscale	Load and verify scaling	2026-10-07T16:41:01.3771315Z + export PATH=/home/runner/.local/bin:/opt/hostedtoolcache/kind/v0.22.0/amd64/kubectl/bin/:/opt/hostedtoolcache/kind/v0.22.0/amd64/kind/bin/:/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+autoscale	Load and verify scaling	2026-10-07T16:41:01.3776518Z + PATH=/home/runner/.local/bin:/opt/hostedtoolcache/kind/v0.22.0/amd64/kubectl/bin/:/opt/hostedtoolcache/kind/v0.22.0/amd64/kind/bin/:/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+autoscale	Load and verify scaling	2026-10-07T16:41:01.3779154Z + load_job=14176
+autoscale	Load and verify scaling	2026-10-07T16:41:01.3780024Z + kubectl exec -n production-webapp deployment/web-app -- sh -c 'yes >/dev/null & load_pid=$!; sleep 120; kill "$load_pid"'
+autoscale	Load and verify scaling	2026-10-07T16:41:01.3780873Z ++ seq 1 8
+autoscale	Load and verify scaling	2026-10-07T16:41:01.3797235Z + for attempt in $(seq 1 8)
+autoscale	Load and verify scaling	2026-10-07T16:41:01.3798107Z + kubectl top pods -n production-webapp
+autoscale	Load and verify scaling	2026-10-07T16:41:01.4404654Z NAME                       CPU(cores)   MEMORY(bytes)   
+autoscale	Load and verify scaling	2026-10-07T16:41:01.4405791Z load-generator             101m         1Mi             
+autoscale	Load and verify scaling	2026-10-07T16:41:01.4406384Z web-app-795c977586-gx8jz   9m           4Mi             
+autoscale	Load and verify scaling	2026-10-07T16:41:01.4406895Z web-app-795c977586-vgwp8   7m           5Mi             
+autoscale	Load and verify scaling	2026-10-07T16:41:01.4422256Z + kubectl get hpa,pods -n production-webapp
+autoscale	Load and verify scaling	2026-10-07T16:41:01.5156639Z NAME                                              REFERENCE            TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+autoscale	Load and verify scaling	2026-10-07T16:41:01.5158085Z horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   7%/50%    2         5         2          46s
+autoscale	Load and verify scaling	2026-10-07T16:41:01.5162316Z 
+autoscale	Load and verify scaling	2026-10-07T16:41:01.5162668Z NAME                           READY   STATUS    RESTARTS   AGE
+autoscale	Load and verify scaling	2026-10-07T16:41:01.5163374Z pod/load-generator             1/1     Running   0          46s
+autoscale	Load and verify scaling	2026-10-07T16:41:01.5164152Z pod/web-app-795c977586-gx8jz   1/1     Running   0          46s
+autoscale	Load and verify scaling	2026-10-07T16:41:01.5164813Z pod/web-app-795c977586-vgwp8   1/1     Running   0          46s
+autoscale	Load and verify scaling	2026-10-07T16:41:01.5177201Z + sleep 15
+autoscale	Load and verify scaling	2026-10-07T16:41:16.5194068Z + for attempt in $(seq 1 8)
+autoscale	Load and verify scaling	2026-10-07T16:41:16.5194945Z + kubectl top pods -n production-webapp
+autoscale	Load and verify scaling	2026-10-07T16:41:16.5733823Z NAME                       CPU(cores)   MEMORY(bytes)   
+autoscale	Load and verify scaling	2026-10-07T16:41:16.5734830Z load-generator             101m         1Mi             
+autoscale	Load and verify scaling	2026-10-07T16:41:16.5735669Z web-app-795c977586-gx8jz   6m           4Mi             
+autoscale	Load and verify scaling	2026-10-07T16:41:16.5736356Z web-app-795c977586-vgwp8   7m           5Mi             
+autoscale	Load and verify scaling	2026-10-07T16:41:16.5737044Z + kubectl get hpa,pods -n production-webapp
+autoscale	Load and verify scaling	2026-10-07T16:41:16.6323276Z NAME                                              REFERENCE            TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+autoscale	Load and verify scaling	2026-10-07T16:41:16.6324909Z horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   6%/50%    2         5         2          61s
+autoscale	Load and verify scaling	2026-10-07T16:41:16.6328086Z 
+autoscale	Load and verify scaling	2026-10-07T16:41:16.6329529Z NAME                           READY   STATUS    RESTARTS   AGE
+autoscale	Load and verify scaling	2026-10-07T16:41:16.6330854Z pod/load-generator             1/1     Running   0          61s
+autoscale	Load and verify scaling	2026-10-07T16:41:16.6332916Z pod/web-app-795c977586-gx8jz   1/1     Running   0          61s
+autoscale	Load and verify scaling	2026-10-07T16:41:16.6333946Z pod/web-app-795c977586-vgwp8   1/1     Running   0          61s
+autoscale	Load and verify scaling	2026-10-07T16:41:16.6348271Z + sleep 15
+autoscale	Load and verify scaling	2026-10-07T16:41:31.6367835Z + for attempt in $(seq 1 8)
+autoscale	Load and verify scaling	2026-10-07T16:41:31.6368898Z + kubectl top pods -n production-webapp
+autoscale	Load and verify scaling	2026-10-07T16:41:31.6922310Z NAME                       CPU(cores)   MEMORY(bytes)   
+autoscale	Load and verify scaling	2026-10-07T16:41:31.6923320Z load-generator             100m         1Mi             
+autoscale	Load and verify scaling	2026-10-07T16:41:31.6924013Z web-app-795c977586-gx8jz   130m         6Mi             
+autoscale	Load and verify scaling	2026-10-07T16:41:31.6924706Z web-app-795c977586-vgwp8   7m           5Mi             
+autoscale	Load and verify scaling	2026-10-07T16:41:31.6943829Z + kubectl get hpa,pods -n production-webapp
+autoscale	Load and verify scaling	2026-10-07T16:41:31.7480920Z NAME                                              REFERENCE            TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+autoscale	Load and verify scaling	2026-10-07T16:41:31.7482526Z horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   68%/50%   2         5         2          76s
+autoscale	Load and verify scaling	2026-10-07T16:41:31.7488139Z 
+autoscale	Load and verify scaling	2026-10-07T16:41:31.7488469Z NAME                           READY   STATUS    RESTARTS   AGE
+autoscale	Load and verify scaling	2026-10-07T16:41:31.7489240Z pod/load-generator             1/1     Running   0          76s
+autoscale	Load and verify scaling	2026-10-07T16:41:31.7489895Z pod/web-app-795c977586-gx8jz   1/1     Running   0          76s
+autoscale	Load and verify scaling	2026-10-07T16:41:31.7502747Z pod/web-app-795c977586-vgwp8   1/1     Running   0          76s
+autoscale	Load and verify scaling	2026-10-07T16:41:31.7503676Z pod/web-app-795c977586-wkkrc   0/1     Running   0          1s
+autoscale	Load and verify scaling	2026-10-07T16:41:31.7504465Z + sleep 15
+autoscale	Load and verify scaling	2026-10-07T16:41:46.7522894Z + for attempt in $(seq 1 8)
+autoscale	Load and verify scaling	2026-10-07T16:41:46.7523890Z + kubectl top pods -n production-webapp
+autoscale	Load and verify scaling	2026-10-07T16:41:46.8101652Z NAME                       CPU(cores)   MEMORY(bytes)   
+autoscale	Load and verify scaling	2026-10-07T16:41:46.8102953Z load-generator             100m         2Mi             
+autoscale	Load and verify scaling	2026-10-07T16:41:46.8103553Z web-app-795c977586-gx8jz   200m         5Mi             
+autoscale	Load and verify scaling	2026-10-07T16:41:46.8104223Z web-app-795c977586-vgwp8   7m           5Mi             
+autoscale	Load and verify scaling	2026-10-07T16:41:46.8117839Z + kubectl get hpa,pods -n production-webapp
+autoscale	Load and verify scaling	2026-10-07T16:41:46.8682336Z NAME                                              REFERENCE            TARGETS    MINPODS   MAXPODS   REPLICAS   AGE
+autoscale	Load and verify scaling	2026-10-07T16:41:46.8684534Z horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   103%/50%   2         5         3          91s
+autoscale	Load and verify scaling	2026-10-07T16:41:46.8694879Z 
+autoscale	Load and verify scaling	2026-10-07T16:41:46.8697444Z NAME                           READY   STATUS    RESTARTS   AGE
+autoscale	Load and verify scaling	2026-10-07T16:41:46.8698205Z pod/load-generator             1/1     Running   0          91s
+autoscale	Load and verify scaling	2026-10-07T16:41:46.8710887Z pod/web-app-795c977586-47trq   0/1     Running   0          1s
+autoscale	Load and verify scaling	2026-10-07T16:41:46.8711683Z pod/web-app-795c977586-bzpc7   0/1     Running   0          1s
+autoscale	Load and verify scaling	2026-10-07T16:41:46.8713037Z pod/web-app-795c977586-gx8jz   1/1     Running   0          91s
+autoscale	Load and verify scaling	2026-10-07T16:41:46.8713735Z pod/web-app-795c977586-vgwp8   1/1     Running   0          91s
+autoscale	Load and verify scaling	2026-10-07T16:41:46.8714414Z pod/web-app-795c977586-wkkrc   1/1     Running   0          16s
+autoscale	Load and verify scaling	2026-10-07T16:41:46.8721824Z + sleep 15
+autoscale	Load and verify scaling	2026-10-07T16:42:01.8734211Z + for attempt in $(seq 1 8)
+autoscale	Load and verify scaling	2026-10-07T16:42:01.8735150Z + kubectl top pods -n production-webapp
+autoscale	Load and verify scaling	2026-10-07T16:42:01.9312221Z NAME                       CPU(cores)   MEMORY(bytes)   
+autoscale	Load and verify scaling	2026-10-07T16:42:01.9313101Z load-generator             101m         2Mi             
+autoscale	Load and verify scaling	2026-10-07T16:42:01.9314294Z web-app-795c977586-gx8jz   200m         5Mi             
+autoscale	Load and verify scaling	2026-10-07T16:42:01.9315185Z web-app-795c977586-vgwp8   7m           5Mi             
+autoscale	Load and verify scaling	2026-10-07T16:42:01.9315995Z web-app-795c977586-wkkrc   7m           4Mi             
+autoscale	Load and verify scaling	2026-10-07T16:42:01.9326743Z + kubectl get hpa,pods -n production-webapp
+autoscale	Load and verify scaling	2026-10-07T16:42:01.9895945Z NAME                                              REFERENCE            TARGETS    MINPODS   MAXPODS   REPLICAS   AGE
+autoscale	Load and verify scaling	2026-10-07T16:42:01.9897294Z horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   103%/50%   2         5         5          106s
+autoscale	Load and verify scaling	2026-10-07T16:42:01.9912589Z 
+autoscale	Load and verify scaling	2026-10-07T16:42:01.9913587Z NAME                           READY   STATUS    RESTARTS   AGE
+autoscale	Load and verify scaling	2026-10-07T16:42:01.9914304Z pod/load-generator             1/1     Running   0          106s
+autoscale	Load and verify scaling	2026-10-07T16:42:01.9915016Z pod/web-app-795c977586-47trq   1/1     Running   0          16s
+autoscale	Load and verify scaling	2026-10-07T16:42:01.9915702Z pod/web-app-795c977586-bzpc7   1/1     Running   0          16s
+autoscale	Load and verify scaling	2026-10-07T16:42:01.9916405Z pod/web-app-795c977586-gx8jz   1/1     Running   0          106s
+autoscale	Load and verify scaling	2026-10-07T16:42:01.9917163Z pod/web-app-795c977586-vgwp8   1/1     Running   0          106s
+autoscale	Load and verify scaling	2026-10-07T16:42:01.9917721Z pod/web-app-795c977586-wkkrc   1/1     Running   0          31s
+autoscale	Load and verify scaling	2026-10-07T16:42:01.9924172Z + sleep 15
+autoscale	Load and verify scaling	2026-10-07T16:42:16.9940112Z + for attempt in $(seq 1 8)
+autoscale	Load and verify scaling	2026-10-07T16:42:16.9941481Z + kubectl top pods -n production-webapp
+autoscale	Load and verify scaling	2026-10-07T16:42:17.0457158Z NAME                       CPU(cores)   MEMORY(bytes)   
+autoscale	Load and verify scaling	2026-10-07T16:42:17.0468066Z load-generator             100m         2Mi             
+autoscale	Load and verify scaling	2026-10-07T16:42:17.0469163Z web-app-795c977586-47trq   8m           4Mi             
+autoscale	Load and verify scaling	2026-10-07T16:42:17.0469811Z web-app-795c977586-bzpc7   2m           4Mi             
+autoscale	Load and verify scaling	2026-10-07T16:42:17.0470367Z web-app-795c977586-gx8jz   202m         5Mi             
+autoscale	Load and verify scaling	2026-10-07T16:42:17.0470739Z + kubectl get hpa,pods -n production-webapp
+autoscale	Load and verify scaling	2026-10-07T16:42:17.0471496Z web-app-795c977586-vgwp8   4m           5Mi             
+autoscale	Load and verify scaling	2026-10-07T16:42:17.0472878Z web-app-795c977586-wkkrc   7m           4Mi             
+autoscale	Load and verify scaling	2026-10-07T16:42:17.1063405Z NAME                                              REFERENCE            TARGETS    MINPODS   MAXPODS   REPLICAS   AGE
+autoscale	Load and verify scaling	2026-10-07T16:42:17.1065014Z horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   103%/50%   2         5         5          2m2s
+autoscale	Load and verify scaling	2026-10-07T16:42:17.1087962Z 
+autoscale	Load and verify scaling	2026-10-07T16:42:17.1088608Z NAME                           READY   STATUS    RESTARTS   AGE
+autoscale	Load and verify scaling	2026-10-07T16:42:17.1089447Z pod/load-generator             1/1     Running   0          2m2s
+autoscale	Load and verify scaling	2026-10-07T16:42:17.1090405Z pod/web-app-795c977586-47trq   1/1     Running   0          32s
+autoscale	Load and verify scaling	2026-10-07T16:42:17.1091182Z pod/web-app-795c977586-bzpc7   1/1     Running   0          32s
+autoscale	Load and verify scaling	2026-10-07T16:42:17.1092468Z pod/web-app-795c977586-gx8jz   1/1     Running   0          2m2s
+autoscale	Load and verify scaling	2026-10-07T16:42:17.1093194Z pod/web-app-795c977586-vgwp8   1/1     Running   0          2m2s
+autoscale	Load and verify scaling	2026-10-07T16:42:17.1094118Z pod/web-app-795c977586-wkkrc   1/1     Running   0          47s
+autoscale	Load and verify scaling	2026-10-07T16:42:17.1111877Z + sleep 15
+autoscale	Load and verify scaling	2026-10-07T16:42:32.1126439Z + for attempt in $(seq 1 8)
+autoscale	Load and verify scaling	2026-10-07T16:42:32.1127286Z + kubectl top pods -n production-webapp
+autoscale	Load and verify scaling	2026-10-07T16:42:32.1662097Z NAME                       CPU(cores)   MEMORY(bytes)   
+autoscale	Load and verify scaling	2026-10-07T16:42:32.1663297Z load-generator             100m         2Mi             
+autoscale	Load and verify scaling	2026-10-07T16:42:32.1674894Z web-app-795c977586-47trq   3m           4Mi             
+autoscale	Load and verify scaling	2026-10-07T16:42:32.1675680Z web-app-795c977586-bzpc7   3m           4Mi             
+autoscale	Load and verify scaling	2026-10-07T16:42:32.1676204Z web-app-795c977586-gx8jz   201m         5Mi             
+autoscale	Load and verify scaling	2026-10-07T16:42:32.1678821Z web-app-795c977586-vgwp8   3m           4Mi             
+autoscale	Load and verify scaling	2026-10-07T16:42:32.1679490Z web-app-795c977586-wkkrc   3m           5Mi             
+autoscale	Load and verify scaling	2026-10-07T16:42:32.1692721Z + kubectl get hpa,pods -n production-webapp
+autoscale	Load and verify scaling	2026-10-07T16:42:32.2233271Z NAME                                              REFERENCE            TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+autoscale	Load and verify scaling	2026-10-07T16:42:32.2234982Z horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   42%/50%   2         5         5          2m17s
+autoscale	Load and verify scaling	2026-10-07T16:42:32.2243798Z 
+autoscale	Load and verify scaling	2026-10-07T16:42:32.2244292Z NAME                           READY   STATUS    RESTARTS   AGE
+autoscale	Load and verify scaling	2026-10-07T16:42:32.2245247Z pod/load-generator             1/1     Running   0          2m17s
+autoscale	Load and verify scaling	2026-10-07T16:42:32.2245998Z pod/web-app-795c977586-47trq   1/1     Running   0          47s
+autoscale	Load and verify scaling	2026-10-07T16:42:32.2246714Z pod/web-app-795c977586-bzpc7   1/1     Running   0          47s
+autoscale	Load and verify scaling	2026-10-07T16:42:32.2247163Z pod/web-app-795c977586-gx8jz   1/1     Running   0          2m17s
+autoscale	Load and verify scaling	2026-10-07T16:42:32.2247886Z pod/web-app-795c977586-vgwp8   1/1     Running   0          2m17s
+autoscale	Load and verify scaling	2026-10-07T16:42:32.2248461Z pod/web-app-795c977586-wkkrc   1/1     Running   0          62s
+autoscale	Load and verify scaling	2026-10-07T16:42:32.2261132Z + sleep 15
+autoscale	Load and verify scaling	2026-10-07T16:42:47.2276192Z + for attempt in $(seq 1 8)
+autoscale	Load and verify scaling	2026-10-07T16:42:47.2277141Z + kubectl top pods -n production-webapp
+autoscale	Load and verify scaling	2026-10-07T16:42:47.2813192Z NAME                       CPU(cores)   MEMORY(bytes)   
+autoscale	Load and verify scaling	2026-10-07T16:42:47.2813906Z load-generator             101m         2Mi             
+autoscale	Load and verify scaling	2026-10-07T16:42:47.2814771Z web-app-795c977586-47trq   3m           4Mi             
+autoscale	Load and verify scaling	2026-10-07T16:42:47.2815443Z web-app-795c977586-bzpc7   3m           4Mi             
+autoscale	Load and verify scaling	2026-10-07T16:42:47.2816126Z web-app-795c977586-gx8jz   200m         5Mi             
+autoscale	Load and verify scaling	2026-10-07T16:42:47.2816791Z web-app-795c977586-vgwp8   3m           5Mi             
+autoscale	Load and verify scaling	2026-10-07T16:42:47.2817471Z web-app-795c977586-wkkrc   3m           4Mi             
+autoscale	Load and verify scaling	2026-10-07T16:42:47.2824122Z + kubectl get hpa,pods -n production-webapp
+autoscale	Load and verify scaling	2026-10-07T16:42:47.3436425Z NAME                                              REFERENCE            TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+autoscale	Load and verify scaling	2026-10-07T16:42:47.3438204Z horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   42%/50%   2         5         5          2m32s
+autoscale	Load and verify scaling	2026-10-07T16:42:47.3451568Z 
+autoscale	Load and verify scaling	2026-10-07T16:42:47.3452418Z NAME                           READY   STATUS    RESTARTS   AGE
+autoscale	Load and verify scaling	2026-10-07T16:42:47.3453602Z pod/load-generator             1/1     Running   0          2m32s
+autoscale	Load and verify scaling	2026-10-07T16:42:47.3454490Z pod/web-app-795c977586-47trq   1/1     Running   0          62s
+autoscale	Load and verify scaling	2026-10-07T16:42:47.3455330Z pod/web-app-795c977586-bzpc7   1/1     Running   0          62s
+autoscale	Load and verify scaling	2026-10-07T16:42:47.3455869Z pod/web-app-795c977586-gx8jz   1/1     Running   0          2m32s
+autoscale	Load and verify scaling	2026-10-07T16:42:47.3456639Z pod/web-app-795c977586-vgwp8   1/1     Running   0          2m32s
+autoscale	Load and verify scaling	2026-10-07T16:42:47.3457065Z pod/web-app-795c977586-wkkrc   1/1     Running   0          77s
+autoscale	Load and verify scaling	2026-10-07T16:42:47.3465806Z + sleep 15
+autoscale	Load and verify scaling	2026-10-07T16:43:02.3482835Z + wait 14176
+autoscale	Load and verify scaling	2026-10-07T16:43:02.3487002Z + kubectl describe hpa web-app-hpa -n production-webapp
+autoscale	Load and verify scaling	2026-10-07T16:43:02.4082928Z Name:                                                  web-app-hpa
+autoscale	Load and verify scaling	2026-10-07T16:43:02.4083501Z Namespace:                                             production-webapp
+autoscale	Load and verify scaling	2026-10-07T16:43:02.4084136Z Labels:                                                <none>
+autoscale	Load and verify scaling	2026-10-07T16:43:02.4084758Z Annotations:                                           <none>
+autoscale	Load and verify scaling	2026-10-07T16:43:02.4085438Z CreationTimestamp:                                     Wed, 07 Oct 2026 16:40:15 +0000
+autoscale	Load and verify scaling	2026-10-07T16:43:02.4085915Z Reference:                                             Deployment/web-app
+autoscale	Load and verify scaling	2026-10-07T16:43:02.4086316Z Metrics:                                               ( current / target )
+autoscale	Load and verify scaling	2026-10-07T16:43:02.4086775Z   resource cpu on pods  (as a percentage of request):  42% (42m) / 50%
+autoscale	Load and verify scaling	2026-10-07T16:43:02.4087181Z Min replicas:                                          2
+autoscale	Load and verify scaling	2026-10-07T16:43:02.4087701Z Max replicas:                                          5
+autoscale	Load and verify scaling	2026-10-07T16:43:02.4088116Z Deployment pods:                                       5 current / 5 desired
+autoscale	Load and verify scaling	2026-10-07T16:43:02.4088457Z Conditions:
+autoscale	Load and verify scaling	2026-10-07T16:43:02.4088674Z   Type            Status  Reason              Message
+autoscale	Load and verify scaling	2026-10-07T16:43:02.4088980Z   ----            ------  ------              -------
+autoscale	Load and verify scaling	2026-10-07T16:43:02.4089397Z   AbleToScale     True    ReadyForNewScale    recommended size matches current size
+autoscale	Load and verify scaling	2026-10-07T16:43:02.4090206Z   ScalingActive   True    ValidMetricFound    the HPA was able to successfully calculate a replica count from cpu resource utilization (percentage of request)
+autoscale	Load and verify scaling	2026-10-07T16:43:02.4091064Z   ScalingLimited  False   DesiredWithinRange  the desired count is within the acceptable range
+autoscale	Load and verify scaling	2026-10-07T16:43:02.4091517Z Events:
+autoscale	Load and verify scaling	2026-10-07T16:43:02.4091798Z   Type     Reason                        Age                    From                       Message
+autoscale	Load and verify scaling	2026-10-07T16:43:02.4092584Z   ----     ------                        ----                   ----                       -------
+autoscale	Load and verify scaling	2026-10-07T16:43:02.4093808Z   Warning  FailedGetResourceMetric       2m17s (x2 over 2m32s)  horizontal-pod-autoscaler  failed to get cpu utilization: unable to get metrics for resource cpu: no metrics returned from resource metrics API
+autoscale	Load and verify scaling	2026-10-07T16:43:02.4095572Z   Warning  FailedComputeMetricsReplicas  2m17s (x2 over 2m32s)  horizontal-pod-autoscaler  invalid metrics (1 invalid out of 1), first error is: failed to get cpu resource metric value: failed to get cpu utilization: unable to get metrics for resource cpu: no metrics returned from resource metrics API
+autoscale	Load and verify scaling	2026-10-07T16:43:02.4097262Z   Normal   SuccessfulRescale             92s                    horizontal-pod-autoscaler  New size: 3; reason: cpu resource utilization (percentage of request) above target
+autoscale	Load and verify scaling	2026-10-07T16:43:02.4099166Z   Normal   SuccessfulRescale             77s                    horizontal-pod-autoscaler  New size: 5; reason: cpu resource utilization (percentage of request) above target
+autoscale	Load and verify scaling	2026-10-07T16:43:02.5189753Z NAME                                              REFERENCE            TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+autoscale	Load and verify scaling	2026-10-07T16:43:02.5190733Z horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   42%/50%   2         5         5          2m47s
+autoscale	Load and verify scaling	2026-10-07T16:43:02.5208194Z 
+autoscale	Load and verify scaling	2026-10-07T16:43:02.5208662Z NAME                           READY   STATUS    RESTARTS   AGE
+autoscale	Load and verify scaling	2026-10-07T16:43:02.5209383Z pod/load-generator             1/1     Running   0          2m47s
+autoscale	Load and verify scaling	2026-10-07T16:43:02.5210107Z pod/web-app-795c977586-47trq   1/1     Running   0          77s
+autoscale	Load and verify scaling	2026-10-07T16:43:02.5210530Z pod/web-app-795c977586-bzpc7   1/1     Running   0          77s
+autoscale	Load and verify scaling	2026-10-07T16:43:02.5210943Z pod/web-app-795c977586-gx8jz   1/1     Running   0          2m47s
+autoscale	Load and verify scaling	2026-10-07T16:43:02.5211761Z pod/web-app-795c977586-vgwp8   1/1     Running   0          2m47s
+autoscale	Load and verify scaling	2026-10-07T16:43:02.5212521Z pod/web-app-795c977586-wkkrc   1/1     Running   0          92s
+autoscale	Load and verify scaling	2026-10-07T16:43:02.5885278Z wget: can't connect to remote host (10.96.145.38): Connection refused
+autoscale	Load and verify scaling	2026-10-07T16:43:02.5886056Z wget: can't connect to remote host (10.96.145.38): Connection refused
+autoscale	Load and verify scaling	2026-10-07T16:43:02.5886918Z wget: can't connect to remote host (10.96.145.38): Connection refused
+autoscale	Load and verify scaling	2026-10-07T16:43:02.5887736Z wget: can't connect to remote host (10.96.145.38): Connection refused
+autoscale	Load and verify scaling	2026-10-07T16:43:02.5888483Z wget: can't connect to remote host (10.96.145.38): Connection refused
+autoscale	Load and verify scaling	2026-10-07T16:43:02.5889222Z wget: can't connect to remote host (10.96.145.38): Connection refused
+autoscale	Load and verify scaling	2026-10-07T16:43:02.5889953Z wget: can't connect to remote host (10.96.145.38): Connection refused
+autoscale	Load and verify scaling	2026-10-07T16:43:02.5890693Z wget: can't connect to remote host (10.96.145.38): Connection refused
+autoscale	Load and verify scaling	2026-10-07T16:43:02.5891449Z wget: can't connect to remote host (10.96.145.38): Connection refused
+autoscale	Load and verify scaling	2026-10-07T16:43:02.5892456Z wget: can't connect to remote host (10.96.145.38): Connection refused
+autoscale	Run actions/upload-artifact@v4	﻿2026-10-07T16:43:02.5998219Z ##[group]Run actions/upload-artifact@v4
+autoscale	Run actions/upload-artifact@v4	2026-10-07T16:43:02.5998528Z with:
+autoscale	Run actions/upload-artifact@v4	2026-10-07T16:43:02.5998723Z   name: hpa-load-evidence
+autoscale	Run actions/upload-artifact@v4	2026-10-07T16:43:02.5998954Z   path: hpa-evidence.log
+autoscale	Run actions/upload-artifact@v4	2026-10-07T16:43:02.5999180Z   if-no-files-found: warn
+autoscale	Run actions/upload-artifact@v4	2026-10-07T16:43:02.5999399Z   compression-level: 6
+autoscale	Run actions/upload-artifact@v4	2026-10-07T16:43:02.5999613Z   overwrite: false
+autoscale	Run actions/upload-artifact@v4	2026-10-07T16:43:02.5999819Z   include-hidden-files: false
+autoscale	Run actions/upload-artifact@v4	2026-10-07T16:43:02.6000052Z ##[endgroup]
+autoscale	Run actions/upload-artifact@v4	2026-10-07T16:43:02.8022722Z (node:22649) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+autoscale	Run actions/upload-artifact@v4	2026-10-07T16:43:02.8024199Z (Use `node --trace-deprecation ...` to show where the warning was created)
+autoscale	Run actions/upload-artifact@v4	2026-10-07T16:43:02.8103112Z With the provided path, there will be 1 file uploaded
+autoscale	Run actions/upload-artifact@v4	2026-10-07T16:43:02.8115602Z Artifact name is valid!
+autoscale	Run actions/upload-artifact@v4	2026-10-07T16:43:02.8116318Z Root directory input is valid!
+autoscale	Run actions/upload-artifact@v4	2026-10-07T16:43:03.0117823Z Beginning upload of artifact content to blob storage
+autoscale	Run actions/upload-artifact@v4	2026-10-07T16:43:03.0315528Z (node:22649) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+autoscale	Run actions/upload-artifact@v4	2026-10-07T16:43:03.0676721Z Uploaded bytes 1432
+autoscale	Run actions/upload-artifact@v4	2026-10-07T16:43:03.0853187Z Finished uploading artifact content to blob storage!
+autoscale	Run actions/upload-artifact@v4	2026-10-07T16:43:03.0854267Z SHA256 digest of uploaded artifact zip is 6a29107ee511b447cb2a231e8a3192c56c55ece2f773ff1d970418e63fd59fbf
+autoscale	Run actions/upload-artifact@v4	2026-10-07T16:43:03.0855715Z Finalizing artifact upload
+autoscale	Run actions/upload-artifact@v4	2026-10-07T16:43:03.2974457Z Artifact hpa-load-evidence.zip successfully finalized. Artifact ID 11497567832
+autoscale	Run actions/upload-artifact@v4	2026-10-07T16:43:03.2975685Z Artifact hpa-load-evidence has been successfully uploaded! Final size is 1432 bytes. Artifact ID is 11497567832
+autoscale	Run actions/upload-artifact@v4	2026-10-07T16:43:03.2980653Z Artifact download URL: https://github.com/shubhamkumar9199/devops-heros/actions/runs/37653689884/artifacts/11497567832
+autoscale	Post Run helm/kind-action@v1.10.0	﻿2026-10-07T16:43:03.3176848Z Post job cleanup.
+autoscale	Post Run helm/kind-action@v1.10.0	2026-10-07T16:43:03.3651649Z Deleting cluster "chart-testing" ...
+autoscale	Post Run helm/kind-action@v1.10.0	2026-10-07T16:43:05.0779085Z Deleted nodes: ["chart-testing-control-plane"]
+autoscale	Post Run actions/checkout@v4	﻿2026-10-07T16:43:05.0899951Z Post job cleanup.
+autoscale	Post Run actions/checkout@v4	2026-10-07T16:43:05.1759915Z [command]/usr/bin/git version
+autoscale	Post Run actions/checkout@v4	2026-10-07T16:43:05.1806431Z git version 2.55.0
+autoscale	Post Run actions/checkout@v4	2026-10-07T16:43:05.1846922Z Temporarily overriding HOME='/home/runner/work/_temp/73d4dc2d-849e-4505-aeeb-9846f819b819' before making global git config changes
+autoscale	Post Run actions/checkout@v4	2026-10-07T16:43:05.1848658Z Adding repository directory to the temporary git global config as a safe directory
+autoscale	Post Run actions/checkout@v4	2026-10-07T16:43:05.1852936Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/devops-heros/devops-heros
+autoscale	Post Run actions/checkout@v4	2026-10-07T16:43:05.1895920Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+autoscale	Post Run actions/checkout@v4	2026-10-07T16:43:05.1933074Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+autoscale	Post Run actions/checkout@v4	2026-10-07T16:43:05.2202807Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+autoscale	Post Run actions/checkout@v4	2026-10-07T16:43:05.2232576Z http.https://github.com/.extraheader
+autoscale	Post Run actions/checkout@v4	2026-10-07T16:43:05.2244599Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+autoscale	Post Run actions/checkout@v4	2026-10-07T16:43:05.2291310Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+autoscale	Post Run actions/checkout@v4	2026-10-07T16:43:05.2580448Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+autoscale	Post Run actions/checkout@v4	2026-10-07T16:43:05.2621283Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+autoscale	Complete job	﻿2026-10-07T16:43:05.3038550Z Cleaning up orphan processes
+autoscale	Complete job	2026-10-07T16:43:05.3448172Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4, helm/kind-action@v1.10.0. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

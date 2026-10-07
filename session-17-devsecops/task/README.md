@@ -21,9 +21,11 @@ curl -H 'Content-Type: application/json' \
 
 Result: 8 Flask tests passed with 69% coverage. The API returned healthy status, greeted Shubham and calculated 15. The container ran as UID 10001 with debug mode disabled. Local Bandit, dependency and secret scans passed.
 
-[Pipeline](../../.github/workflows/devsecops.yml) and [scan settings](../demo/SECURITY.md). GitHub scans, registry push and CI deployment are pending; local checks are recorded below.
+[Pipeline](../../.github/workflows/devsecops.yml) and [scan settings](../demo/SECURITY.md). [GitHub run passed](https://github.com/shubhamkumar9199/devops-heros/actions/runs/37653691247): tests, security scans, image scan, registry push and Kubernetes deployment.
 
 ## Screenshots
+
+![DevSecOps pipeline](screenshots/github-devsecops.png)
 
 ![Api](screenshots/api.png)
 
@@ -32,6 +34,8 @@ Result: 8 Flask tests passed with 69% coverage. The API returned healthy status,
 ![Security](screenshots/security.png)
 
 ## Command output
+
+- [GitHub pipeline](logs/github-run.log)
 
 - [secret scan](logs/secret-scan.log)
 - [security](logs/security.log)
