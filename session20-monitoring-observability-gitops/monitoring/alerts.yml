@@ -1,0 +1,13 @@
+groups:
+  - name: homework
+    rules:
+      - alert: NodeExporterUnavailable
+        expr: up{job="node-exporter"} == 0
+        for: 10s
+        labels: {severity: warning}
+        annotations: {summary: "Node Exporter is unavailable"}
+      - alert: HostCPUHigh
+        expr: 100 * (1 - avg(rate(node_cpu_seconds_total{mode="idle"}[1m]))) > 80
+        for: 1m
+        labels: {severity: warning}
+        annotations: {summary: "CPU utilization exceeds 80 percent"}

@@ -1,0 +1,33 @@
+{
+    "status": "success",
+    "data": {
+        "alerts": [
+            {
+                "labels": {
+                    "alertname": "NodeExporterUnavailable",
+                    "instance": "node-exporter:9100",
+                    "job": "node-exporter",
+                    "severity": "warning"
+                },
+                "annotations": {
+                    "summary": "Node Exporter is unavailable"
+                },
+                "state": "firing",
+                "activeAt": "2026-10-07T16:23:26.455244941Z",
+                "value": "0e+00"
+            },
+            {
+                "labels": {
+                    "alertname": "HostCPUHigh",
+                    "severity": "warning"
+                },
+                "annotations": {
+                    "summary": "CPU utilization exceeds 80 percent"
+                },
+                "state": "pending",
+                "activeAt": "2026-10-07T16:23:21.455244941Z",
+                "value": "9.171666666666776e+01"
+            }
+        ]
+    }
+}

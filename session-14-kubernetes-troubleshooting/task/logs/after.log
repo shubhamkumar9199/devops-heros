@@ -1,0 +1,99 @@
++ export PATH=/home/shubham/.local/bin:/home/shubham/.local/bin:/home/shubham/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ PATH=/home/shubham/.local/bin:/home/shubham/.local/bin:/home/shubham/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ cd /home/shubham/devops-heros/session-14-kubernetes-troubleshooting
++ kubectl delete -n troubleshooting pod project-broken-pod fail-1-crashloop-pod fail-2-imagepull-pod fail-3-pending-pod fail-4-dns-failure-pod fail-5-oomkilled-pod
+pod "project-broken-pod" deleted from troubleshooting namespace
+pod "fail-1-crashloop-pod" deleted from troubleshooting namespace
+pod "fail-2-imagepull-pod" deleted from troubleshooting namespace
+pod "fail-3-pending-pod" deleted from troubleshooting namespace
+pod "fail-4-dns-failure-pod" deleted from troubleshooting namespace
+pod "fail-5-oomkilled-pod" deleted from troubleshooting namespace
++ kubectl apply -n troubleshooting -f fixed/
+pod/fail-1-crashloop-pod created
+pod/fail-2-imagepull-pod created
+pod/fail-3-pending-pod created
+pod/fail-4-dns-failure-pod created
+pod/fail-5-oomkilled-pod created
+pod/project-broken-pod created
++ kubectl wait -n troubleshooting --for=condition=Ready pod --all --timeout=180s
+pod/fail-1-crashloop-pod condition met
+pod/fail-2-imagepull-pod condition met
+pod/fail-3-pending-pod condition met
+pod/fail-4-dns-failure-pod condition met
+pod/fail-5-oomkilled-pod condition met
+pod/project-broken-pod condition met
+pod/troubleshooting-app-7fc89bb698-7q62g condition met
+pod/troubleshooting-app-7fc89bb698-bv8lm condition met
++ kubectl get pods,svc,endpoints -n troubleshooting -o wide
+Warning: v1 Endpoints is deprecated in v1.33+; use discovery.k8s.io/v1 EndpointSlice
+NAME                                       READY   STATUS    RESTARTS   AGE     IP            NODE      NOMINATED NODE   READINESS GATES
+pod/fail-1-crashloop-pod                   1/1     Running   0          23s     10.244.0.19   shubham   <none>           <none>
+pod/fail-2-imagepull-pod                   1/1     Running   0          23s     10.244.0.23   shubham   <none>           <none>
+pod/fail-3-pending-pod                     1/1     Running   0          23s     10.244.0.18   shubham   <none>           <none>
+pod/fail-4-dns-failure-pod                 1/1     Running   0          23s     10.244.0.21   shubham   <none>           <none>
+pod/fail-5-oomkilled-pod                   1/1     Running   0          23s     10.244.0.22   shubham   <none>           <none>
+pod/project-broken-pod                     1/1     Running   0          23s     10.244.0.20   shubham   <none>           <none>
+pod/troubleshooting-app-7fc89bb698-7q62g   1/1     Running   0          2m13s   10.244.0.13   shubham   <none>           <none>
+pod/troubleshooting-app-7fc89bb698-bv8lm   1/1     Running   0          2m13s   10.244.0.17   shubham   <none>           <none>
+
+NAME                              TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE     SELECTOR
+service/troubleshooting-service   ClusterIP   10.104.61.150   <none>        80/TCP    2m13s   app=troubleshooting-app
+
+NAME                                ENDPOINTS                       AGE
+endpoints/troubleshooting-service   10.244.0.13:80,10.244.0.17:80   2m13s
++ kubectl exec -n troubleshooting fail-4-dns-failure-pod -- wget -qO- http://troubleshooting-service
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
++ kubectl logs -n troubleshooting fail-1-crashloop-pod
+DATABASE_URL configured: True
++ kubectl patch svc troubleshooting-service -n troubleshooting --type=merge -p '{"spec":{"selector":{"app":"wrong-label"}}}'
+service/troubleshooting-service patched
++ kubectl get endpoints troubleshooting-service -n troubleshooting
+Warning: v1 Endpoints is deprecated in v1.33+; use discovery.k8s.io/v1 EndpointSlice
+NAME                      ENDPOINTS                       AGE
+troubleshooting-service   10.244.0.13:80,10.244.0.17:80   2m15s
++ kubectl get pods -n troubleshooting --show-labels
+NAME                                   READY   STATUS    RESTARTS   AGE     LABELS
+fail-1-crashloop-pod                   1/1     Running   0          25s     <none>
+fail-2-imagepull-pod                   1/1     Running   0          25s     <none>
+fail-3-pending-pod                     1/1     Running   0          25s     <none>
+fail-4-dns-failure-pod                 1/1     Running   0          25s     <none>
+fail-5-oomkilled-pod                   1/1     Running   0          25s     <none>
+project-broken-pod                     1/1     Running   0          25s     <none>
+troubleshooting-app-7fc89bb698-7q62g   1/1     Running   0          2m15s   app=troubleshooting-app,pod-template-hash=7fc89bb698
+troubleshooting-app-7fc89bb698-bv8lm   1/1     Running   0          2m15s   app=troubleshooting-app,pod-template-hash=7fc89bb698
++ kubectl patch svc troubleshooting-service -n troubleshooting --type=merge -p '{"spec":{"selector":{"app":"troubleshooting-app"}}}'
+service/troubleshooting-service patched
++ kubectl get endpoints troubleshooting-service -n troubleshooting
+Warning: v1 Endpoints is deprecated in v1.33+; use discovery.k8s.io/v1 EndpointSlice
+NAME                      ENDPOINTS   AGE
+troubleshooting-service   <none>      2m17s
++ kubectl exec -n troubleshooting fail-4-dns-failure-pod -- nslookup troubleshooting-service.troubleshooting.svc.cluster.local
+Server:		10.96.0.10
+Address:	10.96.0.10:53
+
+Name:	troubleshooting-service.troubleshooting.svc.cluster.local
+Address: 10.104.61.150
+
+

@@ -1,0 +1,28 @@
+name: Session 20 GitOps Reconciliation
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: helm/kind-action@v1.10.0
+      - name: Install Argo CD Core and verify self-healing
+        run: |
+          ln -s "$GITHUB_WORKSPACE" "$HOME/devops-heros"
+          bash assignment-scripts/session20-gitops.sh | tee gitops-evidence.log
+          kubectl get application session20-mini -n argocd -o yaml > application-status.yaml
+          kubectl get pods -n session20 -o wide
+          kubectl run http-check -n session20 --image=busybox:1.36 --restart=Never --command -- sh -c 'wget -qO- http://session20-mini'
+          kubectl wait --for=jsonpath='{.status.phase}'=Succeeded pod/http-check -n session20 --timeout=120s
+          kubectl logs http-check -n session20
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: gitops-reconciliation-evidence
+          path: |
+            gitops-evidence.log
+            application-status.yaml

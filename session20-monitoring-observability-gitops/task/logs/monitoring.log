@@ -1,0 +1,83 @@
++ export COMPOSE_PROJECT_NAME=shubham-monitoring
++ COMPOSE_PROJECT_NAME=shubham-monitoring
++ cd /home/shubham/devops-heros/session20-monitoring-observability-gitops/monitoring
++ docker compose up -d
+ Network shubham-monitoring_default  Creating
+ Network shubham-monitoring_default  Created
+ Container shubham-monitoring-prometheus-1  Creating
+ Container shubham-monitoring-node-exporter-1  Creating
+ Container shubham-monitoring-node-exporter-1  Created
+ Container shubham-monitoring-prometheus-1  Created
+ Container shubham-monitoring-grafana-1  Creating
+ Container shubham-monitoring-grafana-1  Created
+ Container shubham-monitoring-node-exporter-1  Starting
+ Container shubham-monitoring-prometheus-1  Starting
+ Container shubham-monitoring-node-exporter-1  Started
+ Container shubham-monitoring-prometheus-1  Started
+ Container shubham-monitoring-grafana-1  Starting
+ Container shubham-monitoring-grafana-1  Started
+++ seq 1 30
++ for attempt in $(seq 1 30)
++ curl --max-time 10 -fsS http://localhost:9090/-/ready
+curl: (56) Recv failure: Connection reset by peer
++ sleep 2
++ for attempt in $(seq 1 30)
++ curl --max-time 10 -fsS http://localhost:9090/-/ready
+Prometheus Server is Ready.
++ break
++ curl --max-time 15 -fsS http://localhost:9090/-/ready
+Prometheus Server is Ready.
++ docker compose ps
+NAME                                 IMAGE                       COMMAND                  SERVICE         CREATED         STATUS         PORTS
+shubham-monitoring-grafana-1         grafana/grafana:12.1.1      "/run.sh"                grafana         4 seconds ago   Up 2 seconds   127.0.0.1:3001->3000/tcp
+shubham-monitoring-node-exporter-1   prom/node-exporter:v1.9.1   "/bin/node_exporter …"   node-exporter   5 seconds ago   Up 2 seconds   9100/tcp
+shubham-monitoring-prometheus-1      prom/prometheus:v3.5.0      "/bin/prometheus --c…"   prometheus      5 seconds ago   Up 2 seconds   127.0.0.1:9090->9090/tcp
++ curl --max-time 15 -fsS http://localhost:9090/api/v1/targets
++ python3 -m json.tool
+{
+    "status": "success",
+    "data": {
+        "activeTargets": [],
+        "droppedTargets": [],
+        "droppedTargetCounts": {}
+    }
+}
++ python3 -m json.tool
++ curl --max-time 15 -fsSG http://localhost:9090/api/v1/query --data-urlencode query=up
+{
+    "status": "success",
+    "data": {
+        "resultType": "vector",
+        "result": []
+    }
+}
+++ seq 1 30
++ for attempt in $(seq 1 30)
++ curl --max-time 10 -fsS http://localhost:3001/api/health
+curl: (56) Recv failure: Connection reset by peer
++ sleep 2
++ for attempt in $(seq 1 30)
++ curl --max-time 10 -fsS http://localhost:3001/api/health
+curl: (56) Recv failure: Connection reset by peer
++ sleep 2
++ for attempt in $(seq 1 30)
++ curl --max-time 10 -fsS http://localhost:3001/api/health
+curl: (56) Recv failure: Connection reset by peer
++ sleep 2
++ for attempt in $(seq 1 30)
++ curl --max-time 10 -fsS http://localhost:3001/api/health
+curl: (56) Recv failure: Connection reset by peer
++ sleep 2
++ for attempt in $(seq 1 30)
++ curl --max-time 10 -fsS http://localhost:3001/api/health
+{
+  "database": "ok",
+  "version": "12.1.1",
+  "commit": "df5de8219b41d1e639e003bf5f3a85913761d167"
+}+ break
++ curl --max-time 15 -fsS http://localhost:3001/api/health
+{
+  "database": "ok",
+  "version": "12.1.1",
+  "commit": "df5de8219b41d1e639e003bf5f3a85913761d167"
+}

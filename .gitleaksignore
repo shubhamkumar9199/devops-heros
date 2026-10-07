@@ -1,0 +1,7 @@
+# Existing session 12 classroom Secret examples; exact historical findings only.
+1caf6ec51ab2139f748588cf26d4052167896291:session-12-ingress-configmaps-secrets/02-secret/db-secret.yaml:generic-api-key:12
+1caf6ec51ab2139f748588cf26d4052167896291:session-12-ingress-configmaps-secrets/02-secret/db-secret.yaml:kubernetes-secret-yaml:2
+1caf6ec51ab2139f748588cf26d4052167896291:session-12-ingress-configmaps-secrets/04-full-demo/secret.yaml:generic-api-key:13
+1caf6ec51ab2139f748588cf26d4052167896291:session-12-ingress-configmaps-secrets/04-full-demo/secret.yaml:kubernetes-secret-yaml:2
+1caf6ec51ab2139f748588cf26d4052167896291:session-12-ingress-configmaps-secrets/02-secret/README.md:generic-api-key:64
+1caf6ec51ab2139f748588cf26d4052167896291:session-12-ingress-configmaps-secrets/lab.md:generic-api-key:181

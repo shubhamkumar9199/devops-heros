@@ -1,0 +1,89 @@
++ export PATH=/home/shubham/.local/bin:/home/shubham/.local/bin:/home/shubham/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ PATH=/home/shubham/.local/bin:/home/shubham/.local/bin:/home/shubham/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ cd /home/shubham/devops-heros/session-13-storage-hpa-probes
++ minikube addons enable metrics-server
+* metrics-server is an addon maintained by Kubernetes. For any concerns contact minikube on GitHub.
+You can view the list of minikube maintainers at: https://github.com/kubernetes/minikube/blob/master/OWNERS
+  - Using image registry.k8s.io/metrics-server/metrics-server:v0.8.0
+* The 'metrics-server' addon is enabled
++ kubectl apply -f mini-project/namespace.yaml
+namespace/production-webapp created
++ kubectl apply -f mini-project/pvc.yaml -f mini-project/deployment.yaml -f mini-project/service.yaml -f mini-project/hpa.yaml
+persistentvolumeclaim/web-data created
+deployment.apps/web-app created
+service/web-service created
+horizontalpodautoscaler.autoscaling/web-app-hpa created
++ kubectl rollout status deployment/web-app -n production-webapp --timeout=180s
+Waiting for deployment "web-app" rollout to finish: 0 out of 2 new replicas have been updated...
+Waiting for deployment "web-app" rollout to finish: 0 of 2 updated replicas are available...
+Waiting for deployment "web-app" rollout to finish: 1 of 2 updated replicas are available...
+deployment "web-app" successfully rolled out
++ kubectl get pvc,pods,svc,hpa -n production-webapp
+NAME                             STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/web-data   Bound    pvc-449351ce-5591-46ea-b56e-08683b21ff98   500Mi      RWO            standard       <unset>                 43s
+
+NAME                           READY   STATUS    RESTARTS   AGE
+pod/web-app-5b6bd49dd5-chm5l   1/1     Running   0          42s
+pod/web-app-5b6bd49dd5-gm822   1/1     Running   0          43s
+
+NAME                  TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
+service/web-service   ClusterIP   10.111.128.61   <none>        80/TCP    44s
+
+NAME                                              REFERENCE            TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: <unknown>/50%   2         5         2          43s
++ kubectl exec -n production-webapp deployment/web-app -- sh -c 'echo "Shubham persistent storage" >/data/assignment.txt; cat /data/assignment.txt'
+Shubham persistent storage
++ kubectl apply -f volumes/emptydir-pod.yaml -f volumes/hostpath-pod.yaml
+pod/emptydir-demo created
+pod/hostpath-demo created
++ kubectl wait --for=condition=Ready pod/hostpath-demo --timeout=120s
+pod/hostpath-demo condition met
++ kubectl exec hostpath-demo -- sh -c 'echo "hostPath persistence" >/shubham-data/assignment.txt; cat /shubham-data/assignment.txt'
+hostPath persistence
++ kubectl describe deployment/web-app -n production-webapp
+Name:               web-app
+Namespace:          production-webapp
+CreationTimestamp:  Wed, 07 Oct 2026 16:05:42 +0000
+Labels:             app=web-app
+Annotations:        deployment.kubernetes.io/revision: 1
+Selector:           app=web-app
+Replicas:           2 desired | 2 updated | 2 total | 2 available | 0 unavailable
+StrategyType:       Recreate
+MinReadySeconds:    0
+Pod Template:
+  Labels:  app=web-app
+  Containers:
+   nginx:
+    Image:      nginx:1.27
+    Port:       80/TCP
+    Host Port:  0/TCP
+    Limits:
+      cpu:     200m
+      memory:  128Mi
+    Requests:
+      cpu:        100m
+      memory:     64Mi
+    Liveness:     http-get http://:80/ delay=5s timeout=2s period=5s #success=1 #failure=3
+    Readiness:    http-get http://:80/ delay=5s timeout=2s period=5s #success=1 #failure=2
+    Startup:      http-get http://:80/ delay=0s timeout=1s period=2s #success=1 #failure=30
+    Environment:  <none>
+    Mounts:
+      /data from persistent-storage (rw)
+  Volumes:
+   persistent-storage:
+    Type:          PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:     web-data
+    ReadOnly:      false
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   web-app-5b6bd49dd5 (2/2 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  63s   deployment-controller  Scaled up replica set web-app-5b6bd49dd5 from 0 to 2

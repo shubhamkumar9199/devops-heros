@@ -1,0 +1,96 @@
+name: Session 17 DevSecOps Build Scan Push Deploy
+on:
+  push:
+    branches: [main]
+    paths: [".github/workflows/devsecops.yml", ".gitleaksignore", "session-17-devsecops/demo/**"]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 'session-17-devsecops/demo'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements-dev.txt
+      - run: pytest -v --cov=app --cov-report=term-missing
+  security:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 'session-17-devsecops/demo'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt bandit pip-audit
+      - name: SAST (server bind and non-security demo randomness documented)
+        run: bandit -r app -ll -s B104,B311
+      - name: Dependency scan
+        run: pip-audit -r requirements.txt
+      - name: Secret scan
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  build-scan-push:
+    needs: [test, security]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker build -t ghcr.io/${{ github.repository_owner }}/devops-homework:${{ github.sha }} 'session-17-devsecops/demo'
+      - name: Scan image and enforce security gate
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: ghcr.io/${{ github.repository_owner }}/devops-homework:${{ github.sha }}
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: '1'
+      - uses: docker/login-action@v3
+        if: github.event_name != 'pull_request'
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Push SHA-tagged image
+        if: github.event_name != 'pull_request'
+        run: docker push ghcr.io/${{ github.repository_owner }}/devops-homework:${{ github.sha }}
+  deploy:
+    needs: build-scan-push
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: helm/kind-action@v1.10.0
+      - name: Pull and load the exact scanned image
+        env:
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "$GHCR_TOKEN" | docker login ghcr.io -u '${{ github.actor }}' --password-stdin
+          docker pull ghcr.io/${{ github.repository_owner }}/devops-homework:${{ github.sha }}
+          kind load docker-image ghcr.io/${{ github.repository_owner }}/devops-homework:${{ github.sha }} --name chart-testing
+      - name: Deploy and verify
+        run: |
+          cd 'session-17-devsecops/demo'
+          sed -i 's|nensiravaliya28/hey-cicd:__IMAGE_TAG__|ghcr.io/${{ github.repository_owner }}/devops-homework:${{ github.sha }}|; s|imagePullPolicy: Always|imagePullPolicy: IfNotPresent|' k8s/deployment.yaml
+          kubectl apply -f k8s/
+          kubectl rollout status deployment/session17-python --timeout=180s
+          kubectl get pods,svc
+          kubectl port-forward service/session17-python 5001:80 > /tmp/port-forward.log 2>&1 &
+          for attempt in $(seq 1 30); do curl -fsS --max-time 5 http://localhost:5001/health && break || sleep 2; done
+          curl -fsS --max-time 10 http://localhost:5001/api/status

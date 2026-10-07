@@ -1,0 +1,30 @@
+{
+  "apiVersion": "v1",
+  "kind": "Pod",
+  "metadata": {
+    "name": "fail-5-oomkilled-pod"
+  },
+  "spec": {
+    "containers": [
+      {
+        "name": "app",
+        "image": "python:3.11-alpine",
+        "resources": {
+          "requests": {
+            "cpu": "10m",
+            "memory": "16Mi"
+          },
+          "limits": {
+            "cpu": "100m",
+            "memory": "32Mi"
+          }
+        },
+        "command": [
+          "sh",
+          "-c",
+          "python3 -u -c 'import time; chunks=[b\"x\"*1024*1024 for i in range(5)]; print(\"Allocated 5 MiB within 32 MiB limit\"); time.sleep(3600)'"
+        ]
+      }
+    ]
+  }
+}

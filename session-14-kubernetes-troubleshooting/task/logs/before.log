@@ -1,0 +1,138 @@
++ export PATH=/home/shubham/.local/bin:/home/shubham/.local/bin:/home/shubham/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ PATH=/home/shubham/.local/bin:/home/shubham/.local/bin:/home/shubham/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ cd /home/shubham/devops-heros/session-14-kubernetes-troubleshooting
++ kubectl apply -f -
++ kubectl create namespace troubleshooting --dry-run=client -o yaml
+namespace/troubleshooting created
++ kubectl apply -n troubleshooting -f lab/deployment.yaml -f lab/service.yaml -f lab/broken-pod.yaml
+deployment.apps/troubleshooting-app created
+service/troubleshooting-service created
+pod/project-broken-pod created
++ kubectl apply -n troubleshooting -f scenarios/scenario-1-crashloop/broken.yaml -f scenarios/scenario-2-imagepull/broken.yaml -f scenarios/scenario-3-pending/broken.yaml -f scenarios/scenario-4-dns-failure/broken.yaml -f scenarios/scenario-5-oomkilled/broken.yaml
+pod/fail-1-crashloop-pod created
+pod/fail-2-imagepull-pod created
+pod/fail-3-pending-pod created
+pod/fail-4-dns-failure-pod created
+pod/fail-5-oomkilled-pod created
++ kubectl rollout status -n troubleshooting deployment/troubleshooting-app --timeout=180s
+Waiting for deployment "troubleshooting-app" rollout to finish: 0 of 2 updated replicas are available...
+Waiting for deployment "troubleshooting-app" rollout to finish: 1 of 2 updated replicas are available...
+deployment "troubleshooting-app" successfully rolled out
++ sleep 25
++ kubectl get pods -n troubleshooting -o wide
+NAME                                   READY   STATUS             RESTARTS      AGE   IP            NODE      NOMINATED NODE   READINESS GATES
+fail-1-crashloop-pod                   0/1     CrashLoopBackOff   1 (25s ago)   45s   10.244.0.15   shubham   <none>           <none>
+fail-2-imagepull-pod                   0/1     ErrImagePull       0             44s   10.244.0.16   shubham   <none>           <none>
+fail-3-pending-pod                     0/1     Pending            0             43s   <none>        <none>    <none>           <none>
+fail-4-dns-failure-pod                 1/1     Running            0             43s   10.244.0.12   shubham   <none>           <none>
+fail-5-oomkilled-pod                   0/1     CrashLoopBackOff   1 (25s ago)   42s   10.244.0.14   shubham   <none>           <none>
+project-broken-pod                     0/1     ErrImagePull       0             46s   10.244.0.11   shubham   <none>           <none>
+troubleshooting-app-7fc89bb698-7q62g   1/1     Running            0             46s   10.244.0.13   shubham   <none>           <none>
+troubleshooting-app-7fc89bb698-bv8lm   1/1     Running            0             46s   10.244.0.17   shubham   <none>           <none>
++ kubectl describe pod fail-3-pending-pod -n troubleshooting
+Name:             fail-3-pending-pod
+Namespace:        troubleshooting
+Priority:         0
+Service Account:  default
+Node:             <none>
+Labels:           scenario=pending
+                  tier=triage-gauntlet
+Annotations:      <none>
+Status:           Pending
+IP:               
+IPs:              <none>
+Containers:
+  hungry-app:
+    Image:      nginx:alpine
+    Port:       <none>
+    Host Port:  <none>
+    Requests:
+      cpu:        500
+      memory:     1000Gi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-thf45 (ro)
+Conditions:
+  Type           Status
+  PodScheduled   False 
+Volumes:
+  kube-api-access-thf45:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason            Age   From               Message
+  ----     ------            ----  ----               -------
+  Warning  FailedScheduling  46s   default-scheduler  0/1 nodes are available: 1 Insufficient cpu, 1 Insufficient memory. no new claims to deallocate, preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling.
++ kubectl logs fail-1-crashloop-pod -n troubleshooting
+[FATAL ERROR]: DATABASE_URL environment variable is MISSING!
++ tail -25
++ kubectl get events -n troubleshooting --sort-by=.lastTimestamp
+46s         Normal    Started             pod/troubleshooting-app-7fc89bb698-7q62g    Started container app
+46s         Normal    Created             pod/troubleshooting-app-7fc89bb698-7q62g    Created container: app
+37s         Normal    Pulled              pod/fail-1-crashloop-pod                    Successfully pulled image "python:3.11-alpine" in 9.502s (9.504s including waiting). Image size: 60842123 bytes.
+35s         Normal    Pulled              pod/fail-5-oomkilled-pod                    Successfully pulled image "python:3.11-alpine" in 2.377s (11.877s including waiting). Image size: 60842123 bytes.
+30s         Normal    Pulled              pod/fail-4-dns-failure-pod                  Successfully pulled image "curlimages/curl:8.6.0" in 4.65s (16.528s including waiting). Image size: 16983322 bytes.
+30s         Normal    Created             pod/fail-4-dns-failure-pod                  Created container: client
+29s         Normal    Started             pod/fail-4-dns-failure-pod                  Started container client
+27s         Warning   Failed              pod/fail-2-imagepull-pod                    Error: ImagePullBackOff
+27s         Normal    BackOff             pod/fail-2-imagepull-pod                    Back-off pulling image "yatri-api-service:v999-invalid-tag-does-not-exist"
+25s         Normal    BackOff             pod/project-broken-pod                      Back-off pulling image "nginx:this-tag-does-not-exist"
+25s         Warning   Failed              pod/project-broken-pod                      Failed to pull image "nginx:this-tag-does-not-exist": Error response from daemon: manifest for nginx:this-tag-does-not-exist not found: manifest unknown: manifest unknown
+25s         Warning   Failed              pod/project-broken-pod                      Error: ErrImagePull
+25s         Warning   Failed              pod/project-broken-pod                      Error: ImagePullBackOff
+20s         Normal    Pulled              pod/fail-5-oomkilled-pod                    Container image "python:3.11-alpine" already present on machine
+19s         Normal    Created             pod/fail-5-oomkilled-pod                    Created container: memory-leaker
+18s         Normal    Pulled              pod/fail-1-crashloop-pod                    Container image "python:3.11-alpine" already present on machine
+17s         Normal    Started             pod/fail-5-oomkilled-pod                    Started container memory-leaker
+17s         Normal    Created             pod/fail-1-crashloop-pod                    Created container: python-app
+16s         Normal    Started             pod/fail-1-crashloop-pod                    Started container python-app
+14s         Warning   BackOff             pod/fail-5-oomkilled-pod                    Back-off restarting failed container memory-leaker in pod fail-5-oomkilled-pod_troubleshooting(916b119f-4571-4eb7-b556-2f43a5969d25)
+14s         Warning   BackOff             pod/fail-1-crashloop-pod                    Back-off restarting failed container python-app in pod fail-1-crashloop-pod_troubleshooting(a354a0e7-dd9d-4664-8b67-13d10809d910)
+12s         Normal    Pulling             pod/fail-2-imagepull-pod                    Pulling image "yatri-api-service:v999-invalid-tag-does-not-exist"
+10s         Normal    Pulling             pod/project-broken-pod                      Pulling image "nginx:this-tag-does-not-exist"
+7s          Warning   Failed              pod/fail-2-imagepull-pod                    Error: ErrImagePull
+7s          Warning   Failed              pod/fail-2-imagepull-pod                    Failed to pull image "yatri-api-service:v999-invalid-tag-does-not-exist": Error response from daemon: pull access denied for yatri-api-service, repository does not exist or may require 'docker login': denied: requested access to the resource is denied
++ kubectl explain pod.spec.containers.resources
+KIND:       Pod
+VERSION:    v1
+
+FIELD: resources <ResourceRequirements>
+
+
+DESCRIPTION:
+    Compute Resources required by this container. Cannot be updated. More info:
+    https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+    ResourceRequirements describes the compute resource requirements.
+    
+FIELDS:
+  claims	<[]ResourceClaim>
+    Claims lists the names of resources, defined in spec.resourceClaims, that
+    are used by this container.
+    
+    This field depends on the DynamicResourceAllocation feature gate.
+    
+    This field is immutable. It can only be set for containers.
+
+  limits	<map[string]Quantity>
+    Limits describes the maximum amount of compute resources allowed. More info:
+    https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+
+  requests	<map[string]Quantity>
+    Requests describes the minimum amount of compute resources required. If
+    Requests is omitted for a container, it defaults to Limits if that is
+    explicitly specified, otherwise to an implementation-defined value. Requests
+    cannot exceed Limits. More info:
+    https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+
+
++ kubectl top pods -n troubleshooting
+NAME                                   CPU(cores)   MEMORY(bytes)   
+troubleshooting-app-7fc89bb698-7q62g   3m           2Mi             
+troubleshooting-app-7fc89bb698-bv8lm   3m           1Mi             

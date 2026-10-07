@@ -1,0 +1,229 @@
++ cd /home/shubham/devops-heros/session-16-github-actions/demo
++ docker run --rm -v /home/shubham/devops-heros/session-16-github-actions/demo:/work -w /work python:3.12-slim sh -c 'pip install -r requirements.txt && python -m pytest -v && bash build.sh'
+Collecting pytest (from -r requirements.txt (line 1))
+  Downloading pytest-9.1.1-py3-none-any.whl.metadata (7.6 kB)
+Collecting iniconfig>=1.0.1 (from pytest->-r requirements.txt (line 1))
+  Downloading iniconfig-2.3.1-py3-none-any.whl.metadata (2.8 kB)
+Collecting packaging>=22 (from pytest->-r requirements.txt (line 1))
+  Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+Collecting pluggy<2,>=1.5 (from pytest->-r requirements.txt (line 1))
+  Downloading pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+Collecting pygments>=2.7.2 (from pytest->-r requirements.txt (line 1))
+  Downloading pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+Downloading pytest-9.1.1-py3-none-any.whl (386 kB)
+Downloading iniconfig-2.3.1-py3-none-any.whl (7.6 kB)
+Downloading packaging-26.3-py3-none-any.whl (129 kB)
+Downloading pluggy-1.6.0-py3-none-any.whl (20 kB)
+Downloading pygments-2.21.0-py3-none-any.whl (1.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 60.9 MB/s eta 0:00:00
+Installing collected packages: pygments, pluggy, packaging, iniconfig, pytest
+Successfully installed iniconfig-2.3.1 packaging-26.3 pluggy-1.6.0 pygments-2.21.0 pytest-9.1.1
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+
+[notice] A new release of pip is available: 25.0.1 -> 26.2.1
+[notice] To update, run: pip install --upgrade pip
+============================= test session starts ==============================
+platform linux -- Python 3.12.15, pytest-9.1.1, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+rootdir: /work
+collecting ... collected 9 items
+
+tests/test_calculator.py::test_add PASSED                                [ 11%]
+tests/test_calculator.py::test_subtract PASSED                           [ 22%]
+tests/test_calculator.py::test_multiply PASSED                           [ 33%]
+tests/test_calculator.py::test_divide PASSED                             [ 44%]
+tests/test_calculator.py::test_divide_by_zero PASSED                     [ 55%]
+tests/test_calculator.py::test_signed_zero_and_fractional_inputs[add--8-3--5] PASSED [ 66%]
+tests/test_calculator.py::test_signed_zero_and_fractional_inputs[subtract-2-7--5] PASSED [ 77%]
+tests/test_calculator.py::test_signed_zero_and_fractional_inputs[multiply-12-0-0] PASSED [ 88%]
+tests/test_calculator.py::test_signed_zero_and_fractional_inputs[divide-5-2-2.5] PASSED [100%]
+
+============================== 9 passed in 0.03s ===============================
+Starting build...
+Application copied to build directory.
+Build completed successfully.
++ docker build -t shubham-calculator .
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+Sending build context to Docker daemon  35.33kB
+Step 1/4 : FROM python:3.12-alpine
+ ---> 979e5a8a5684
+Step 2/4 : WORKDIR /app
+ ---> Using cache
+ ---> 4b38c8aab044
+Step 3/4 : COPY app ./app
+ ---> 7f1cca00c8ca
+Step 4/4 : CMD ["python", "-c", "from app.calculator import divide; print('Shubham calculator — 9 / 2 =', divide(9, 2))"]
+ ---> Running in eb01e836bcb2
+ ---> Removed intermediate container eb01e836bcb2
+ ---> 0ac9d32774de
+Successfully built 0ac9d32774de
+Successfully tagged shubham-calculator:latest
++ docker run --rm shubham-calculator
+Shubham calculator — 9 / 2 = 4.5
++ cd /home/shubham/devops-heros/session-17-devsecops/demo
++ docker run --rm -v /home/shubham/devops-heros/session-17-devsecops/demo:/work -w /work python:3.12-slim sh -c 'pip install -r requirements-dev.txt && pytest -v --cov=app'
+Collecting Flask==3.1.3 (from -r /work/requirements.txt (line 1))
+  Downloading flask-3.1.3-py3-none-any.whl.metadata (3.2 kB)
+Collecting pytest==8.4.2 (from -r requirements-dev.txt (line 2))
+  Downloading pytest-8.4.2-py3-none-any.whl.metadata (7.7 kB)
+Collecting pytest-cov==6.0.0 (from -r requirements-dev.txt (line 3))
+  Downloading pytest_cov-6.0.0-py3-none-any.whl.metadata (27 kB)
+Collecting blinker>=1.9.0 (from Flask==3.1.3->-r /work/requirements.txt (line 1))
+  Downloading blinker-1.9.0-py3-none-any.whl.metadata (1.6 kB)
+Collecting click>=8.1.3 (from Flask==3.1.3->-r /work/requirements.txt (line 1))
+  Downloading click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+Collecting itsdangerous>=2.2.0 (from Flask==3.1.3->-r /work/requirements.txt (line 1))
+  Downloading itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+Collecting jinja2>=3.1.2 (from Flask==3.1.3->-r /work/requirements.txt (line 1))
+  Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+Collecting markupsafe>=2.1.1 (from Flask==3.1.3->-r /work/requirements.txt (line 1))
+  Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+Collecting werkzeug>=3.1.0 (from Flask==3.1.3->-r /work/requirements.txt (line 1))
+  Downloading werkzeug-3.1.9-py3-none-any.whl.metadata (4.1 kB)
+Collecting iniconfig>=1 (from pytest==8.4.2->-r requirements-dev.txt (line 2))
+  Downloading iniconfig-2.3.1-py3-none-any.whl.metadata (2.8 kB)
+Collecting packaging>=20 (from pytest==8.4.2->-r requirements-dev.txt (line 2))
+  Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+Collecting pluggy<2,>=1.5 (from pytest==8.4.2->-r requirements-dev.txt (line 2))
+  Downloading pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+Collecting pygments>=2.7.2 (from pytest==8.4.2->-r requirements-dev.txt (line 2))
+  Downloading pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+Collecting coverage>=7.5 (from coverage[toml]>=7.5->pytest-cov==6.0.0->-r requirements-dev.txt (line 3))
+  Downloading coverage-7.16.2-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (8.2 kB)
+Downloading flask-3.1.3-py3-none-any.whl (103 kB)
+Downloading pytest-8.4.2-py3-none-any.whl (365 kB)
+Downloading pytest_cov-6.0.0-py3-none-any.whl (22 kB)
+Downloading blinker-1.9.0-py3-none-any.whl (8.5 kB)
+Downloading click-8.5.0-py3-none-any.whl (125 kB)
+Downloading coverage-7.16.2-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (258 kB)
+Downloading iniconfig-2.3.1-py3-none-any.whl (7.6 kB)
+Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+Downloading packaging-26.3-py3-none-any.whl (129 kB)
+Downloading pluggy-1.6.0-py3-none-any.whl (20 kB)
+Downloading pygments-2.21.0-py3-none-any.whl (1.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 70.6 MB/s eta 0:00:00
+Downloading werkzeug-3.1.9-py3-none-any.whl (228 kB)
+Installing collected packages: pygments, pluggy, packaging, markupsafe, itsdangerous, iniconfig, coverage, click, blinker, werkzeug, pytest, jinja2, pytest-cov, Flask
+Successfully installed Flask-3.1.3 blinker-1.9.0 click-8.5.0 coverage-7.16.2 iniconfig-2.3.1 itsdangerous-2.2.0 jinja2-3.1.6 markupsafe-3.0.4 packaging-26.3 pluggy-1.6.0 pygments-2.21.0 pytest-8.4.2 pytest-cov-6.0.0 werkzeug-3.1.9
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+
+[notice] A new release of pip is available: 25.0.1 -> 26.2.1
+[notice] To update, run: pip install --upgrade pip
+============================= test session starts ==============================
+platform linux -- Python 3.12.15, pytest-8.4.2, pluggy-1.6.0 -- /usr/local/bin/python3.12
+cachedir: .pytest_cache
+rootdir: /work
+configfile: pytest.ini
+testpaths: tests
+plugins: cov-6.0.0
+collecting ... collected 8 items
+
+tests/test_app.py::test_home PASSED                                      [ 12%]
+tests/test_app.py::test_health PASSED                                    [ 25%]
+tests/test_app.py::test_greet PASSED                                     [ 37%]
+tests/test_app.py::test_add_numbers PASSED                               [ 50%]
+tests/test_app.py::test_add_numbers_missing_fields PASSED                [ 62%]
+tests/test_app.py::test_calculator_multiply PASSED                       [ 75%]
+tests/test_app.py::test_calculator_divide_by_zero PASSED                 [ 87%]
+tests/test_app.py::test_status PASSED                                    [100%]
+
+=============================== warnings summary ===============================
+app/app.py:13
+  /work/app/app.py:13: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    _start_time = datetime.datetime.utcnow()
+
+tests/test_app.py::test_health
+  /work/app/app.py:38: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    uptime_seconds = (datetime.datetime.utcnow() - _start_time).total_seconds()
+
+tests/test_app.py::test_health
+  /work/app/app.py:42: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
+
+tests/test_app.py::test_greet
+  /work/app/app.py:81: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
+
+tests/test_app.py::test_status
+  /work/app/app.py:49: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    uptime = datetime.datetime.utcnow() - _start_time
+
+tests/test_app.py::test_status
+  /work/app/app.py:60: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+
+---------- coverage: platform linux, python 3.12.15-final-0 ----------
+Name              Stmts   Miss  Cover
+-------------------------------------
+app/__init__.py       0      0   100%
+app/app.py          102     32    69%
+-------------------------------------
+TOTAL               102     32    69%
+
+======================== 8 passed, 6 warnings in 0.48s =========================
++ docker build -t shubham-devsecops .
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+Sending build context to Docker daemon  148.5kB
+Step 1/9 : FROM python:3.12-slim
+ ---> df18428df8a0
+Step 2/9 : WORKDIR /app
+ ---> Using cache
+ ---> 9bc0ffabb9fd
+Step 3/9 : ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+ ---> Using cache
+ ---> b5a699e9dfa4
+Step 4/9 : COPY requirements.txt .
+ ---> Using cache
+ ---> 037a04752a3c
+Step 5/9 : RUN pip install --no-cache-dir -r requirements.txt && useradd --uid 10001 --create-home appuser
+ ---> Using cache
+ ---> 084b0f214859
+Step 6/9 : COPY app ./app
+ ---> 9773aaa20ad6
+Step 7/9 : USER 10001
+ ---> Running in 171711ad4934
+ ---> Removed intermediate container 171711ad4934
+ ---> 08d6456c398f
+Step 8/9 : EXPOSE 5001
+ ---> Running in 86d8f47a4dfc
+ ---> Removed intermediate container 86d8f47a4dfc
+ ---> 820680c8ae4c
+Step 9/9 : CMD ["python", "app/app.py"]
+ ---> Running in 5bac94540dbc
+ ---> Removed intermediate container 5bac94540dbc
+ ---> 3c4d3622adf8
+Successfully built 3c4d3622adf8
+Successfully tagged shubham-devsecops:latest
++ docker rm -f shubham-devsecops
++ docker run -d --name shubham-devsecops -p 8081:5001 shubham-devsecops
+8f64ae1c6f899566307104ff429cfdd0b3b692644397b1afdb62357b837f6284
+++ seq 1 30
++ for attempt in $(seq 1 30)
++ curl --max-time 10 -fsS http://localhost:8081/health
+curl: (56) Recv failure: Connection reset by peer
++ sleep 2
++ for attempt in $(seq 1 30)
++ curl --max-time 10 -fsS http://localhost:8081/health
+{"status":"healthy","timestamp":"2026-10-07T16:19:44.082375Z","uptime_seconds":1.47}
++ break
++ curl --max-time 15 -fsS http://localhost:8081/health
+{"status":"healthy","timestamp":"2026-10-07T16:19:44.092397Z","uptime_seconds":1.48}
++ curl --max-time 15 -fsS http://localhost:8081/api/status
+{"app":"DevSecOps Dashboard","platform":"Linux","python_version":"3.12.15","status":"running","timestamp":"2026-10-07T16:19:44.101433Z","total_requests":3,"uptime":"00h 00m 01s","version":"2.0.0"}
++ curl --max-time 15 -fsS http://localhost:8081/api/greet/Shubham
+{"message":"Hi Shubham! May your pipelines always pass! \u2705","name":"Shubham","timestamp":"2026-10-07T16:19:44.110651Z"}
++ curl --max-time 15 -fsS -X POST http://localhost:8081/api/add -H 'Content-Type: application/json' -d '{"number1":2,"number2":3}'
+{"number1":2.0,"number2":3.0,"operation":"addition","result":5.0}
++ docker ps --filter name=shubham-devsecops
+CONTAINER ID   IMAGE               COMMAND               CREATED         STATUS         PORTS                                       NAMES
+8f64ae1c6f89   shubham-devsecops   "python app/app.py"   3 seconds ago   Up 2 seconds   0.0.0.0:8081->5001/tcp, :::8081->5001/tcp   shubham-devsecops

@@ -1,0 +1,30 @@
+{
+  "apiVersion": "v1",
+  "kind": "Pod",
+  "metadata": {
+    "name": "fail-4-dns-failure-pod"
+  },
+  "spec": {
+    "containers": [
+      {
+        "name": "app",
+        "image": "busybox:1.36",
+        "resources": {
+          "requests": {
+            "cpu": "10m",
+            "memory": "16Mi"
+          },
+          "limits": {
+            "cpu": "100m",
+            "memory": "32Mi"
+          }
+        },
+        "command": [
+          "sh",
+          "-c",
+          "wget -qO- http://troubleshooting-service; sleep 3600"
+        ]
+      }
+    ]
+  }
+}

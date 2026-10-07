@@ -1,0 +1,37 @@
+name: Session 13 HPA Load Generator
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  autoscale:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: helm/kind-action@v1.10.0
+      - name: Metrics and application
+        run: |
+          ln -s "$GITHUB_WORKSPACE" "$HOME/devops-heros"
+          kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.7.2/components.yaml
+          kubectl patch deployment metrics-server -n kube-system --type=json -p='[{"op":"add","path":"/spec/template/spec/containers/0/args/-","value":"--kubelet-insecure-tls"}]'
+          kubectl rollout status deployment/metrics-server -n kube-system --timeout=180s
+          cd 'session-13-storage-hpa-probes'
+          kubectl apply -f mini-project/namespace.yaml
+          kubectl apply -f mini-project/
+          kubectl rollout status deployment/web-app -n production-webapp --timeout=180s
+          kubectl wait --for=condition=Ready pod/load-generator -n production-webapp --timeout=120s
+          kubectl get pods -n production-webapp
+          sleep 30
+      - name: Load and verify scaling
+        run: |
+          bash assignment-scripts/session13-load.sh | tee hpa-evidence.log
+          replicas=$(kubectl get deployment web-app -n production-webapp -o jsonpath='{.spec.replicas}')
+          test "$replicas" -gt 2
+          kubectl get hpa,pods -n production-webapp
+          kubectl logs load-generator -n production-webapp --tail=10
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hpa-load-evidence
+          path: hpa-evidence.log

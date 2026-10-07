@@ -1,0 +1,127 @@
+time="2026-10-07T16:27:08Z" level=warning msg="Docker Compose is configured to build using Bake, but buildx isn't installed"
+#0 building with "default" instance using docker driver
+
+#1 [backend internal] load build definition from Dockerfile
+#1 transferring dockerfile: 416B 0.0s done
+#1 DONE 0.0s
+
+#2 [backend internal] load metadata for docker.io/library/python:3.12-slim
+#2 DONE 0.0s
+
+#3 [backend internal] load .dockerignore
+#3 transferring context: 95B done
+#3 DONE 0.0s
+
+#4 [backend 1/7] FROM docker.io/library/python:3.12-slim
+#4 DONE 0.0s
+
+#5 [backend internal] load build context
+#5 transferring context: 480B done
+#5 DONE 0.0s
+
+#6 [backend 3/7] COPY requirements.txt .
+#6 CACHED
+
+#7 [backend 5/7] COPY alembic.ini ./
+#7 CACHED
+
+#8 [backend 2/7] WORKDIR /app
+#8 CACHED
+
+#9 [backend 4/7] RUN pip install --no-cache-dir -r requirements.txt && useradd --create-home --uid 10001 appuser
+#9 CACHED
+
+#10 [backend 6/7] COPY alembic ./alembic
+#10 CACHED
+
+#11 [backend 7/7] COPY app ./app
+#11 CACHED
+
+#12 [backend] exporting to image
+#12 exporting layers done
+#12 writing image sha256:69ca46d48f8b9e4840139014ee9d749026d2faa52d6c802bee8f5310157801e7 done
+#12 naming to docker.io/library/shubham-taskboard-backend
+#12 naming to docker.io/library/shubham-taskboard-backend done
+#12 DONE 0.0s
+
+#13 [backend] resolving provenance for metadata file
+#13 DONE 0.0s
+
+#14 [frontend internal] load build definition from Dockerfile
+#14 transferring dockerfile: 276B done
+#14 DONE 0.0s
+
+#15 [frontend internal] load metadata for docker.io/library/nginx:1.27-alpine
+#15 DONE 0.7s
+
+#16 [frontend internal] load metadata for docker.io/library/node:22-alpine
+#16 DONE 0.7s
+
+#17 [frontend internal] load .dockerignore
+#17 transferring context: 63B done
+#17 DONE 0.0s
+
+#18 [frontend build 1/6] FROM docker.io/library/node:22-alpine@sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402
+#18 DONE 0.0s
+
+#19 [frontend stage-1 1/3] FROM docker.io/library/nginx:1.27-alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10
+#19 DONE 0.0s
+
+#20 [frontend internal] load build context
+#20 transferring context: 5.96kB done
+#20 DONE 0.0s
+
+#21 [frontend build 3/6] COPY package*.json ./
+#21 CACHED
+
+#22 [frontend build 2/6] WORKDIR /app
+#22 CACHED
+
+#23 [frontend build 4/6] RUN npm install
+#23 CACHED
+
+#24 [frontend build 5/6] COPY . .
+#24 DONE 0.1s
+
+#25 [frontend build 6/6] RUN npm run build
+#25 1.494 
+#25 1.494 > taskboard-frontend@1.0.0 build
+#25 1.494 > vite build
+#25 1.494 
+#25 2.099 vite v8.3.3 building client environment for production...
+#25 2.123 transforming...
+#25 2.460 ✓ 15 modules transformed.
+#25 2.561 rendering chunks...
+#25 2.994 computing gzip size...
+#25 3.000 dist/index.html                   0.35 kB │ gzip:  0.26 kB
+#25 3.000 dist/assets/index-DkMuKOF6.css    6.40 kB │ gzip:  2.04 kB
+#25 3.000 dist/assets/index-OTIrVE7X.js   227.29 kB │ gzip: 70.88 kB
+#25 3.000 
+#25 3.001 ✓ built in 899ms
+#25 DONE 3.3s
+
+#19 [frontend stage-1 1/3] FROM docker.io/library/nginx:1.27-alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10
+#19 CACHED
+
+#26 [frontend stage-1 2/3] COPY --from=build /app/dist /usr/share/nginx/html
+#26 DONE 0.1s
+
+#27 [frontend stage-1 3/3] COPY nginx.conf /etc/nginx/conf.d/default.conf
+#27 DONE 0.1s
+
+#28 [frontend] exporting to image
+#28 exporting layers 0.2s done
+#28 writing image sha256:b3dbba0e63879fc3d703cd265feada074ef502db0a6eac067b881bfcf1987ced done
+#28 naming to docker.io/library/shubham-taskboard-frontend 0.0s done
+#28 DONE 0.2s
+
+#29 [frontend] resolving provenance for metadata file
+#29 DONE 0.1s
+ backend  Built
+ frontend  Built
+ Container shubham-taskboard-postgres-1  Running
+ Container shubham-taskboard-backend-1  Running
+ Container shubham-taskboard-frontend-1  Recreate
+ Container shubham-taskboard-frontend-1  Recreated
+ Container shubham-taskboard-frontend-1  Starting
+ Container shubham-taskboard-frontend-1  Started

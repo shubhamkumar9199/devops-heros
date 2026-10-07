@@ -1,0 +1,107 @@
++ export PATH=/home/shubham/.local/bin:/home/shubham/.local/bin:/home/shubham/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ PATH=/home/shubham/.local/bin:/home/shubham/.local/bin:/home/shubham/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ export AWS_EC2_METADATA_DISABLED=true
++ AWS_EC2_METADATA_DISABLED=true
++ terraform version
+Terraform v1.13.3
+on linux_amd64
+
+Your version of Terraform is out of date! The latest version
+is 1.16.5. You can update by downloading from https://developer.hashicorp.com/terraform/install
++ for project in "session18-terraform-iac/terraform-s3-demo" "session19-cloud-terraform/mini-project"
++ cd /home/shubham/devops-heros/session18-terraform-iac/terraform-s3-demo
++ terraform fmt -recursive
+terraform.tfvars
++ terraform init -input=false
+[0m[1mInitializing the backend...[0m
+[0m[1mInitializing provider plugins...[0m
+- Reusing previous version of hashicorp/aws from the dependency lock file
+- Installing hashicorp/aws v6.66.0...
+- Installed hashicorp/aws v6.66.0 (signed by HashiCorp)
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
++ timeout 180 terraform validate
+[32m[1mSuccess![0m The configuration is valid.
+[0m
++ terraform providers
+
+Providers required by configuration:
+.
+└── provider[registry.terraform.io/hashicorp/aws] ~> 6.0
+
++ timeout 90 terraform plan -input=false -no-color
+
+Planning failed. Terraform encountered an error while generating this plan.
+
+
+Error: No valid credential sources found
+
+  with provider["registry.terraform.io/hashicorp/aws"],
+  on providers.tf line 1, in provider "aws":
+   1: provider "aws" { region = var.aws_region }
+
+Please see https://registry.terraform.io/providers/hashicorp/aws
+for more information about providing credentials.
+
+Error: failed to refresh cached credentials, no EC2 IMDS role found,
+operation error ec2imds: GetMetadata, access disabled to EC2 IMDS via client
+option, or "AWS_EC2_METADATA_DISABLED" environment variable
+
++ echo 'Terraform plan exit status: 1'
+Terraform plan exit status: 1
++ for project in "session18-terraform-iac/terraform-s3-demo" "session19-cloud-terraform/mini-project"
++ cd /home/shubham/devops-heros/session19-cloud-terraform/mini-project
++ terraform fmt -recursive
++ terraform init -input=false
+[0m[1mInitializing the backend...[0m
+[0m[1mInitializing provider plugins...[0m
+- Reusing previous version of hashicorp/aws from the dependency lock file
+- Installing hashicorp/aws v6.67.0...
+- Installed hashicorp/aws v6.67.0 (signed by HashiCorp)
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
++ timeout 180 terraform validate
+[32m[1mSuccess![0m The configuration is valid.
+[0m
++ terraform providers
+
+Providers required by configuration:
+.
+└── provider[registry.terraform.io/hashicorp/aws] ~> 6.0
+
++ timeout 90 terraform plan -input=false -no-color
+
+Planning failed. Terraform encountered an error while generating this plan.
+
+
+Error: No valid credential sources found
+
+  with provider["registry.terraform.io/hashicorp/aws"],
+  on versions.tf line 12, in provider "aws":
+  12: provider "aws" {
+
+Please see https://registry.terraform.io/providers/hashicorp/aws
+for more information about providing credentials.
+
+Error: failed to refresh cached credentials, no EC2 IMDS role found,
+operation error ec2imds: GetMetadata, access disabled to EC2 IMDS via client
+option, or "AWS_EC2_METADATA_DISABLED" environment variable
+
++ echo 'Terraform plan exit status: 1'
+Terraform plan exit status: 1

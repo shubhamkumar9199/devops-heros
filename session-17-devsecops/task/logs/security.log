@@ -1,0 +1,32 @@
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+
+[notice] A new release of pip is available: 25.0.1 -> 26.2.1
+[notice] To update, run: pip install --upgrade pip
+[main]	INFO	profile include tests: None
+[main]	INFO	profile exclude tests: None
+[main]	INFO	cli include tests: None
+[main]	INFO	cli exclude tests: B104,B311
+[main]	INFO	running on Python 3.12.15
+Run started:2026-10-07 16:21:26.862635+00:00
+
+Test results:
+	No issues identified.
+
+Code scanned:
+	Total lines of code: 168
+	Total lines skipped (#nosec): 0
+	Total potential issues skipped due to specifically being disabled (e.g., #nosec BXXX): 0
+
+Run metrics:
+	Total issues (by severity):
+		Undefined: 0
+		Low: 0
+		Medium: 0
+		High: 0
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 0
+		Medium: 0
+		High: 0
+Files skipped (0):
+No known vulnerabilities found

@@ -1,0 +1,144 @@
++ export PATH=/home/shubham/.local/bin:/home/shubham/.local/bin:/home/shubham/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ PATH=/home/shubham/.local/bin:/home/shubham/.local/bin:/home/shubham/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ load_job=98250
+++ seq 1 8
++ kubectl exec -n production-webapp deployment/web-app -- sh -c 'yes >/dev/null & load_pid=$!; sleep 120; kill "$load_pid"'
++ for attempt in $(seq 1 8)
++ kubectl top pods -n production-webapp
+NAME                       CPU(cores)   MEMORY(bytes)   
+web-app-5b6bd49dd5-chm5l   2m           1Mi             
+web-app-5b6bd49dd5-gm822   2m           1Mi             
++ kubectl get hpa,pods -n production-webapp
+NAME                                              REFERENCE            TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: <unknown>/50%   2         5         2          113s
+
+NAME                           READY   STATUS    RESTARTS   AGE
+pod/web-app-5b6bd49dd5-chm5l   1/1     Running   0          113s
+pod/web-app-5b6bd49dd5-gm822   1/1     Running   0          114s
++ sleep 15
++ for attempt in $(seq 1 8)
++ kubectl top pods -n production-webapp
+NAME                       CPU(cores)   MEMORY(bytes)   
+web-app-5b6bd49dd5-chm5l   1m           1Mi             
+web-app-5b6bd49dd5-gm822   44m          3Mi             
++ kubectl get hpa,pods -n production-webapp
+NAME                                              REFERENCE            TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: <unknown>/50%   2         5         2          2m9s
+
+NAME                           READY   STATUS    RESTARTS   AGE
+pod/web-app-5b6bd49dd5-chm5l   1/1     Running   0          2m9s
+pod/web-app-5b6bd49dd5-gm822   1/1     Running   0          2m10s
++ sleep 15
++ for attempt in $(seq 1 8)
++ kubectl top pods -n production-webapp
+NAME                       CPU(cores)   MEMORY(bytes)   
+web-app-5b6bd49dd5-chm5l   1m           1Mi             
+web-app-5b6bd49dd5-gm822   44m          3Mi             
++ kubectl get hpa,pods -n production-webapp
+NAME                                              REFERENCE            TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 22%/50%   2         5         2          2m24s
+
+NAME                           READY   STATUS    RESTARTS   AGE
+pod/web-app-5b6bd49dd5-chm5l   1/1     Running   0          2m24s
+pod/web-app-5b6bd49dd5-gm822   1/1     Running   0          2m25s
++ sleep 15
++ for attempt in $(seq 1 8)
++ kubectl top pods -n production-webapp
+NAME                       CPU(cores)   MEMORY(bytes)   
+web-app-5b6bd49dd5-chm5l   1m           1Mi             
+web-app-5b6bd49dd5-gm822   44m          3Mi             
++ kubectl get hpa,pods -n production-webapp
+NAME                                              REFERENCE            TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 22%/50%   2         5         2          2m40s
+
+NAME                           READY   STATUS    RESTARTS   AGE
+pod/web-app-5b6bd49dd5-chm5l   1/1     Running   0          2m40s
+pod/web-app-5b6bd49dd5-gm822   1/1     Running   0          2m41s
++ sleep 15
++ for attempt in $(seq 1 8)
++ kubectl top pods -n production-webapp
+NAME                       CPU(cores)   MEMORY(bytes)   
+web-app-5b6bd49dd5-chm5l   1m           1Mi             
+web-app-5b6bd49dd5-gm822   44m          3Mi             
++ kubectl get hpa,pods -n production-webapp
+NAME                                              REFERENCE            TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 22%/50%   2         5         2          2m55s
+
+NAME                           READY   STATUS    RESTARTS   AGE
+pod/web-app-5b6bd49dd5-chm5l   1/1     Running   0          2m55s
+pod/web-app-5b6bd49dd5-gm822   1/1     Running   0          2m56s
++ sleep 15
++ for attempt in $(seq 1 8)
++ kubectl top pods -n production-webapp
+NAME                       CPU(cores)   MEMORY(bytes)   
+web-app-5b6bd49dd5-chm5l   1m           0Mi             
+web-app-5b6bd49dd5-gm822   201m         1Mi             
++ kubectl get hpa,pods -n production-webapp
+NAME                                              REFERENCE            TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 22%/50%   2         5         2          3m11s
+
+NAME                           READY   STATUS    RESTARTS   AGE
+pod/web-app-5b6bd49dd5-chm5l   1/1     Running   0          3m11s
+pod/web-app-5b6bd49dd5-gm822   1/1     Running   0          3m12s
++ sleep 15
++ for attempt in $(seq 1 8)
++ kubectl top pods -n production-webapp
+NAME                       CPU(cores)   MEMORY(bytes)   
+web-app-5b6bd49dd5-chm5l   1m           0Mi             
+web-app-5b6bd49dd5-gm822   201m         1Mi             
++ kubectl get hpa,pods -n production-webapp
+NAME                                              REFERENCE            TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 101%/50%   2         5         2          3m27s
+
+NAME                           READY   STATUS    RESTARTS   AGE
+pod/web-app-5b6bd49dd5-chm5l   1/1     Running   0          3m27s
+pod/web-app-5b6bd49dd5-gm822   1/1     Running   0          3m28s
+pod/web-app-5b6bd49dd5-jnt5h   0/1     Running   0          12s
+pod/web-app-5b6bd49dd5-wqqkr   1/1     Running   0          13s
++ sleep 15
++ for attempt in $(seq 1 8)
++ kubectl top pods -n production-webapp
+NAME                       CPU(cores)   MEMORY(bytes)   
+web-app-5b6bd49dd5-chm5l   1m           0Mi             
+web-app-5b6bd49dd5-gm822   201m         1Mi             
++ kubectl get hpa,pods -n production-webapp
+NAME                                              REFERENCE            TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 101%/50%   2         5         4          3m43s
+
+NAME                           READY   STATUS    RESTARTS   AGE
+pod/web-app-5b6bd49dd5-chm5l   1/1     Running   0          3m43s
+pod/web-app-5b6bd49dd5-gm822   1/1     Running   0          3m44s
+pod/web-app-5b6bd49dd5-jnt5h   1/1     Running   0          28s
+pod/web-app-5b6bd49dd5-tj8p7   1/1     Running   0          13s
+pod/web-app-5b6bd49dd5-wqqkr   1/1     Running   0          29s
++ sleep 15
++ wait 98250
++ kubectl describe hpa web-app-hpa -n production-webapp
+Name:                                                  web-app-hpa
+Namespace:                                             production-webapp
+Labels:                                                <none>
+Annotations:                                           <none>
+CreationTimestamp:                                     Wed, 07 Oct 2026 16:05:43 +0000
+Reference:                                             Deployment/web-app
+Metrics:                                               ( current / target )
+  resource cpu on pods  (as a percentage of request):  101% (101m) / 50%
+Min replicas:                                          2
+Max replicas:                                          5
+Deployment pods:                                       5 current / 5 desired
+Conditions:
+  Type            Status  Reason              Message
+  ----            ------  ------              -------
+  AbleToScale     True    ReadyForNewScale    recommended size matches current size
+  ScalingActive   True    ValidMetricFound    the HPA was able to successfully calculate a replica count from cpu resource utilization (percentage of request)
+  ScalingLimited  False   DesiredWithinRange  the desired count is within the acceptable range
+Events:
+  Type     Reason                        Age                   From                       Message
+  ----     ------                        ----                  ----                       -------
+  Warning  FailedGetResourceMetric       3m43s                 horizontal-pod-autoscaler  failed to get cpu utilization: unable to get metrics for resource cpu: unable to fetch metrics from resource metrics API: the server is currently unable to handle the request (get pods.metrics.k8s.io)
+  Warning  FailedComputeMetricsReplicas  3m43s                 horizontal-pod-autoscaler  invalid metrics (1 invalid out of 1), first error is: failed to get cpu resource metric value: failed to get cpu utilization: unable to get metrics for resource cpu: unable to fetch metrics from resource metrics API: the server is currently unable to handle the request (get pods.metrics.k8s.io)
+  Warning  FailedGetResourceMetric       3m3s (x2 over 3m20s)  horizontal-pod-autoscaler  failed to get cpu utilization: unable to get metrics for resource cpu: no metrics returned from resource metrics API
+  Warning  FailedComputeMetricsReplicas  3m3s (x2 over 3m20s)  horizontal-pod-autoscaler  invalid metrics (1 invalid out of 1), first error is: failed to get cpu resource metric value: failed to get cpu utilization: unable to get metrics for resource cpu: no metrics returned from resource metrics API
+  Warning  FailedGetResourceMetric       2m1s (x4 over 2m48s)  horizontal-pod-autoscaler  failed to get cpu utilization: did not receive metrics for targeted pods (pods might be unready)
+  Warning  FailedComputeMetricsReplicas  2m1s (x4 over 2m47s)  horizontal-pod-autoscaler  invalid metrics (1 invalid out of 1), first error is: failed to get cpu resource metric value: failed to get cpu utilization: did not receive metrics for targeted pods (pods might be unready)
+  Normal   SuccessfulRescale             45s                   horizontal-pod-autoscaler  New size: 4; reason: cpu resource utilization (percentage of request) above target
+  Normal   SuccessfulRescale             29s                   horizontal-pod-autoscaler  New size: 5; reason:

@@ -1,0 +1,36 @@
+{
+  "apiVersion": "v1",
+  "kind": "Pod",
+  "metadata": {
+    "name": "fail-1-crashloop-pod"
+  },
+  "spec": {
+    "containers": [
+      {
+        "name": "app",
+        "image": "python:3.11-alpine",
+        "resources": {
+          "requests": {
+            "cpu": "10m",
+            "memory": "16Mi"
+          },
+          "limits": {
+            "cpu": "100m",
+            "memory": "32Mi"
+          }
+        },
+        "command": [
+          "sh",
+          "-c",
+          "python3 -u -c 'import os,time; print(\"DATABASE_URL configured:\", bool(os.environ.get(\"DATABASE_URL\"))); time.sleep(3600)'"
+        ],
+        "env": [
+          {
+            "name": "DATABASE_URL",
+            "value": "postgresql://demo:demo@database/app"
+          }
+        ]
+      }
+    ]
+  }
+}
