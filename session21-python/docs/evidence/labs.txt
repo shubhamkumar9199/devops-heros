@@ -1,0 +1,100 @@
+$ kubectl apply -f troubleshooting/
+namespace/shelfwise-labs created
+deployment.apps/lab-image created
+deployment.apps/lab-web created
+service/lab-web created
+deployment.apps/lab-ready created
+deployment.apps/lab-secret created
+
+$ sleep 45
+
+$ kubectl -n shelfwise-labs get pods,svc -o wide
+NAME                              READY   STATUS                       RESTARTS   AGE   IP            NODE                NOMINATED NODE   READINESS GATES
+pod/lab-image-564f7fb7d8-dj84b    0/1     ImagePullBackOff             0          45s   10.244.1.7    shelfwise-worker2   <none>           <none>
+pod/lab-ready-648bfb58d9-qz7mj    0/1     Running                      0          45s   10.244.3.14   shelfwise-worker    <none>           <none>
+pod/lab-secret-6bbdb54576-gcnq6   0/1     CreateContainerConfigError   0          45s   10.244.3.13   shelfwise-worker    <none>           <none>
+pod/lab-web-556555f6f6-sdmhh      1/1     Running                      0          45s   10.244.1.8    shelfwise-worker2   <none>           <none>
+pod/lab-web-556555f6f6-v879p      1/1     Running                      0          45s   10.244.3.12   shelfwise-worker    <none>           <none>
+
+NAME              TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE   SELECTOR
+service/lab-web   ClusterIP   10.96.78.166   <none>        80/TCP    45s   app=lab-wbe
+
+$ # Lab 1: ImagePullBackOff - the Events say why
+
+$ kubectl -n shelfwise-labs describe pod -l app=lab-image | sed -n '/^Events:/,$p' | grep -E 'Failed|BackOff' | head -3 | cut -c1-230
+  Warning  Failed     16s (x3 over 59s)  kubelet            spec.containers{web}: Failed to pull image "nginxinc/nginx-unprivileged:1.31.7-alpne3.24": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/ng
+  Warning  Failed     16s (x3 over 59s)  kubelet            spec.containers{web}: Error: ErrImagePull
+  Normal   BackOff    1s (x3 over 59s)   kubelet            spec.containers{web}: Back-off pulling image "nginxinc/nginx-unprivileged:1.31.7-alpne3.24"
+
+$ kubectl -n shelfwise-labs set image deploy/lab-image web=nginxinc/nginx-unprivileged:1.31.7-alpine3.24
+deployment.apps/lab-image image updated
+
+$ kubectl -n shelfwise-labs rollout status deploy/lab-image --timeout=120s
+Waiting for deployment "lab-image" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "lab-image" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "lab-image" rollout to finish: 1 old replicas are pending termination...
+deployment "lab-image" successfully rolled out
+
+$ # Lab 2: pods Ready, Service has no endpoints - compare selector and labels
+
+$ kubectl -n shelfwise-labs get endpointslices -l kubernetes.io/service-name=lab-web
+NAME            ADDRESSTYPE   PORTS     ENDPOINTS   AGE
+lab-web-5htfc   IPv4          <unset>   <unset>     60s
+
+$ kubectl -n shelfwise-labs get svc lab-web -o jsonpath='{.spec.selector}{"\n"}'; kubectl -n shelfwise-labs get pods -l app=lab-web --show-labels --no-headers | awk '{print $1, $NF}'
+{"app":"lab-wbe"}
+lab-web-556555f6f6-sdmhh app=lab-web,pod-template-hash=556555f6f6
+lab-web-556555f6f6-v879p app=lab-web,pod-template-hash=556555f6f6
+
+$ kubectl -n shelfwise-labs exec deploy/lab-image -- wget -q -O /dev/null -T 3 http://lab-web && echo reachable || echo 'lab-web: no endpoints, request failed'
+wget: can't connect to remote host (10.96.78.166): Connection refused
+command terminated with exit code 1
+lab-web: no endpoints, request failed
+
+$ kubectl -n shelfwise-labs patch svc lab-web -p '{"spec":{"selector":{"app":"lab-web"}}}'
+service/lab-web patched
+
+$ sleep 3; kubectl -n shelfwise-labs get endpointslices -l kubernetes.io/service-name=lab-web
+NAME            ADDRESSTYPE   PORTS   ENDPOINTS                AGE
+lab-web-5htfc   IPv4          8080    10.244.1.8,10.244.3.12   64s
+
+$ kubectl -n shelfwise-labs exec deploy/lab-image -- wget -q -O - -T 3 http://lab-web | grep -o '<title>.*</title>'
+<title>Welcome to nginx!</title>
+
+$ # Lab 3: Running but 0/1 Ready - the readiness probe hits the wrong port
+
+$ kubectl -n shelfwise-labs describe pod -l app=lab-ready | grep -E 'Readiness:|Unhealthy' | head -2 | cut -c1-200
+    Readiness:      http-get http://:8081/ delay=0s timeout=1s period=5s successThreshold=1 failureThreshold=3
+  Warning  Unhealthy  4s (x14 over 65s)  kubelet            spec.containers{web}: Readiness probe failed: Get "http://10.244.3.14:8081/": dial tcp 10.244.3.14:8081: connect: connection refused
+
+$ kubectl -n shelfwise-labs patch deploy lab-ready --type=json -p '[{"op":"replace","path":"/spec/template/spec/containers/0/readinessProbe/httpGet/port","value":8080}]'
+deployment.apps/lab-ready patched
+
+$ kubectl -n shelfwise-labs rollout status deploy/lab-ready --timeout=120s
+Waiting for deployment "lab-ready" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "lab-ready" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "lab-ready" rollout to finish: 1 old replicas are pending termination...
+deployment "lab-ready" successfully rolled out
+
+$ # Lab 4: CreateContainerConfigError - a referenced Secret does not exist
+
+$ kubectl -n shelfwise-labs describe pod -l app=lab-secret | sed -n '/^Events:/,$p' | grep -E 'Error|Failed' | head -2 | cut -c1-200
+  Warning  Failed     2s (x7 over 66s)  kubelet            spec.containers{web}: Error: secret "lab-db" not found
+
+$ kubectl -n shelfwise-labs create secret generic lab-db --from-literal=password=lab-only-not-a-real-secret
+secret/lab-db created
+
+$ kubectl -n shelfwise-labs rollout status deploy/lab-secret --timeout=120s
+Waiting for deployment "lab-secret" rollout to finish: 0 of 1 updated replicas are available...
+deployment "lab-secret" successfully rolled out
+
+$ # All four fixed
+
+$ kubectl -n shelfwise-labs get pods -o wide
+NAME                          READY   STATUS    RESTARTS   AGE   IP            NODE                NOMINATED NODE   READINESS GATES
+lab-image-56ddf55f4c-5x95q    1/1     Running   0          19s   10.244.1.9    shelfwise-worker2   <none>           <none>
+lab-ready-546fcd7b76-xtwmh    1/1     Running   0          14s   10.244.1.10   shelfwise-worker2   <none>           <none>
+lab-secret-6bbdb54576-gcnq6   1/1     Running   0          79s   10.244.3.13   shelfwise-worker    <none>           <none>
+lab-web-556555f6f6-sdmhh      1/1     Running   0          79s   10.244.1.8    shelfwise-worker2   <none>           <none>
+lab-web-556555f6f6-v879p      1/1     Running   0          79s   10.244.3.12   shelfwise-worker    <none>           <none>
+

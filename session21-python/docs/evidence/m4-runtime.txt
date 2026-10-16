@@ -1,0 +1,66 @@
+$ docker compose exec backend id
+uid=10001(app) gid=10001(app) groups=10001(app)
+
+$ docker compose exec frontend id
+uid=101(nginx) gid=101(nginx) groups=101(nginx)
+
+$ docker compose exec backend python -m app.seed
+seeded: books=28, copies=50, members_active=12, loans_active=18, loans_overdue=4, holds_waiting=1, holds_ready=1, fines_outstanding=640, loans_today=1, returns_today=0
+copies: {'available': 31, 'on_loan': 18, 'on_hold_shelf': 1, 'lost': 1, 'withdrawn': 0}
+rules: {'student': {'max_loans': 3, 'loan_days': 14}, 'faculty': {'max_loans': 6, 'loan_days': 28}}
+
+$ curl -s localhost:8000/health; echo; curl -s localhost:8000/ready; echo
+{"status":"ok"}
+{"status":"ready"}
+
+$ curl -s -X POST localhost:8000/api/books -H "Content-Type: application/json" -d "{\"isbn\":\"0-13-235088-2\",\"title\":\"Clean Code\",\"author\":\"Robert C. Martin\",\"genre\":\"Technology\",\"published_year\":2008,\"copies\":2}" | python3 -m json.tool | head -12
+{
+    "id": 29,
+    "isbn": "9780132350884",
+    "title": "Clean Code",
+    "author": "Robert C. Martin",
+    "genre": "Technology",
+    "published_year": 2008,
+    "copies_total": 2,
+    "copies_available": 2,
+    "copies_on_loan": 0,
+    "holds_waiting": 0,
+    "created_at": "2026-10-16T10:17:24.667099Z",
+
+$ curl -s -o /dev/null -w "duplicate ISBN -> HTTP %{http_code}\n" -X POST localhost:8000/api/books -H "Content-Type: application/json" -d "{\"isbn\":\"9780132350884\",\"title\":\"Clean Code\",\"author\":\"R. C. Martin\",\"genre\":\"Technology\"}"
+duplicate ISBN -> HTTP 409
+
+$ curl -s "localhost:3001/api/books?q=clean" | python3 -c "import json,sys; [print(b[\"id\"], b[\"title\"], b[\"isbn\"], b[\"copies_available\"], \"of\", b[\"copies_total\"], \"on shelf\") for b in json.load(sys.stdin)]"
+13 Clean Code 9789300000132 3 of 3 on shelf
+29 Clean Code 9780132350884 2 of 2 on shelf
+
+$ docker compose exec postgres psql -U shelfwise -d shelfwise -c "\dt" -c "SELECT id, title, isbn FROM books WHERE isbn = '9780132350884';" -c "SELECT version_num FROM alembic_version;"
+              List of relations
+ Schema |      Name       | Type  |   Owner   
+--------+-----------------+-------+-----------
+ public | activity        | table | shelfwise
+ public | alembic_version | table | shelfwise
+ public | books           | table | shelfwise
+ public | copies          | table | shelfwise
+ public | holds           | table | shelfwise
+ public | loans           | table | shelfwise
+ public | members         | table | shelfwise
+(7 rows)
+
+ id |   title    |     isbn      
+----+------------+---------------
+ 29 | Clean Code | 9780132350884
+(1 row)
+
+     version_num     
+---------------------
+ 0003_holds_activity
+(1 row)
+
+
+$ curl -s -o /dev/null -w "DELETE /api/books/29 -> HTTP %{http_code}\n" -X DELETE localhost:8000/api/books/29
+DELETE /api/books/29 -> HTTP 204
+
+$ curl -s -o /dev/null -w "GET /api/books/29 -> HTTP %{http_code}\n" localhost:8000/api/books/29
+GET /api/books/29 -> HTTP 404
+

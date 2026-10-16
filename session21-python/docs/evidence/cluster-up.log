@@ -1,0 +1,114 @@
+
+[1;36m==> kind cluster 'shelfwise'[0m
+NAME                      STATUS   ROLES           AGE   VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE                       KERNEL-VERSION              CONTAINER-RUNTIME
+shelfwise-control-plane   Ready    control-plane   23m   v1.37.0   172.19.0.2    <none>        Debian GNU/Linux 13 (trixie)   6.8.0-117-generic (arm64)   containerd://2.3.4
+shelfwise-worker          Ready    <none>          23m   v1.37.0   172.19.0.3    <none>        Debian GNU/Linux 13 (trixie)   6.8.0-117-generic (arm64)   containerd://2.3.4
+shelfwise-worker2         Ready    <none>          23m   v1.37.0   172.19.0.4    <none>        Debian GNU/Linux 13 (trixie)   6.8.0-117-generic (arm64)   containerd://2.3.4
+
+[1;36m==> Helm repositories[0m
+
+[1;36m==> metrics-server (CPU metrics for the HPA)[0m
+Release "metrics-server" has been upgraded. Happy Helming!
+NAME: metrics-server
+LAST DEPLOYED: Fri Oct 16 15:33:45 2026
+NAMESPACE: kube-system
+STATUS: deployed
+REVISION: 3
+DESCRIPTION: Upgrade complete
+TEST SUITE: None
+NOTES:
+***********************************************************************
+* Metrics Server                                                      *
+***********************************************************************
+  Chart version: 3.14.0
+  App version:   0.9.0
+  Image tag:     registry.k8s.io/metrics-server/metrics-server:v0.9.0
+***********************************************************************
+
+[1;36m==> Traefik ingress controller (127.0.0.1:80/443)[0m
+Release "traefik" has been upgraded. Happy Helming!
+NAME: traefik
+LAST DEPLOYED: Fri Oct 16 15:33:45 2026
+NAMESPACE: traefik
+STATUS: deployed
+REVISION: 2
+DESCRIPTION: Upgrade complete
+TEST SUITE: None
+NOTES:
+traefik with docker.io/traefik:v3.7.14 has been deployed successfully on traefik namespace!
+
+[1;36m==> kube-prometheus-stack (Prometheus, Grafana, Alertmanager)[0m
+Release "monitoring" has been upgraded. Happy Helming!
+NAME: monitoring
+LAST DEPLOYED: Fri Oct 16 15:33:46 2026
+NAMESPACE: monitoring
+STATUS: deployed
+REVISION: 2
+DESCRIPTION: Upgrade complete
+NOTES:
+kube-prometheus-stack has been installed. Check its status by running:
+  kubectl --namespace monitoring get pods -l "release=monitoring"
+
+Get Grafana 'admin' user password by running:
+
+  kubectl --namespace monitoring get secrets monitoring-grafana -o jsonpath="{.data.admin-password}" | base64 -d ; echo
+
+Access Grafana local instance:
+
+  export POD_NAME=$(kubectl --namespace monitoring get pod -l "app.kubernetes.io/name=grafana,app.kubernetes.io/instance=monitoring" -oname)
+  kubectl --namespace monitoring port-forward $POD_NAME 3000
+
+Get your grafana admin user password by running:
+
+  kubectl get secret --namespace monitoring -l app.kubernetes.io/component=admin-secret -o jsonpath="{.items[0].data.admin-password}" | base64 --decode ; echo
+
+
+Visit https://github.com/prometheus-operator/kube-prometheus for instructions on how to create & configure Alertmanager and Prometheus instances using the Operator.
+
+[1;36m==> Argo CD[0m
+Release "argocd" does not exist. Installing it now.
+NAME: argocd
+LAST DEPLOYED: Fri Oct 16 15:35:19 2026
+NAMESPACE: argocd
+STATUS: deployed
+REVISION: 1
+DESCRIPTION: Install complete
+TEST SUITE: None
+NOTES:
+In order to access the server UI you have the following options:
+
+1. kubectl port-forward service/argocd-server -n argocd 8080:443
+
+    and then open the browser on http://localhost:8080 and accept the certificate
+
+2. enable ingress in the values file `server.ingress.enabled` and either
+      - Add the annotation for ssl passthrough: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-1-ssl-passthrough
+      - Set the `configs.params."server.insecure"` in the values file and terminate SSL at your ingress: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-2-multiple-ingress-objects-and-hosts
+
+
+After reaching the UI the first time you can login with username: admin and the random password generated during the installation. You can find the password by running:
+
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+
+(You should delete the initial secret afterwards as suggested by the Getting Started Guide: https://argo-cd.readthedocs.io/en/stable/getting_started/#4-login-using-the-cli)
+
+[1;36m==> Application namespaces and database Secrets (generated here, never stored in Git)[0m
+namespace/shelfwise created
+namespace/shelfwise-staging created
+secret/shelfwise-db created
+secret/shelfwise-db created
+
+Done. Add the local hostnames once (needs sudo):
+  echo "127.0.0.1 shelfwise.local staging.shelfwise.local grafana.shelfwise.local prometheus.shelfwise.local argocd.shelfwise.local" | sudo tee -a /etc/hosts
+
+  App          http://shelfwise.local            (API docs: /api/docs)
+  Staging      http://staging.shelfwise.local    (scripts/deploy-staging.sh <sha>)
+  Argo CD      http://argocd.shelfwise.local     user admin, password:
+                 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d
+  Grafana      http://grafana.shelfwise.local    user admin, password:
+                 kubectl -n monitoring get secret grafana-admin -o jsonpath='{.data.admin-password}' | base64 -d
+  Prometheus   http://prometheus.shelfwise.local/targets
+
+Watch the rollout:  kubectl -n argocd get application shelfwise -w
+Demo data:          scripts/seed.sh
+exit=0

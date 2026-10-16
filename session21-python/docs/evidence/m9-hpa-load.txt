@@ -1,0 +1,31 @@
+$ scripts/load-test.sh 240 16
+load: 16 workers for 240s against http://127.0.0.1 (Host: shelfwise.local)
+19:11:02  cpu=13% (target 60%)  replicas=2  desired=2
+19:11:17  cpu=11% (target 60%)  replicas=2  desired=2
+19:11:32  cpu=11% (target 60%)  replicas=2  desired=2
+19:11:47  cpu=425% (target 60%)  replicas=2  desired=4
+19:12:02  cpu=473% (target 60%)  replicas=4  desired=6
+19:12:17  cpu=469% (target 60%)  replicas=6  desired=6
+19:12:33  cpu=474% (target 60%)  replicas=6  desired=6
+19:12:48  cpu=451% (target 60%)  replicas=6  desired=6
+19:13:03  cpu=435% (target 60%)  replicas=6  desired=6
+19:13:18  cpu=426% (target 60%)  replicas=6  desired=6
+19:13:34  cpu=384% (target 60%)  replicas=6  desired=6
+19:13:49  cpu=404% (target 60%)  replicas=6  desired=6
+19:14:04  cpu=403% (target 60%)  replicas=6  desired=6
+19:14:19  cpu=388% (target 60%)  replicas=6  desired=6
+19:14:34  cpu=394% (target 60%)  replicas=6  desired=6
+19:14:50  cpu=408% (target 60%)  replicas=6  desired=6
+load finished; watch the scale-down with: kubectl -n shelfwise get hpa -w
+
+$ # load stopped; the HPA scales back down (sampled every 15 s)
+19:15:05  cpu=399%  replicas=6  desired=6
+19:15:20  cpu=397%  replicas=6  desired=6
+19:15:35  cpu=340%  replicas=6  desired=6
+19:15:51  cpu=36%  replicas=6  desired=6
+19:16:06  cpu=10%  replicas=6  desired=6
+19:16:21  cpu=11%  replicas=6  desired=6
+19:16:36  cpu=10%  replicas=6  desired=4
+19:16:52  cpu=11%  replicas=4  desired=4
+19:17:07  cpu=11%  replicas=4  desired=2
+19:17:22  cpu=11%  replicas=2  desired=2

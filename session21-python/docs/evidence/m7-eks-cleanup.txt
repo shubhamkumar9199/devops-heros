@@ -1,0 +1,12 @@
+$ helm uninstall shelfwise -n shelfwise --wait
+release "shelfwise" uninstalled
+
+$ kubectl -n shelfwise delete pvc data-shelfwise-postgres-0 --wait=true
+persistentvolumeclaim "data-shelfwise-postgres-0" deleted from shelfwise namespace
+
+$ for i in $(seq 1 30); do [ -z "$(kubectl get pv --no-headers 2>/dev/null)" ] && break; sleep 5; done; kubectl get pv 2>&1
+No resources found
+
+$ aws ec2 describe-volumes --region ap-south-1 --volume-ids vol-0c884833618d36baa --query 'Volumes[].State' --output text 2>&1 | tail -1
+aws: [ERROR]: An error occurred (InvalidVolume.NotFound) when calling the DescribeVolumes operation: The volume 'vol-0c884833618d36baa' does not exist.
+

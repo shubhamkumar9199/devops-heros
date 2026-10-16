@@ -1,0 +1,38 @@
+$ curl -s localhost:18000/metrics | grep -E '^shelfwise_' 
+shelfwise_loans_created_total 0.0
+shelfwise_loans_created_created 1.7921575918870442e+09
+shelfwise_holds_promoted_total 0.0
+shelfwise_holds_promoted_created 1.7921575918872118e+09
+shelfwise_fines_collected_rupees_total 0.0
+shelfwise_fines_collected_rupees_created 1.7921575918872592e+09
+shelfwise_build_info{pod="shelfwise-backend-65974b7d7-2hlqw",version="128a89e9a856"} 1.0
+shelfwise_db_up 1.0
+shelfwise_books 28.0
+shelfwise_members_active 12.0
+shelfwise_loans_active 18.0
+shelfwise_loans_overdue 4.0
+shelfwise_fines_outstanding_rupees 640.0
+shelfwise_copies{status="available"} 31.0
+shelfwise_copies{status="on_loan"} 18.0
+shelfwise_copies{status="on_hold_shelf"} 1.0
+shelfwise_copies{status="lost"} 1.0
+shelfwise_copies{status="withdrawn"} 0.0
+shelfwise_holds_open{state="waiting"} 1.0
+shelfwise_holds_open{state="ready"} 1.0
+
+$ curl -s localhost:18000/metrics | grep -E '^http_requests_total' | sort -t'"' -k2 | head -12
+http_requests_total{handler="/api/activity",method="GET",status="2xx"} 435.0
+http_requests_total{handler="/api/books",method="GET",status="2xx"} 827.0
+http_requests_total{handler="/api/books/{book_id}",method="GET",status="2xx"} 1.0
+http_requests_total{handler="/api/holds",method="GET",status="2xx"} 439.0
+http_requests_total{handler="/api/info",method="GET",status="2xx"} 2.0
+http_requests_total{handler="/api/loans",method="GET",status="2xx"} 438.0
+http_requests_total{handler="/api/members",method="GET",status="2xx"} 421.0
+http_requests_total{handler="/api/stats",method="GET",status="2xx"} 446.0
+
+$ curl -s localhost:18000/metrics | grep -E '^http_request_duration_seconds_bucket\{handler="/api/books",le="0.0(05|1|25|5)",method="GET"\}'
+http_request_duration_seconds_bucket{handler="/api/books",le="0.005",method="GET"} 0.0
+http_request_duration_seconds_bucket{handler="/api/books",le="0.01",method="GET"} 0.0
+http_request_duration_seconds_bucket{handler="/api/books",le="0.025",method="GET"} 157.0
+http_request_duration_seconds_bucket{handler="/api/books",le="0.05",method="GET"} 343.0
+

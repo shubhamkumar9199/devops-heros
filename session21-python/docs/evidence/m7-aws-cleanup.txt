@@ -1,0 +1,18 @@
+$ aws eks list-clusters --query "clusters[?contains(@, 'shelfwise')]" --output text
+
+$ aws ec2 describe-nat-gateways --filter Name=tag:Project,Values=shelfwise --query "NatGateways[].[NatGatewayId,State]" --output text
+nat-01474c28d9639b289	deleted
+
+$ aws ec2 describe-addresses --filters Name=tag:Project,Values=shelfwise --query "Addresses[].PublicIp" --output text
+
+$ aws ec2 describe-vpcs --filters Name=tag:Project,Values=shelfwise --query "Vpcs[].VpcId" --output text
+
+$ aws ec2 describe-instances --filters Name=instance-state-name,Values=pending,running,stopping,stopped Name=tag:eks:cluster-name,Values=shelfwise-eks --query "Reservations[].Instances[].InstanceId" --output text
+
+$ aws ec2 describe-volumes --filters Name=tag:KubernetesCluster,Values=shelfwise-eks --query "Volumes[].VolumeId" --output text
+
+$ aws logs describe-log-groups --log-group-name-prefix /aws/eks/shelfwise-eks --query "logGroups[].logGroupName" --output text
+
+$ terraform -chdir=terraform state list | wc -l
+       0
+

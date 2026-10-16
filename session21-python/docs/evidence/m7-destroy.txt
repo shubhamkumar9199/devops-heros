@@ -1,0 +1,1030 @@
+# NOTE: the operator's public IP is redacted below as <operator-ip> and the AWS account ID as <account-id>; nothing else is changed.
+$ AWS_PROFILE=capstone terraform destroy -auto-approve -input=false -no-color
+data.aws_iam_policy_document.eks_assume: Reading...
+data.aws_availability_zones.available: Reading...
+data.aws_iam_policy_document.node_assume: Reading...
+data.aws_iam_policy_document.pod_identity_assume: Reading...
+aws_cloudwatch_log_group.eks: Refreshing state... [id=/aws/eks/shelfwise-eks/cluster]
+aws_vpc.main: Refreshing state... [id=vpc-09b4be16f2adb4b53]
+data.aws_iam_policy_document.eks_assume: Read complete after 0s [id=1029077455]
+data.aws_iam_policy_document.pod_identity_assume: Read complete after 0s [id=819195744]
+data.aws_iam_policy_document.node_assume: Read complete after 0s [id=2851119427]
+aws_iam_role.cluster: Refreshing state... [id=shelfwise-eks-cluster]
+aws_iam_role.ebs_csi: Refreshing state... [id=shelfwise-eks-ebs-csi]
+aws_iam_role.node: Refreshing state... [id=shelfwise-eks-node]
+data.aws_availability_zones.available: Read complete after 0s [id=ap-south-1]
+aws_internet_gateway.main: Refreshing state... [id=igw-08391831cbeb606e7]
+aws_route_table.private: Refreshing state... [id=rtb-0086f629124b9fc7e]
+aws_subnet.private[0]: Refreshing state... [id=subnet-032a25691a3011e13]
+aws_subnet.public[1]: Refreshing state... [id=subnet-0b23763f5f6d81bc3]
+aws_subnet.public[0]: Refreshing state... [id=subnet-061651a62b69a7478]
+aws_subnet.private[1]: Refreshing state... [id=subnet-056fb324d25e9a808]
+aws_route_table.public: Refreshing state... [id=rtb-0f71b39a9a5c27f2b]
+aws_eip.nat[0]: Refreshing state... [id=eipalloc-0c5537f0102f11f60]
+aws_route_table_association.private[1]: Refreshing state... [id=rtbassoc-089bb0b0bc9003698]
+aws_route_table_association.private[0]: Refreshing state... [id=rtbassoc-06d4cefc1ece74b4d]
+aws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-0dc2cb6f00606a983]
+aws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-02d012af757e29934]
+aws_nat_gateway.main[0]: Refreshing state... [id=nat-01474c28d9639b289]
+aws_route.private_nat[0]: Refreshing state... [id=r-rtb-0086f629124b9fc7e1080289494]
+aws_iam_role_policy_attachment.cluster: Refreshing state... [id=shelfwise-eks-cluster/arn:aws:iam::aws:policy/AmazonEKSClusterPolicy]
+aws_iam_role_policy_attachment.node["arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"]: Refreshing state... [id=shelfwise-eks-node/arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly]
+aws_iam_role_policy_attachment.node["arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"]: Refreshing state... [id=shelfwise-eks-node/arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy]
+aws_iam_role_policy_attachment.node["arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"]: Refreshing state... [id=shelfwise-eks-node/arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy]
+aws_iam_role_policy_attachment.ebs_csi: Refreshing state... [id=shelfwise-eks-ebs-csi/arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy]
+aws_eks_cluster.main: Refreshing state... [id=shelfwise-eks]
+aws_eks_node_group.main: Refreshing state... [id=shelfwise-eks:shelfwise-eks-workers]
+aws_eks_addon.pod_identity_agent: Refreshing state... [id=shelfwise-eks:eks-pod-identity-agent]
+aws_eks_addon.ebs_csi: Refreshing state... [id=shelfwise-eks:aws-ebs-csi-driver]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_log_group.eks will be destroyed
+  - resource "aws_cloudwatch_log_group" "eks" {
+      - arn                         = "arn:aws:logs:ap-south-1:<account-id>:log-group:/aws/eks/shelfwise-eks/cluster" -> null
+      - deletion_protection_enabled = false -> null
+      - id                          = "/aws/eks/shelfwise-eks/cluster" -> null
+      - log_group_class             = "STANDARD" -> null
+      - name                        = "/aws/eks/shelfwise-eks/cluster" -> null
+      - region                      = "ap-south-1" -> null
+      - retention_in_days           = 3 -> null
+      - skip_destroy                = false -> null
+      - tags                        = {} -> null
+      - tags_all                    = {
+          - "Environment" = "dev"
+          - "ManagedBy"   = "terraform"
+          - "Project"     = "shelfwise"
+          - "Repository"  = "github.com/shubhamkumar9199/devops-heros"
+        } -> null
+        # (2 unchanged attributes hidden)
+    }
+
+  # aws_eip.nat[0] will be destroyed
+  - resource "aws_eip" "nat" {
+      - allocation_id            = "eipalloc-0c5537f0102f11f60" -> null
+      - arn                      = "arn:aws:ec2:ap-south-1:<account-id>:elastic-ip/eipalloc-0c5537f0102f11f60" -> null
+      - association_id           = "eipassoc-0db09917373a268a1" -> null
+      - domain                   = "vpc" -> null
+      - id                       = "eipalloc-0c5537f0102f11f60" -> null
+      - network_border_group     = "ap-south-1" -> null
+      - network_interface        = "eni-03b84073cc092b809" -> null
+      - private_dns              = "ip-10-20-8-151.ap-south-1.compute.internal" -> null
+      - private_ip               = "10.20.8.151" -> null
+      - public_dns               = "ec2-13-206-12-182.ap-south-1.compute.amazonaws.com" -> null
+      - public_ip                = "13.206.12.182" -> null
+      - public_ipv4_pool         = "amazon" -> null
+      - region                   = "ap-south-1" -> null
+      - tags                     = {
+          - "Name" = "shelfwise-dev-nat-eip"
+        } -> null
+      - tags_all                 = {
+          - "Environment" = "dev"
+          - "ManagedBy"   = "terraform"
+          - "Name"        = "shelfwise-dev-nat-eip"
+          - "Project"     = "shelfwise"
+          - "Repository"  = "github.com/shubhamkumar9199/devops-heros"
+        } -> null
+        # (6 unchanged attributes hidden)
+    }
+
+  # aws_eks_addon.ebs_csi will be destroyed
+  - resource "aws_eks_addon" "ebs_csi" {
+      - addon_name               = "aws-ebs-csi-driver" -> null
+      - addon_version            = "v1.67.0-eksbuild.1" -> null
+      - arn                      = "arn:aws:eks:ap-south-1:<account-id>:addon/shelfwise-eks/aws-ebs-csi-driver/52d0a237-8595-ecc6-b886-8bc61b10e154" -> null
+      - cluster_name             = "shelfwise-eks" -> null
+      - created_at               = "2026-10-16T11:18:11Z" -> null
+      - id                       = "shelfwise-eks:aws-ebs-csi-driver" -> null
+      - modified_at              = "2026-10-16T11:18:52Z" -> null
+      - region                   = "ap-south-1" -> null
+      - tags                     = {} -> null
+      - tags_all                 = {
+          - "Environment" = "dev"
+          - "ManagedBy"   = "terraform"
+          - "Project"     = "shelfwise"
+          - "Repository"  = "github.com/shubhamkumar9199/devops-heros"
+        } -> null
+        # (2 unchanged attributes hidden)
+
+      - namespace_config {
+          - namespace = "kube-system" -> null
+        }
+
+      - pod_identity_association {
+          - role_arn        = "arn:aws:iam::<account-id>:role/shelfwise-eks-ebs-csi" -> null
+          - service_account = "ebs-csi-controller-sa" -> null
+        }
+    }
+
+  # aws_eks_addon.pod_identity_agent will be destroyed
+  - resource "aws_eks_addon" "pod_identity_agent" {
+      - addon_name               = "eks-pod-identity-agent" -> null
+      - addon_version            = "v1.3.10-eksbuild.3" -> null
+      - arn                      = "arn:aws:eks:ap-south-1:<account-id>:addon/shelfwise-eks/eks-pod-identity-agent/76d0a237-55cc-c1ac-38c9-f1380d37a25e" -> null
+      - cluster_name             = "shelfwise-eks" -> null
+      - created_at               = "2026-10-16T11:17:46Z" -> null
+      - id                       = "shelfwise-eks:eks-pod-identity-agent" -> null
+      - modified_at              = "2026-10-16T11:18:02Z" -> null
+      - region                   = "ap-south-1" -> null
+      - tags                     = {} -> null
+      - tags_all                 = {
+          - "Environment" = "dev"
+          - "ManagedBy"   = "terraform"
+          - "Project"     = "shelfwise"
+          - "Repository"  = "github.com/shubhamkumar9199/devops-heros"
+        } -> null
+        # (2 unchanged attributes hidden)
+
+      - namespace_config {
+          - namespace = "kube-system" -> null
+        }
+    }
+
+  # aws_eks_cluster.main will be destroyed
+  - resource "aws_eks_cluster" "main" {
+      - arn                           = "arn:aws:eks:ap-south-1:<account-id>:cluster/shelfwise-eks" -> null
+      - bootstrap_self_managed_addons = true -> null
+      - certificate_authority         = [
+          - {
+              - data = "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURNVENDQWhtZ0F3SUJBZ0lRRTRPV3N3cENidDNRTXZRMFpHODNuREFOQmdrcWhraUc5dzBCQVFzRkFEQW4KTVJBd0RnWURWUVFLRXdkQlYxTWdSVXRUTVJNd0VRWURWUVFERXdwcmRXSmxjbTVsZEdWek1CNFhEVEkyTVRBeApOakV4TURjeE5Wb1hEVE14TVRBeE5URXhNRGN4TlZvd0p6RVFNQTRHQTFVRUNoTUhRVmRUSUVWTFV6RVRNQkVHCkExVUVBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUIKQU1hcnluN2VqVEg0THR6U28wNWptSmN1RzR1NDI4YUVWeWhNUHZscFVoQzhrVlQvcGVwbDlwYXNVVmNObEh1RwpXUlZ2VGRhSmNodDJxNWZBclo3c0c2TVRBQk1mOTFmMnNudFZWaDFmczkzL3cwL21LZXBYRWV5MEx5VVJKSGZCCmh1eU9TS2YxL05MbW5pZTVsNzFOVEd2R1BHaGlmTUpKd3FGTmhNakhuOXpqZWttTnZoalMzOTl2emJ4cklLKzgKSjNoT3ZNQkppM1UyK3VJQS96R0pCNkRMcjVqeG40akxnck4wcmJBUE03YmwyYWl4UnFWd0ZVUHZMWG56RUVuSQpIRnhwYlBxbjdueUJjUU53dzVlUWdKMFArNFFoVE5iWk9OU2U3ZHEzOWl2dkNzYjFtS0pwbFY2R2lNMmQ4dnJ0CklSQzdpNU9KOGd3a0YyQ3psVXRvbFVjQ0F3RUFBYU5aTUZjd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWQKRXdFQi93UUZNQU1CQWY4d0hRWURWUjBPQkJZRUZFdWtybnZzWFBNejBvQ2lYSmkrN1Q2cGpMbm1NQlVHQTFVZApFUVFPTUF5Q0NtdDFZbVZ5Ym1WMFpYTXdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBQWpXUDRQUHJWTzl0SjFBCmxVdUF5MEp4RjJKaFJWUDFJNVBGakJhYWxoclZtTjRqSHlzSTJpM29LenNlVW5hQUp2WUVzRGxldCtKaGs0akEKRm1WT1k1N2dJYXV2Tjl6MGdxR21qYUdDeFY1bFNSQUhubFNNRVJIYUh4TE9SUkxCZWxuNjM0aWVHekNaNHM0UwpDRXVKTlZ3R2JraXhlQmh5L0QyOGp4WmhkN3o3eG5LcS9uaFQwSW5TYmxSZnQzcm9JSDlLaVZ4Vm45WFB5ZFNqCkliV1dmWHVKMFdEbTVRaUhQZzdVcGZLRDI2c3J4WWxtQmNnNXp4R2x5WlNRUVhHSHIveFplWnhZbnBvZ1F4SVQKSnUwVTdxY2dFc2FCMGJNU2lPYlh6eEcyWmJxYWVWZnR1YW1peGpzZ3k0VEJFZHU4bjhob0lUK3JrT3VJb2k1ZApjSkcrWkQ4PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="
+            },
+        ] -> null
+      - created_at                    = "2026-10-16T11:06:54Z" -> null
+      - deletion_protection           = false -> null
+      - enabled_cluster_log_types     = [
+          - "api",
+          - "audit",
+          - "authenticator",
+        ] -> null
+      - endpoint                      = "https://3791351FD35C2F866C87C8B4F2C531A2.gr7.ap-south-1.eks.amazonaws.com" -> null
+      - id                            = "shelfwise-eks" -> null
+      - identity                      = [
+          - {
+              - oidc = [
+                  - {
+                      - issuer = "https://oidc.eks.ap-south-1.amazonaws.com/id/3791351FD35C2F866C87C8B4F2C531A2"
+                    },
+                ]
+            },
+        ] -> null
+      - name                          = "shelfwise-eks" -> null
+      - platform_version              = "eks.24" -> null
+      - region                        = "ap-south-1" -> null
+      - role_arn                      = "arn:aws:iam::<account-id>:role/shelfwise-eks-cluster" -> null
+      - status                        = "ACTIVE" -> null
+      - tags                          = {} -> null
+      - tags_all                      = {
+          - "Environment" = "dev"
+          - "ManagedBy"   = "terraform"
+          - "Project"     = "shelfwise"
+          - "Repository"  = "github.com/shubhamkumar9199/devops-heros"
+        } -> null
+      - version                       = "1.35" -> null
+
+      - access_config {
+          - authentication_mode                         = "API" -> null
+          - bootstrap_cluster_creator_admin_permissions = true -> null
+        }
+
+      - compute_config {
+          - enabled       = false -> null
+          - node_pools    = [] -> null
+            # (1 unchanged attribute hidden)
+        }
+
+      - control_plane_scaling_config {
+          - tier = "standard" -> null
+        }
+
+      - kube_api_server_config {
+          - event_ttl = "60m" -> null
+
+          - service_node_port_range {
+              - max_port = 32767 -> null
+              - min_port = 30000 -> null
+            }
+        }
+
+      - kube_controller_manager_config {
+          - horizontal_pod_autoscaler_controller_config {
+              - horizontal_pod_autoscaler_sync_period = "15s" -> null
+            }
+          - pod_gc_controller_config {
+              - terminated_pod_gc_threshold = 12500 -> null
+            }
+        }
+
+      - kube_scheduler_config {
+          - node_resources_fit {
+              - scoring_strategy {
+                  - type = "LeastAllocated" -> null
+
+                  - resource {
+                      - name   = "cpu" -> null
+                      - weight = 1 -> null
+                    }
+                  - resource {
+                      - name   = "memory" -> null
+                      - weight = 1 -> null
+                    }
+                }
+            }
+        }
+
+      - kubernetes_network_config {
+          - ip_family         = "ipv4" -> null
+          - service_ipv4_cidr = "172.20.0.0/16" -> null
+            # (1 unchanged attribute hidden)
+
+          - elastic_load_balancing {
+              - enabled = false -> null
+            }
+        }
+
+      - storage_config {
+          - block_storage {
+              - enabled = false -> null
+            }
+        }
+
+      - upgrade_policy {
+          - support_type = "STANDARD" -> null
+        }
+
+      - vpc_config {
+          - cluster_security_group_id = "sg-06ad1559e58a7d2c8" -> null
+          - control_plane_egress_mode = "AWS_MANAGED" -> null
+          - endpoint_private_access   = true -> null
+          - endpoint_public_access    = true -> null
+          - public_access_cidrs       = [
+              - "<operator-ip>/32",
+            ] -> null
+          - security_group_ids        = [] -> null
+          - subnet_ids                = [
+              - "subnet-032a25691a3011e13",
+              - "subnet-056fb324d25e9a808",
+              - "subnet-061651a62b69a7478",
+              - "subnet-0b23763f5f6d81bc3",
+            ] -> null
+          - vpc_id                    = "vpc-09b4be16f2adb4b53" -> null
+        }
+    }
+
+  # aws_eks_node_group.main will be destroyed
+  - resource "aws_eks_node_group" "main" {
+      - ami_type               = "AL2023_x86_64_STANDARD" -> null
+      - arn                    = "arn:aws:eks:ap-south-1:<account-id>:nodegroup/shelfwise-eks/shelfwise-eks-workers/50d0a236-6dd2-83bb-4bed-025658fa0388" -> null
+      - capacity_type          = "ON_DEMAND" -> null
+      - cluster_name           = "shelfwise-eks" -> null
+      - disk_size              = 20 -> null
+      - id                     = "shelfwise-eks:shelfwise-eks-workers" -> null
+      - instance_types         = [
+          - "t3.medium",
+        ] -> null
+      - labels                 = {
+          - "workload" = "general"
+        } -> null
+      - node_group_name        = "shelfwise-eks-workers" -> null
+      - node_role_arn          = "arn:aws:iam::<account-id>:role/shelfwise-eks-node" -> null
+      - region                 = "ap-south-1" -> null
+      - release_version        = "1.35.8-20261012" -> null
+      - resources              = [
+          - {
+              - autoscaling_groups              = [
+                  - {
+                      - name = "eks-shelfwise-eks-workers-50d0a236-6dd2-83bb-4bed-025658fa0388"
+                    },
+                ]
+                # (1 unchanged attribute hidden)
+            },
+        ] -> null
+      - status                 = "ACTIVE" -> null
+      - subnet_ids             = [
+          - "subnet-032a25691a3011e13",
+          - "subnet-056fb324d25e9a808",
+        ] -> null
+      - tags                   = {} -> null
+      - tags_all               = {
+          - "Environment" = "dev"
+          - "ManagedBy"   = "terraform"
+          - "Project"     = "shelfwise"
+          - "Repository"  = "github.com/shubhamkumar9199/devops-heros"
+        } -> null
+      - version                = "1.35" -> null
+        # (1 unchanged attribute hidden)
+
+      - scaling_config {
+          - desired_size = 2 -> null
+          - max_size     = 3 -> null
+          - min_size     = 1 -> null
+        }
+
+      - update_config {
+          - max_unavailable            = 1 -> null
+          - max_unavailable_percentage = 0 -> null
+            # (1 unchanged attribute hidden)
+        }
+    }
+
+  # aws_iam_role.cluster will be destroyed
+  - resource "aws_iam_role" "cluster" {
+      - arn                   = "arn:aws:iam::<account-id>:role/shelfwise-eks-cluster" -> null
+      - assume_role_policy    = jsonencode(
+            {
+              - Statement = [
+                  - {
+                      - Action    = [
+                          - "sts:TagSession",
+                          - "sts:AssumeRole",
+                        ]
+                      - Effect    = "Allow"
+                      - Principal = {
+                          - Service = "eks.amazonaws.com"
+                        }
+                    },
+                ]
+              - Version   = "2012-10-17"
+            }
+        ) -> null
+      - create_date           = "2026-10-16T11:06:36Z" -> null
+      - force_detach_policies = false -> null
+      - id                    = "shelfwise-eks-cluster" -> null
+      - managed_policy_arns   = [
+          - "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy",
+        ] -> null
+      - max_session_duration  = 3600 -> null
+      - name                  = "shelfwise-eks-cluster" -> null
+      - path                  = "/" -> null
+      - tags                  = {} -> null
+      - tags_all              = {
+          - "Environment" = "dev"
+          - "ManagedBy"   = "terraform"
+          - "Project"     = "shelfwise"
+          - "Repository"  = "github.com/shubhamkumar9199/devops-heros"
+        } -> null
+      - unique_id             = "AROAZC3CIZOV647WZYHWV" -> null
+        # (3 unchanged attributes hidden)
+    }
+
+  # aws_iam_role.ebs_csi will be destroyed
+  - resource "aws_iam_role" "ebs_csi" {
+      - arn                   = "arn:aws:iam::<account-id>:role/shelfwise-eks-ebs-csi" -> null
+      - assume_role_policy    = jsonencode(
+            {
+              - Statement = [
+                  - {
+                      - Action    = [
+                          - "sts:TagSession",
+                          - "sts:AssumeRole",
+                        ]
+                      - Effect    = "Allow"
+                      - Principal = {
+                          - Service = "pods.eks.amazonaws.com"
+                        }
+                    },
+                ]
+              - Version   = "2012-10-17"
+            }
+        ) -> null
+      - create_date           = "2026-10-16T11:06:36Z" -> null
+      - force_detach_policies = false -> null
+      - id                    = "shelfwise-eks-ebs-csi" -> null
+      - managed_policy_arns   = [
+          - "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy",
+        ] -> null
+      - max_session_duration  = 3600 -> null
+      - name                  = "shelfwise-eks-ebs-csi" -> null
+      - path                  = "/" -> null
+      - tags                  = {} -> null
+      - tags_all              = {
+          - "Environment" = "dev"
+          - "ManagedBy"   = "terraform"
+          - "Project"     = "shelfwise"
+          - "Repository"  = "github.com/shubhamkumar9199/devops-heros"
+        } -> null
+      - unique_id             = "AROAZC3CIZOVZWCKNWVB3" -> null
+        # (3 unchanged attributes hidden)
+    }
+
+  # aws_iam_role.node will be destroyed
+  - resource "aws_iam_role" "node" {
+      - arn                   = "arn:aws:iam::<account-id>:role/shelfwise-eks-node" -> null
+      - assume_role_policy    = jsonencode(
+            {
+              - Statement = [
+                  - {
+                      - Action    = "sts:AssumeRole"
+                      - Effect    = "Allow"
+                      - Principal = {
+                          - Service = "ec2.amazonaws.com"
+                        }
+                    },
+                ]
+              - Version   = "2012-10-17"
+            }
+        ) -> null
+      - create_date           = "2026-10-16T11:06:36Z" -> null
+      - force_detach_policies = false -> null
+      - id                    = "shelfwise-eks-node" -> null
+      - managed_policy_arns   = [
+          - "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly",
+          - "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy",
+          - "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy",
+        ] -> null
+      - max_session_duration  = 3600 -> null
+      - name                  = "shelfwise-eks-node" -> null
+      - path                  = "/" -> null
+      - tags                  = {} -> null
+      - tags_all              = {
+          - "Environment" = "dev"
+          - "ManagedBy"   = "terraform"
+          - "Project"     = "shelfwise"
+          - "Repository"  = "github.com/shubhamkumar9199/devops-heros"
+        } -> null
+      - unique_id             = "AROAZC3CIZOVTCPS6PXY2" -> null
+        # (3 unchanged attributes hidden)
+    }
+
+  # aws_iam_role_policy_attachment.cluster will be destroyed
+  - resource "aws_iam_role_policy_attachment" "cluster" {
+      - id         = "shelfwise-eks-cluster/arn:aws:iam::aws:policy/AmazonEKSClusterPolicy" -> null
+      - policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy" -> null
+      - role       = "shelfwise-eks-cluster" -> null
+    }
+
+  # aws_iam_role_policy_attachment.ebs_csi will be destroyed
+  - resource "aws_iam_role_policy_attachment" "ebs_csi" {
+      - id         = "shelfwise-eks-ebs-csi/arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy" -> null
+      - policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy" -> null
+      - role       = "shelfwise-eks-ebs-csi" -> null
+    }
+
+  # aws_iam_role_policy_attachment.node["arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"] will be destroyed
+  - resource "aws_iam_role_policy_attachment" "node" {
+      - id         = "shelfwise-eks-node/arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly" -> null
+      - policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly" -> null
+      - role       = "shelfwise-eks-node" -> null
+    }
+
+  # aws_iam_role_policy_attachment.node["arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"] will be destroyed
+  - resource "aws_iam_role_policy_attachment" "node" {
+      - id         = "shelfwise-eks-node/arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy" -> null
+      - policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy" -> null
+      - role       = "shelfwise-eks-node" -> null
+    }
+
+  # aws_iam_role_policy_attachment.node["arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"] will be destroyed
+  - resource "aws_iam_role_policy_attachment" "node" {
+      - id         = "shelfwise-eks-node/arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy" -> null
+      - policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy" -> null
+      - role       = "shelfwise-eks-node" -> null
+    }
+
+  # aws_internet_gateway.main will be destroyed
+  - resource "aws_internet_gateway" "main" {
+      - arn      = "arn:aws:ec2:ap-south-1:<account-id>:internet-gateway/igw-08391831cbeb606e7" -> null
+      - id       = "igw-08391831cbeb606e7" -> null
+      - owner_id = "<account-id>" -> null
+      - region   = "ap-south-1" -> null
+      - tags     = {
+          - "Name" = "shelfwise-dev-igw"
+        } -> null
+      - tags_all = {
+          - "Environment" = "dev"
+          - "ManagedBy"   = "terraform"
+          - "Name"        = "shelfwise-dev-igw"
+          - "Project"     = "shelfwise"
+          - "Repository"  = "github.com/shubhamkumar9199/devops-heros"
+        } -> null
+      - vpc_id   = "vpc-09b4be16f2adb4b53" -> null
+    }
+
+  # aws_nat_gateway.main[0] will be destroyed
+  - resource "aws_nat_gateway" "main" {
+      - allocation_id                      = "eipalloc-0c5537f0102f11f60" -> null
+      - association_id                     = "eipassoc-0db09917373a268a1" -> null
+      - availability_mode                  = "zonal" -> null
+      - connectivity_type                  = "public" -> null
+      - id                                 = "nat-01474c28d9639b289" -> null
+      - network_interface_id               = "eni-03b84073cc092b809" -> null
+      - private_ip                         = "10.20.8.151" -> null
+      - public_ip                          = "13.206.12.182" -> null
+      - region                             = "ap-south-1" -> null
+      - regional_nat_gateway_address       = [] -> null
+      - secondary_allocation_ids           = [] -> null
+      - secondary_private_ip_address_count = 0 -> null
+      - secondary_private_ip_addresses     = [] -> null
+      - subnet_id                          = "subnet-061651a62b69a7478" -> null
+      - tags                               = {
+          - "Name" = "shelfwise-dev-nat"
+        } -> null
+      - tags_all                           = {
+          - "Environment" = "dev"
+          - "ManagedBy"   = "terraform"
+          - "Name"        = "shelfwise-dev-nat"
+          - "Project"     = "shelfwise"
+          - "Repository"  = "github.com/shubhamkumar9199/devops-heros"
+        } -> null
+      - vpc_id                             = "vpc-09b4be16f2adb4b53" -> null
+    }
+
+  # aws_route.private_nat[0] will be destroyed
+  - resource "aws_route" "private_nat" {
+      - destination_cidr_block      = "0.0.0.0/0" -> null
+      - id                          = "r-rtb-0086f629124b9fc7e1080289494" -> null
+      - nat_gateway_id              = "nat-01474c28d9639b289" -> null
+      - origin                      = "CreateRoute" -> null
+      - region                      = "ap-south-1" -> null
+      - route_table_id              = "rtb-0086f629124b9fc7e" -> null
+      - state                       = "active" -> null
+        # (14 unchanged attributes hidden)
+    }
+
+  # aws_route_table.private will be destroyed
+  - resource "aws_route_table" "private" {
+      - arn              = "arn:aws:ec2:ap-south-1:<account-id>:route-table/rtb-0086f629124b9fc7e" -> null
+      - id               = "rtb-0086f629124b9fc7e" -> null
+      - owner_id         = "<account-id>" -> null
+      - propagating_vgws = [] -> null
+      - region           = "ap-south-1" -> null
+      - route            = [
+          - {
+              - cidr_block                 = "0.0.0.0/0"
+              - nat_gateway_id             = "nat-01474c28d9639b289"
+                # (12 unchanged attributes hidden)
+            },
+        ] -> null
+      - tags             = {
+          - "Name" = "shelfwise-dev-private-rt"
+        } -> null
+      - tags_all         = {
+          - "Environment" = "dev"
+          - "ManagedBy"   = "terraform"
+          - "Name"        = "shelfwise-dev-private-rt"
+          - "Project"     = "shelfwise"
+          - "Repository"  = "github.com/shubhamkumar9199/devops-heros"
+        } -> null
+      - vpc_id           = "vpc-09b4be16f2adb4b53" -> null
+    }
+
+  # aws_route_table.public will be destroyed
+  - resource "aws_route_table" "public" {
+      - arn              = "arn:aws:ec2:ap-south-1:<account-id>:route-table/rtb-0f71b39a9a5c27f2b" -> null
+      - id               = "rtb-0f71b39a9a5c27f2b" -> null
+      - owner_id         = "<account-id>" -> null
+      - propagating_vgws = [] -> null
+      - region           = "ap-south-1" -> null
+      - route            = [
+          - {
+              - cidr_block                 = "0.0.0.0/0"
+              - gateway_id                 = "igw-08391831cbeb606e7"
+                # (12 unchanged attributes hidden)
+            },
+        ] -> null
+      - tags             = {
+          - "Name" = "shelfwise-dev-public-rt"
+        } -> null
+      - tags_all         = {
+          - "Environment" = "dev"
+          - "ManagedBy"   = "terraform"
+          - "Name"        = "shelfwise-dev-public-rt"
+          - "Project"     = "shelfwise"
+          - "Repository"  = "github.com/shubhamkumar9199/devops-heros"
+        } -> null
+      - vpc_id           = "vpc-09b4be16f2adb4b53" -> null
+    }
+
+  # aws_route_table_association.private[0] will be destroyed
+  - resource "aws_route_table_association" "private" {
+      - id             = "rtbassoc-06d4cefc1ece74b4d" -> null
+      - region         = "ap-south-1" -> null
+      - route_table_id = "rtb-0086f629124b9fc7e" -> null
+      - subnet_id      = "subnet-032a25691a3011e13" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+  # aws_route_table_association.private[1] will be destroyed
+  - resource "aws_route_table_association" "private" {
+      - id             = "rtbassoc-089bb0b0bc9003698" -> null
+      - region         = "ap-south-1" -> null
+      - route_table_id = "rtb-0086f629124b9fc7e" -> null
+      - subnet_id      = "subnet-056fb324d25e9a808" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+  # aws_route_table_association.public[0] will be destroyed
+  - resource "aws_route_table_association" "public" {
+      - id             = "rtbassoc-02d012af757e29934" -> null
+      - region         = "ap-south-1" -> null
+      - route_table_id = "rtb-0f71b39a9a5c27f2b" -> null
+      - subnet_id      = "subnet-061651a62b69a7478" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+  # aws_route_table_association.public[1] will be destroyed
+  - resource "aws_route_table_association" "public" {
+      - id             = "rtbassoc-0dc2cb6f00606a983" -> null
+      - region         = "ap-south-1" -> null
+      - route_table_id = "rtb-0f71b39a9a5c27f2b" -> null
+      - subnet_id      = "subnet-0b23763f5f6d81bc3" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+  # aws_subnet.private[0] will be destroyed
+  - resource "aws_subnet" "private" {
+      - arn                                            = "arn:aws:ec2:ap-south-1:<account-id>:subnet/subnet-032a25691a3011e13" -> null
+      - assign_ipv6_address_on_creation                = false -> null
+      - availability_zone                              = "ap-south-1a" -> null
+      - availability_zone_id                           = "aps1-az1" -> null
+      - cidr_block                                     = "10.20.128.0/19" -> null
+      - enable_dns64                                   = false -> null
+      - enable_lni_at_device_index                     = 0 -> null
+      - enable_resource_name_dns_a_record_on_launch    = false -> null
+      - enable_resource_name_dns_aaaa_record_on_launch = false -> null
+      - id                                             = "subnet-032a25691a3011e13" -> null
+      - ipv6_native                                    = false -> null
+      - map_customer_owned_ip_on_launch                = false -> null
+      - map_public_ip_on_launch                        = false -> null
+      - owner_id                                       = "<account-id>" -> null
+      - private_dns_hostname_type_on_launch            = "ip-name" -> null
+      - region                                         = "ap-south-1" -> null
+      - tags                                           = {
+          - "Name"                                = "shelfwise-dev-private-ap-south-1a"
+          - "Tier"                                = "private"
+          - "kubernetes.io/cluster/shelfwise-eks" = "shared"
+          - "kubernetes.io/role/internal-elb"     = "1"
+        } -> null
+      - tags_all                                       = {
+          - "Environment"                         = "dev"
+          - "ManagedBy"                           = "terraform"
+          - "Name"                                = "shelfwise-dev-private-ap-south-1a"
+          - "Project"                             = "shelfwise"
+          - "Repository"                          = "github.com/shubhamkumar9199/devops-heros"
+          - "Tier"                                = "private"
+          - "kubernetes.io/cluster/shelfwise-eks" = "shared"
+          - "kubernetes.io/role/internal-elb"     = "1"
+        } -> null
+      - vpc_id                                         = "vpc-09b4be16f2adb4b53" -> null
+        # (4 unchanged attributes hidden)
+    }
+
+  # aws_subnet.private[1] will be destroyed
+  - resource "aws_subnet" "private" {
+      - arn                                            = "arn:aws:ec2:ap-south-1:<account-id>:subnet/subnet-056fb324d25e9a808" -> null
+      - assign_ipv6_address_on_creation                = false -> null
+      - availability_zone                              = "ap-south-1b" -> null
+      - availability_zone_id                           = "aps1-az3" -> null
+      - cidr_block                                     = "10.20.160.0/19" -> null
+      - enable_dns64                                   = false -> null
+      - enable_lni_at_device_index                     = 0 -> null
+      - enable_resource_name_dns_a_record_on_launch    = false -> null
+      - enable_resource_name_dns_aaaa_record_on_launch = false -> null
+      - id                                             = "subnet-056fb324d25e9a808" -> null
+      - ipv6_native                                    = false -> null
+      - map_customer_owned_ip_on_launch                = false -> null
+      - map_public_ip_on_launch                        = false -> null
+      - owner_id                                       = "<account-id>" -> null
+      - private_dns_hostname_type_on_launch            = "ip-name" -> null
+      - region                                         = "ap-south-1" -> null
+      - tags                                           = {
+          - "Name"                                = "shelfwise-dev-private-ap-south-1b"
+          - "Tier"                                = "private"
+          - "kubernetes.io/cluster/shelfwise-eks" = "shared"
+          - "kubernetes.io/role/internal-elb"     = "1"
+        } -> null
+      - tags_all                                       = {
+          - "Environment"                         = "dev"
+          - "ManagedBy"                           = "terraform"
+          - "Name"                                = "shelfwise-dev-private-ap-south-1b"
+          - "Project"                             = "shelfwise"
+          - "Repository"                          = "github.com/shubhamkumar9199/devops-heros"
+          - "Tier"                                = "private"
+          - "kubernetes.io/cluster/shelfwise-eks" = "shared"
+          - "kubernetes.io/role/internal-elb"     = "1"
+        } -> null
+      - vpc_id                                         = "vpc-09b4be16f2adb4b53" -> null
+        # (4 unchanged attributes hidden)
+    }
+
+  # aws_subnet.public[0] will be destroyed
+  - resource "aws_subnet" "public" {
+      - arn                                            = "arn:aws:ec2:ap-south-1:<account-id>:subnet/subnet-061651a62b69a7478" -> null
+      - assign_ipv6_address_on_creation                = false -> null
+      - availability_zone                              = "ap-south-1a" -> null
+      - availability_zone_id                           = "aps1-az1" -> null
+      - cidr_block                                     = "10.20.0.0/20" -> null
+      - enable_dns64                                   = false -> null
+      - enable_lni_at_device_index                     = 0 -> null
+      - enable_resource_name_dns_a_record_on_launch    = false -> null
+      - enable_resource_name_dns_aaaa_record_on_launch = false -> null
+      - id                                             = "subnet-061651a62b69a7478" -> null
+      - ipv6_native                                    = false -> null
+      - map_customer_owned_ip_on_launch                = false -> null
+      - map_public_ip_on_launch                        = true -> null
+      - owner_id                                       = "<account-id>" -> null
+      - private_dns_hostname_type_on_launch            = "ip-name" -> null
+      - region                                         = "ap-south-1" -> null
+      - tags                                           = {
+          - "Name"                                = "shelfwise-dev-public-ap-south-1a"
+          - "Tier"                                = "public"
+          - "kubernetes.io/cluster/shelfwise-eks" = "shared"
+          - "kubernetes.io/role/elb"              = "1"
+        } -> null
+      - tags_all                                       = {
+          - "Environment"                         = "dev"
+          - "ManagedBy"                           = "terraform"
+          - "Name"                                = "shelfwise-dev-public-ap-south-1a"
+          - "Project"                             = "shelfwise"
+          - "Repository"                          = "github.com/shubhamkumar9199/devops-heros"
+          - "Tier"                                = "public"
+          - "kubernetes.io/cluster/shelfwise-eks" = "shared"
+          - "kubernetes.io/role/elb"              = "1"
+        } -> null
+      - vpc_id                                         = "vpc-09b4be16f2adb4b53" -> null
+        # (4 unchanged attributes hidden)
+    }
+
+  # aws_subnet.public[1] will be destroyed
+  - resource "aws_subnet" "public" {
+      - arn                                            = "arn:aws:ec2:ap-south-1:<account-id>:subnet/subnet-0b23763f5f6d81bc3" -> null
+      - assign_ipv6_address_on_creation                = false -> null
+      - availability_zone                              = "ap-south-1b" -> null
+      - availability_zone_id                           = "aps1-az3" -> null
+      - cidr_block                                     = "10.20.16.0/20" -> null
+      - enable_dns64                                   = false -> null
+      - enable_lni_at_device_index                     = 0 -> null
+      - enable_resource_name_dns_a_record_on_launch    = false -> null
+      - enable_resource_name_dns_aaaa_record_on_launch = false -> null
+      - id                                             = "subnet-0b23763f5f6d81bc3" -> null
+      - ipv6_native                                    = false -> null
+      - map_customer_owned_ip_on_launch                = false -> null
+      - map_public_ip_on_launch                        = true -> null
+      - owner_id                                       = "<account-id>" -> null
+      - private_dns_hostname_type_on_launch            = "ip-name" -> null
+      - region                                         = "ap-south-1" -> null
+      - tags                                           = {
+          - "Name"                                = "shelfwise-dev-public-ap-south-1b"
+          - "Tier"                                = "public"
+          - "kubernetes.io/cluster/shelfwise-eks" = "shared"
+          - "kubernetes.io/role/elb"              = "1"
+        } -> null
+      - tags_all                                       = {
+          - "Environment"                         = "dev"
+          - "ManagedBy"                           = "terraform"
+          - "Name"                                = "shelfwise-dev-public-ap-south-1b"
+          - "Project"                             = "shelfwise"
+          - "Repository"                          = "github.com/shubhamkumar9199/devops-heros"
+          - "Tier"                                = "public"
+          - "kubernetes.io/cluster/shelfwise-eks" = "shared"
+          - "kubernetes.io/role/elb"              = "1"
+        } -> null
+      - vpc_id                                         = "vpc-09b4be16f2adb4b53" -> null
+        # (4 unchanged attributes hidden)
+    }
+
+  # aws_vpc.main will be destroyed
+  - resource "aws_vpc" "main" {
+      - arn                                  = "arn:aws:ec2:ap-south-1:<account-id>:vpc/vpc-09b4be16f2adb4b53" -> null
+      - assign_generated_ipv6_cidr_block     = false -> null
+      - cidr_block                           = "10.20.0.0/16" -> null
+      - default_network_acl_id               = "acl-0b55134e33093c1fc" -> null
+      - default_route_table_id               = "rtb-0a30ce2e301e09507" -> null
+      - default_security_group_id            = "sg-02ee25f430fa125cd" -> null
+      - dhcp_options_id                      = "dopt-0c41553c9187bd012" -> null
+      - enable_dns_hostnames                 = true -> null
+      - enable_dns_support                   = true -> null
+      - enable_network_address_usage_metrics = false -> null
+      - id                                   = "vpc-09b4be16f2adb4b53" -> null
+      - instance_tenancy                     = "default" -> null
+      - ipv6_netmask_length                  = 0 -> null
+      - main_route_table_id                  = "rtb-0a30ce2e301e09507" -> null
+      - owner_id                             = "<account-id>" -> null
+      - region                               = "ap-south-1" -> null
+      - tags                                 = {
+          - "Name" = "shelfwise-dev-vpc"
+        } -> null
+      - tags_all                             = {
+          - "Environment" = "dev"
+          - "ManagedBy"   = "terraform"
+          - "Name"        = "shelfwise-dev-vpc"
+          - "Project"     = "shelfwise"
+          - "Repository"  = "github.com/shubhamkumar9199/devops-heros"
+        } -> null
+        # (4 unchanged attributes hidden)
+    }
+
+Plan: 0 to add, 0 to change, 28 to destroy.
+
+Changes to Outputs:
+  - availability_zones    = [
+      - "ap-south-1a",
+      - "ap-south-1b",
+    ] -> null
+  - cluster_endpoint      = "https://3791351FD35C2F866C87C8B4F2C531A2.gr7.ap-south-1.eks.amazonaws.com" -> null
+  - cluster_name          = "shelfwise-eks" -> null
+  - cluster_version       = "1.35" -> null
+  - configure_kubectl     = "aws eks update-kubeconfig --region ap-south-1 --name shelfwise-eks" -> null
+  - nat_gateway_public_ip = "13.206.12.182" -> null
+  - node_group            = {
+      - desired_size   = 2
+      - instance_types = [
+          - "t3.medium",
+        ]
+      - name           = "shelfwise-eks-workers"
+    } -> null
+  - private_subnet_ids    = [
+      - "subnet-032a25691a3011e13",
+      - "subnet-056fb324d25e9a808",
+    ] -> null
+  - public_subnet_ids     = [
+      - "subnet-061651a62b69a7478",
+      - "subnet-0b23763f5f6d81bc3",
+    ] -> null
+  - region                = "ap-south-1" -> null
+  - vpc_id                = "vpc-09b4be16f2adb4b53" -> null
+aws_route_table_association.public[1]: Destroying... [id=rtbassoc-0dc2cb6f00606a983]
+aws_route_table_association.public[0]: Destroying... [id=rtbassoc-02d012af757e29934]
+aws_eks_addon.ebs_csi: Destroying... [id=shelfwise-eks:aws-ebs-csi-driver]
+aws_route_table_association.public[1]: Destruction complete after 0s
+aws_route_table_association.public[0]: Destruction complete after 1s
+aws_route_table.public: Destroying... [id=rtb-0f71b39a9a5c27f2b]
+aws_route_table.public: Destruction complete after 0s
+aws_eks_addon.ebs_csi: Destruction complete after 8s
+aws_iam_role_policy_attachment.ebs_csi: Destroying... [id=shelfwise-eks-ebs-csi/arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy]
+aws_eks_addon.pod_identity_agent: Destroying... [id=shelfwise-eks:eks-pod-identity-agent]
+aws_iam_role_policy_attachment.ebs_csi: Destruction complete after 1s
+aws_iam_role.ebs_csi: Destroying... [id=shelfwise-eks-ebs-csi]
+aws_eks_addon.pod_identity_agent: Destruction complete after 1s
+aws_eks_node_group.main: Destroying... [id=shelfwise-eks:shelfwise-eks-workers]
+aws_iam_role.ebs_csi: Destruction complete after 1s
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 00m10s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 00m20s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 00m30s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 00m40s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 00m50s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 01m00s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 01m10s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 01m20s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 01m30s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 01m40s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 01m50s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 02m00s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 02m10s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 02m20s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 02m30s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 02m40s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 02m50s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 03m00s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 03m10s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 03m20s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 03m30s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 03m40s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 03m50s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 04m00s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 04m10s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 04m20s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 04m30s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 04m40s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 04m50s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 05m00s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 05m10s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 05m20s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 05m30s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 05m40s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 05m50s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 06m00s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 06m10s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 06m20s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 06m30s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 06m40s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 06m50s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 07m00s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 07m10s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 07m20s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 07m30s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 07m40s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 07m50s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 08m00s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 08m10s elapsed]
+aws_eks_node_group.main: Still destroying... [id=shelfwise-eks:shelfwise-eks-workers, 08m20s elapsed]
+aws_eks_node_group.main: Destruction complete after 8m22s
+aws_iam_role_policy_attachment.node["arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"]: Destroying... [id=shelfwise-eks-node/arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy]
+aws_iam_role_policy_attachment.node["arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"]: Destroying... [id=shelfwise-eks-node/arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly]
+aws_route_table_association.private[0]: Destroying... [id=rtbassoc-06d4cefc1ece74b4d]
+aws_iam_role_policy_attachment.node["arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"]: Destroying... [id=shelfwise-eks-node/arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy]
+aws_route_table_association.private[1]: Destroying... [id=rtbassoc-089bb0b0bc9003698]
+aws_route.private_nat[0]: Destroying... [id=r-rtb-0086f629124b9fc7e1080289494]
+aws_eks_cluster.main: Destroying... [id=shelfwise-eks]
+aws_route_table_association.private[0]: Destruction complete after 0s
+aws_route.private_nat[0]: Destruction complete after 0s
+aws_nat_gateway.main[0]: Destroying... [id=nat-01474c28d9639b289]
+aws_route_table_association.private[1]: Destruction complete after 0s
+aws_route_table.private: Destroying... [id=rtb-0086f629124b9fc7e]
+aws_iam_role_policy_attachment.node["arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"]: Destruction complete after 1s
+aws_route_table.private: Destruction complete after 1s
+aws_iam_role_policy_attachment.node["arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"]: Destruction complete after 1s
+aws_iam_role_policy_attachment.node["arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"]: Destruction complete after 1s
+aws_iam_role.node: Destroying... [id=shelfwise-eks-node]
+aws_iam_role.node: Destruction complete after 1s
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 00m10s elapsed]
+aws_nat_gateway.main[0]: Still destroying... [id=nat-01474c28d9639b289, 00m10s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 00m20s elapsed]
+aws_nat_gateway.main[0]: Still destroying... [id=nat-01474c28d9639b289, 00m20s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 00m30s elapsed]
+aws_nat_gateway.main[0]: Still destroying... [id=nat-01474c28d9639b289, 00m30s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 00m40s elapsed]
+aws_nat_gateway.main[0]: Still destroying... [id=nat-01474c28d9639b289, 00m40s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 00m50s elapsed]
+aws_nat_gateway.main[0]: Still destroying... [id=nat-01474c28d9639b289, 00m50s elapsed]
+aws_nat_gateway.main[0]: Destruction complete after 51s
+aws_eip.nat[0]: Destroying... [id=eipalloc-0c5537f0102f11f60]
+aws_eip.nat[0]: Destruction complete after 1s
+aws_internet_gateway.main: Destroying... [id=igw-08391831cbeb606e7]
+aws_internet_gateway.main: Destruction complete after 0s
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 01m00s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 01m10s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 01m20s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 01m30s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 01m40s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 01m50s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 02m00s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 02m10s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 02m20s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 02m30s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 02m40s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 02m50s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 03m00s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 03m10s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 03m20s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 03m30s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 03m40s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 03m50s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 04m00s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 04m10s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 04m20s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 04m30s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 04m40s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 04m50s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 05m00s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 05m10s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 05m20s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 05m30s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 05m40s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 05m50s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 06m00s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 06m10s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 06m20s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 06m30s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 06m40s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 06m50s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 07m00s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 07m10s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 07m20s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 07m30s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 07m40s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 07m50s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 08m00s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 08m10s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 08m20s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 08m30s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 08m40s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 08m50s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 09m00s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 09m10s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 09m20s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 09m30s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 09m40s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 09m50s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 10m00s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 10m10s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 10m20s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 10m30s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 10m40s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 10m50s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 11m00s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 11m10s elapsed]
+aws_eks_cluster.main: Still destroying... [id=shelfwise-eks, 11m20s elapsed]
+aws_eks_cluster.main: Destruction complete after 11m24s
+aws_iam_role_policy_attachment.cluster: Destroying... [id=shelfwise-eks-cluster/arn:aws:iam::aws:policy/AmazonEKSClusterPolicy]
+aws_cloudwatch_log_group.eks: Destroying... [id=/aws/eks/shelfwise-eks/cluster]
+aws_subnet.public[1]: Destroying... [id=subnet-0b23763f5f6d81bc3]
+aws_subnet.private[0]: Destroying... [id=subnet-032a25691a3011e13]
+aws_subnet.public[0]: Destroying... [id=subnet-061651a62b69a7478]
+aws_subnet.private[1]: Destroying... [id=subnet-056fb324d25e9a808]
+aws_cloudwatch_log_group.eks: Destruction complete after 0s
+aws_subnet.public[0]: Destruction complete after 0s
+aws_subnet.private[0]: Destruction complete after 1s
+aws_subnet.public[1]: Destruction complete after 1s
+aws_subnet.private[1]: Destruction complete after 1s
+aws_vpc.main: Destroying... [id=vpc-09b4be16f2adb4b53]
+aws_iam_role_policy_attachment.cluster: Destruction complete after 1s
+aws_iam_role.cluster: Destroying... [id=shelfwise-eks-cluster]
+aws_vpc.main: Destruction complete after 0s
+aws_iam_role.cluster: Destruction complete after 1s
+
+Destroy complete! Resources: 28 destroyed.
+destroy exit=0 elapsed=1202s

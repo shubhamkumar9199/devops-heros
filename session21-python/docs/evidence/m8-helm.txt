@@ -1,0 +1,34 @@
+$ helm list -A
+NAME          	NAMESPACE        	REVISION	UPDATED                             	STATUS  	CHART                       	APP VERSION
+argocd        	argocd           	1       	2026-10-16 15:35:19.397072 +0530 IST	deployed	argo-cd-10.10.5             	v3.5.5     
+metrics-server	kube-system      	3       	2026-10-16 15:33:45.542399 +0530 IST	deployed	metrics-server-3.14.0       	0.9.0      
+monitoring    	monitoring       	3       	2026-10-16 18:49:19.292132 +0530 IST	deployed	kube-prometheus-stack-92.8.0	v0.94.1    
+shelfwise     	shelfwise-staging	1       	2026-10-16 16:39:44.34326 +0530 IST 	deployed	shelfwise-1.0.0             	1.0.0      
+traefik       	traefik          	4       	2026-10-16 17:07:25.210903 +0530 IST	deployed	traefik-41.7.1              	v3.7.14    
+
+$ helm status shelfwise -n shelfwise-staging | head -8
+NAME: shelfwise
+LAST DEPLOYED: Fri Oct 16 16:39:44 2026
+NAMESPACE: shelfwise-staging
+STATUS: deployed
+REVISION: 1
+DESCRIPTION: Install complete
+RESOURCES:
+==> v1/ConfigMap
+
+$ kubectl -n shelfwise-staging get pods,svc,ingress
+NAME                                      READY   STATUS    RESTARTS   AGE
+pod/shelfwise-backend-54f8d77c4d-m92cd    1/1     Running   0          149m
+pod/shelfwise-backend-54f8d77c4d-ntnvh    1/1     Running   0          149m
+pod/shelfwise-frontend-7444885cf7-8hp48   1/1     Running   0          149m
+pod/shelfwise-frontend-7444885cf7-hjwgb   1/1     Running   0          149m
+pod/shelfwise-postgres-0                  1/1     Running   0          149m
+
+NAME                         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/shelfwise-backend    ClusterIP   10.96.124.146   <none>        8000/TCP   149m
+service/shelfwise-frontend   ClusterIP   10.96.26.42     <none>        8080/TCP   149m
+service/shelfwise-postgres   ClusterIP   None            <none>        5432/TCP   149m
+
+NAME                                  CLASS     HOSTS                     ADDRESS     PORTS   AGE
+ingress.networking.k8s.io/shelfwise   traefik   staging.shelfwise.local   127.0.0.1   80      149m
+

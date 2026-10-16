@@ -1,0 +1,35 @@
+$ kubectl get namespace shelfwise -L pod-security.kubernetes.io/enforce,pod-security.kubernetes.io/enforce-version
+NAME        STATUS   AGE     ENFORCE      ENFORCE-VERSION
+shelfwise   Active   3h34m   restricted   latest
+
+$ kubectl -n shelfwise get pods -o wide | cut -c1-140
+NAME                                  READY   STATUS    RESTARTS   AGE     IP            NODE                NOMINATED NODE   READINESS GATE
+shelfwise-backend-65974b7d7-2hlqw     1/1     Running   0          7m21s   10.244.3.41   shelfwise-worker    <none>           <none>
+shelfwise-backend-65974b7d7-swsg9     1/1     Running   0          6m26s   10.244.1.42   shelfwise-worker2   <none>           <none>
+shelfwise-frontend-85b47d9b99-6c297   1/1     Running   0          7m16s   10.244.1.41   shelfwise-worker2   <none>           <none>
+shelfwise-frontend-85b47d9b99-lbwld   1/1     Running   0          7m21s   10.244.1.40   shelfwise-worker2   <none>           <none>
+shelfwise-postgres-0                  1/1     Running   0          140m    10.244.1.17   shelfwise-worker2   <none>           <none>
+
+$ kubectl -n shelfwise get svc,ingress
+NAME                         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
+service/shelfwise-backend    ClusterIP   10.96.15.125   <none>        8000/TCP   140m
+service/shelfwise-frontend   ClusterIP   10.96.15.110   <none>        8080/TCP   140m
+service/shelfwise-postgres   ClusterIP   None           <none>        5432/TCP   140m
+
+NAME                                  CLASS     HOSTS             ADDRESS     PORTS   AGE
+ingress.networking.k8s.io/shelfwise   traefik   shelfwise.local   127.0.0.1   80      140m
+
+$ kubectl -n shelfwise get hpa,pdb,statefulset,cronjob
+NAME                                                    REFERENCE                      TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/shelfwise-backend   Deployment/shelfwise-backend   cpu: 12%/60%   2         6         2          140m
+
+NAME                                            MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
+poddisruptionbudget.policy/shelfwise-backend    1               N/A               1                     140m
+poddisruptionbudget.policy/shelfwise-frontend   1               N/A               1                     140m
+
+NAME                                  READY   AGE
+statefulset.apps/shelfwise-postgres   1/1     140m
+
+NAME                                  SCHEDULE       TIMEZONE       SUSPEND   ACTIVE   LAST SCHEDULE   AGE
+cronjob.batch/shelfwise-hold-expiry   */30 * * * *   Asia/Kolkata   False     0        9m43s           140m
+

@@ -1,0 +1,28 @@
+$ helm upgrade --install shelfwise ./helm/shelfwise -n shelfwise -f helm/shelfwise/values-prod.yaml --set backend.image.tag=9cefdb7ab2d03ffd5cb5432dcf13d7b4e883870d --set frontend.image.tag=9cefdb7ab2d03ffd5cb5432dcf13d7b4e883870d --set ingress.enabled=false --set monitoring.enabled=false --set postgres.storage.size=1Gi --wait --timeout 8m 2>&1 | grep -E 'STATUS|REVISION|NAMESPACE|Error'
+NAMESPACE: shelfwise
+STATUS: deployed
+REVISION: 1
+
+$ kubectl -n shelfwise get pods,svc,pvc -o wide | cut -c1-160
+NAME                                     READY   STATUS    RESTARTS   AGE   IP              NODE                                          NOMINATED NODE   READI
+pod/shelfwise-backend-5c55cfb94c-frndl   1/1     Running   0          11s   10.20.180.210   ip-10-20-166-68.ap-south-1.compute.internal   <none>           <none
+pod/shelfwise-backend-5c55cfb94c-fxnjb   1/1     Running   0          26s   10.20.186.113   ip-10-20-166-68.ap-south-1.compute.internal   <none>           <none
+pod/shelfwise-backend-5c55cfb94c-hpw4n   1/1     Running   0          11s   10.20.140.118   ip-10-20-158-67.ap-south-1.compute.internal   <none>           <none
+pod/shelfwise-frontend-64fdf959c-8fnzd   1/1     Running   0          26s   10.20.134.158   ip-10-20-158-67.ap-south-1.compute.internal   <none>           <none
+pod/shelfwise-frontend-64fdf959c-8jq2g   1/1     Running   0          26s   10.20.143.245   ip-10-20-158-67.ap-south-1.compute.internal   <none>           <none
+pod/shelfwise-frontend-64fdf959c-bkqnm   1/1     Running   0          26s   10.20.173.6     ip-10-20-166-68.ap-south-1.compute.internal   <none>           <none
+pod/shelfwise-postgres-0                 1/1     Running   0          26s   10.20.152.169   ip-10-20-158-67.ap-south-1.compute.internal   <none>           <none
+
+NAME                         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE   SELECTOR
+service/shelfwise-backend    ClusterIP   172.20.42.194    <none>        8000/TCP   26s   app.kubernetes.io/component=backend,app.kubernetes.io/instance=shelfwis
+service/shelfwise-frontend   ClusterIP   172.20.188.180   <none>        8080/TCP   26s   app.kubernetes.io/component=frontend,app.kubernetes.io/instance=shelfwi
+service/shelfwise-postgres   ClusterIP   None             <none>        5432/TCP   26s   app.kubernetes.io/component=database,app.kubernetes.io/instance=shelfwi
+
+NAME                                              STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESC
+persistentvolumeclaim/data-shelfwise-postgres-0   Bound    pvc-902d8052-ce5b-43de-a63f-33e98d57fc69   1Gi        RWO            gp2            <unset>          
+
+$ helm test shelfwise -n shelfwise --logs 2>&1 | grep -E 'Phase|POD LOGS|version'
+Phase:          Succeeded
+POD LOGS: shelfwise-test-api (check)
+version 9cefdb7ab2d0 pod shelfwise-backend-5c55cfb94c-hpw4n ready 200
+

@@ -1,0 +1,129 @@
+$ FRONTEND_PORT=3001 docker compose up --build -d 2>&1 | grep -vE "^#[0-9]+ (sha256|extracting|\[internal\]|DONE 0\.|CACHED)" 
+ Image shelfwise-backend:local Building 
+ Image shelfwise-frontend:local Building 
+#1 reading from stdin 1.26kB done
+
+#2 [backend internal] load build definition from Dockerfile
+#2 transferring dockerfile: 1.88kB done
+
+#3 [frontend internal] load build definition from Dockerfile
+#3 transferring dockerfile: 2.00kB done
+
+#4 [frontend] resolve image config for docker-image://docker.io/docker/dockerfile:1
+
+#5 [backend] docker-image://docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e
+#5 resolve docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e done
+
+#6 [frontend internal] load metadata for docker.io/library/node:24.22.0-alpine3.24@sha256:44fce696f38ba8c987c4db89954051000bbd05ffd8d8659ba15ed4a8602e937f
+
+#7 [frontend internal] load metadata for docker.io/nginxinc/nginx-unprivileged:1.31.7-alpine3.24@sha256:378d0c32f6562f7fd9629170797f57d2b953aa09be983b3daaf4809bb039ca00
+
+#8 [backend internal] load metadata for docker.io/library/python:3.12.15-slim-trixie@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
+
+#9 [frontend internal] load .dockerignore
+#9 transferring context: 87B done
+
+#10 [backend internal] load .dockerignore
+#10 transferring context: 331B done
+
+#11 [backend build 1/4] FROM docker.io/library/python:3.12.15-slim-trixie@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
+#11 resolve docker.io/library/python:3.12.15-slim-trixie@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1 0.0s done
+
+#12 [frontend build 1/6] FROM docker.io/library/node:24.22.0-alpine3.24@sha256:44fce696f38ba8c987c4db89954051000bbd05ffd8d8659ba15ed4a8602e937f
+#12 resolve docker.io/library/node:24.22.0-alpine3.24@sha256:44fce696f38ba8c987c4db89954051000bbd05ffd8d8659ba15ed4a8602e937f 0.0s done
+
+#13 [frontend runtime 1/4] FROM docker.io/nginxinc/nginx-unprivileged:1.31.7-alpine3.24@sha256:378d0c32f6562f7fd9629170797f57d2b953aa09be983b3daaf4809bb039ca00
+#13 resolve docker.io/nginxinc/nginx-unprivileged:1.31.7-alpine3.24@sha256:378d0c32f6562f7fd9629170797f57d2b953aa09be983b3daaf4809bb039ca00 0.0s done
+
+#14 [backend internal] load build context
+#14 transferring context: 95.96kB done
+
+#15 [backend runtime 2/8] RUN python -m pip uninstall --yes pip  && groupadd --system --gid 10001 app  && useradd --system --uid 10001 --gid app --no-create-home --shell /usr/sbin/nologin app
+
+#16 [backend runtime 3/8] WORKDIR /app
+
+#17 [backend runtime 4/8] COPY --from=build /opt/venv /opt/venv
+
+#18 [backend build 3/4] COPY requirements.txt /tmp/requirements.txt
+
+#19 [backend runtime 5/8] COPY alembic.ini ./
+
+#20 [backend build 2/4] RUN python -m venv /opt/venv
+
+#21 [backend build 4/4] RUN /opt/venv/bin/pip install --requirement /tmp/requirements.txt  && /opt/venv/bin/pip uninstall --yes pip
+
+#22 [backend runtime 6/8] COPY alembic ./alembic
+
+#23 [backend runtime 7/8] COPY app ./app
+
+#24 [backend runtime 8/8] COPY --chmod=0755 docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+
+#25 [frontend internal] load build context
+#25 transferring context: 282.86kB done
+
+#26 [frontend build 2/6] WORKDIR /src
+
+#27 [frontend runtime 2/4] RUN apk del --no-cache nginx-module-image-filter nginx-module-xslt nginx-module-geoip nginx-module-njs  && apk upgrade --no-cache  && rm -f /etc/nginx/conf.d/default.conf
+
+#28 [frontend build 3/6] COPY package.json package-lock.json ./
+
+#29 [frontend build 5/6] COPY . .
+
+#30 [frontend runtime 3/4] COPY --chown=101:101 nginx/default.conf.template /etc/nginx/templates/default.conf.template
+
+#31 [frontend build 4/6] RUN npm ci --no-audit --no-fund
+
+#32 [frontend build 6/6] RUN npm run build
+
+#33 [frontend runtime 4/4] COPY --from=build --chown=101:101 /src/dist /usr/share/nginx/html
+
+#34 [backend] exporting to image
+#34 exporting layers done
+#34 exporting manifest sha256:32110909917ac9fc4bf043d8b7ab9582ec7d60dcf4160eb410822f9d98b207d9 done
+#34 exporting config sha256:a8f4f86da8adeb32675d45eaeca7b310999162046fb4253353ccdc9bf7867f17 done
+#34 exporting attestation manifest sha256:04ff19946ecaf76933cc0be91cfcdced23be507b93b0f5f7516965f20262af94 done
+#34 exporting manifest list sha256:3bc8d26cab0a3e8bca4acaa10af7d6c370288274c89a66c59699bd079bbffd4c done
+#34 naming to docker.io/library/shelfwise-backend:local done
+#34 unpacking to docker.io/library/shelfwise-backend:local done
+
+#35 [frontend] exporting to image
+#35 exporting layers done
+#35 exporting manifest sha256:c60370f9cf1c7764b9cbe6541bc05df7c55497862338cd93f5a893646e4981be done
+#35 exporting config sha256:30e644bdd7a6c02aa2127a9ab05996047222fe60eb038009d64b69274cce7b42 done
+#35 exporting attestation manifest sha256:e77c67619ac91ea0124398a633269450e5f653ad782f874c0973fb0879a471ed 0.0s done
+#35 exporting manifest list sha256:9e3cb401694f99dcdf51735875e1334f0cdf5b3131f92ce489754c696aaf641e done
+#35 naming to docker.io/library/shelfwise-frontend:local done
+#35 unpacking to docker.io/library/shelfwise-frontend:local 0.0s done
+
+#36 [backend] resolving provenance for metadata file
+
+#37 [frontend] resolving provenance for metadata file
+ Image shelfwise-backend:local Built 
+ Image shelfwise-frontend:local Built 
+ Network shelfwise_default Creating 
+ Network shelfwise_default Created 
+ Volume shelfwise_pgdata Creating 
+ Volume shelfwise_pgdata Created 
+ Container shelfwise-postgres-1 Creating 
+ Container shelfwise-postgres-1 Created 
+ Container shelfwise-backend-1 Creating 
+ Container shelfwise-backend-1 Created 
+ Container shelfwise-frontend-1 Creating 
+ Container shelfwise-frontend-1 Created 
+ Container shelfwise-postgres-1 Starting 
+ Container shelfwise-postgres-1 Started 
+ Container shelfwise-postgres-1 Waiting 
+ Container shelfwise-postgres-1 Healthy 
+ Container shelfwise-backend-1 Starting 
+ Container shelfwise-backend-1 Started 
+ Container shelfwise-backend-1 Waiting 
+ Container shelfwise-backend-1 Healthy 
+ Container shelfwise-frontend-1 Starting 
+ Container shelfwise-frontend-1 Started 
+
+$ docker compose ps --format "table {{.Service}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}"
+SERVICE    IMAGE                                                                                               STATUS                                     PORTS
+backend    shelfwise-backend:local                                                                             Up 5 seconds (healthy)                     0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp
+frontend   shelfwise-frontend:local                                                                            Up Less than a second (health: starting)   0.0.0.0:3001->8080/tcp, [::]:3001->8080/tcp
+postgres   postgres:17.11-alpine3.24@sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24   Up 11 seconds (healthy)                    5432/tcp
+

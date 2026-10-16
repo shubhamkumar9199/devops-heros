@@ -1,0 +1,41 @@
+$ AWS_PROFILE=capstone aws eks describe-cluster --name shelfwise-eks --region ap-south-1 --query "cluster.{name:name,status:status,version:version,platform:platformVersion,endpointPublic:resourcesVpcConfig.endpointPublicAccess,authMode:accessConfig.authenticationMode}" --output table
+-------------------------------------
+|          DescribeCluster          |
++-----------------+-----------------+
+|  authMode       |  API            |
+|  endpointPublic |  True           |
+|  name           |  shelfwise-eks  |
+|  platform       |  eks.24         |
+|  status         |  ACTIVE         |
+|  version        |  1.35           |
++-----------------+-----------------+
+
+$ AWS_PROFILE=capstone aws eks describe-nodegroup --cluster-name shelfwise-eks --nodegroup-name shelfwise-eks-workers --region ap-south-1 --query "nodegroup.{status:status,ami:amiType,instances:instanceTypes[0],desired:scalingConfig.desiredSize,min:scalingConfig.minSize,max:scalingConfig.maxSize}" --output table
+----------------------------------------------------------------------------
+|                             DescribeNodegroup                            |
++-------------------------+----------+------------+------+------+----------+
+|           ami           | desired  | instances  | max  | min  | status   |
++-------------------------+----------+------------+------+------+----------+
+|  AL2023_x86_64_STANDARD |  2       |  t3.medium |  3   |  1   |  ACTIVE  |
++-------------------------+----------+------------+------+------+----------+
+
+$ kubectl get nodes -o wide
+NAME                                          STATUS   ROLES    AGE   VERSION               INTERNAL-IP    EXTERNAL-IP   OS-IMAGE                        KERNEL-VERSION                     CONTAINER-RUNTIME
+ip-10-20-158-67.ap-south-1.compute.internal   Ready    <none>   37m   v1.35.8-eks-b9510e3   10.20.158.67   <none>        Amazon Linux 2023.12.20261012   6.12.111-136.204.amzn2023.x86_64   containerd://2.3.5+unknown
+ip-10-20-166-68.ap-south-1.compute.internal   Ready    <none>   37m   v1.35.8-eks-b9510e3   10.20.166.68   <none>        Amazon Linux 2023.12.20261012   6.12.111-136.204.amzn2023.x86_64   containerd://2.3.5+unknown
+
+$ kubectl get pods -A
+NAMESPACE     NAME                                  READY   STATUS    RESTARTS   AGE
+kube-system   aws-node-h5wvg                        2/2     Running   0          37m
+kube-system   aws-node-sbwzk                        2/2     Running   0          37m
+kube-system   coredns-bf6759cdf-598gf               1/1     Running   0          40m
+kube-system   coredns-bf6759cdf-xgqlw               1/1     Running   0          40m
+kube-system   ebs-csi-controller-86dc4d8976-2g7m4   6/6     Running   0          35m
+kube-system   ebs-csi-controller-86dc4d8976-l7bkl   6/6     Running   0          35m
+kube-system   ebs-csi-node-fd9n6                    3/3     Running   0          35m
+kube-system   ebs-csi-node-m2qbm                    3/3     Running   0          35m
+kube-system   eks-pod-identity-agent-l5cvv          1/1     Running   0          36m
+kube-system   eks-pod-identity-agent-wr9qg          1/1     Running   0          36m
+kube-system   kube-proxy-7gnp6                      1/1     Running   0          37m
+kube-system   kube-proxy-d64kv                      1/1     Running   0          37m
+
