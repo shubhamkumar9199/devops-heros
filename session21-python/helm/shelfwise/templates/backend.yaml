@@ -1,0 +1,102 @@
+{{- $name := printf "%s-backend" (include "shelfwise.fullname" .) }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "shelfwise.labels" . | nindent 4 }}
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/version: {{ .Values.backend.image.tag | trunc 12 | quote }}
+spec:
+  {{- if not .Values.backend.autoscaling.enabled }}
+  replicas: {{ .Values.backend.replicas }}
+  {{- end }}
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0  # never drop below the current capacity during a rollout
+      maxSurge: 1
+  selector:
+    matchLabels:
+      {{- include "shelfwise.selector" (list . "backend") | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "shelfwise.selector" (list . "backend") | nindent 8 }}
+        app.kubernetes.io/version: {{ .Values.backend.image.tag | trunc 12 | quote }}
+        shelfwise.io/db-client: "true"
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        {{- if not .Values.database.existingSecret }}
+        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+        {{- end }}
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        {{- include "shelfwise.podSecurity" (dict "uid" 10001) | nindent 8 }}
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              {{- include "shelfwise.selector" (list . "backend") | nindent 14 }}
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: api
+          image: {{ include "shelfwise.backendImage" . }}
+          imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: {{ include "shelfwise.fullname" . }}-config
+          env:
+            {{- include "shelfwise.backendEnv" . | nindent 12 }}
+          # The entrypoint waits for the database and migrates before uvicorn
+          # starts, so give start-up up to 2 minutes before liveness takes over.
+          startupProbe:
+            httpGet: { path: /health, port: http }
+            periodSeconds: 2
+            failureThreshold: 60
+          livenessProbe:
+            httpGet: { path: /health, port: http }
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3
+          readinessProbe:
+            httpGet: { path: /ready, port: http }
+            periodSeconds: 5
+            timeoutSeconds: 2
+            failureThreshold: 2
+          lifecycle:
+            preStop:
+              sleep: { seconds: 5 }  # let the Service drop this pod before it stops
+          resources:
+            {{- toYaml .Values.backend.resources | nindent 12 }}
+          securityContext:
+            {{- include "shelfwise.containerSecurity" . | nindent 12 }}
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: tmp
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "shelfwise.labels" . | nindent 4 }}
+    app.kubernetes.io/component: backend
+spec:
+  type: ClusterIP
+  selector:
+    {{- include "shelfwise.selector" (list . "backend") | nindent 4 }}
+  ports:
+    - name: http
+      port: 8000
+      targetPort: http

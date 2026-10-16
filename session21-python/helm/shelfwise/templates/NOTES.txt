@@ -1,0 +1,14 @@
+ShelfWise {{ .Values.backend.image.tag | trunc 7 }} is deployed to namespace {{ .Release.Namespace }}.
+
+{{- if .Values.ingress.enabled }}
+  App:      http://{{ .Values.ingress.host }}/
+  API docs: http://{{ .Values.ingress.host }}/api/docs
+  (kind: point {{ .Values.ingress.host }} at 127.0.0.1, or curl -H 'Host: {{ .Values.ingress.host }}' http://127.0.0.1/api/info)
+{{- end }}
+
+Check it:
+  kubectl -n {{ .Release.Namespace }} get pods,svc,ingress,hpa,pdb
+  helm test {{ .Release.Name }} -n {{ .Release.Namespace }}
+
+Demo data (60 days of lending history, only if the catalogue is empty):
+  kubectl -n {{ .Release.Namespace }} exec deploy/{{ include "shelfwise.fullname" . }}-backend -- python -m app.seed

@@ -1,0 +1,13 @@
+apiVersion: v2
+name: shelfwise
+description: ShelfWise library lending desk — React UI, FastAPI API, PostgreSQL, with autoscaling and Prometheus monitoring
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+kubeVersion: ">=1.30.0-0"
+keywords: [library, fastapi, react, postgresql]
+home: https://github.com/shubhamkumar9199/devops-heros/tree/main/session21-python
+sources:
+  - https://github.com/shubhamkumar9199/devops-heros/tree/main/session21-python
+maintainers:
+  - name: Shubham Kumar

@@ -1,0 +1,17 @@
+# Local kind cluster: Traefik serves http://shelfwise.local on 127.0.0.1:80.
+# Argo CD deploys this file plus gitops/values-gitops.yaml (which carries the image tags).
+ingress:
+  className: traefik
+  host: shelfwise.local
+
+database:
+  existingSecret: shelfwise-db  # created once by scripts/cluster-up.sh, never stored in Git
+
+backend:
+  autoscaling:
+    minReplicas: 2
+    maxReplicas: 6
+
+postgres:
+  storage:
+    size: 1Gi

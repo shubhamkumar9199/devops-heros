@@ -1,0 +1,22 @@
+# Staging: installed by hand with `helm upgrade --install` into shelfwise-staging,
+# next to the Argo CD-managed dev release. Fixed replicas, no autoscaling.
+ingress:
+  className: traefik
+  host: staging.shelfwise.local
+
+database:
+  existingSecret: shelfwise-db
+
+backend:
+  autoscaling:
+    enabled: false
+  replicas: 2
+
+frontend:
+  replicas: 2
+
+holdExpiry:
+  enabled: false
+
+monitoring:
+  dashboard: false  # the dev release already ships the dashboard

@@ -1,0 +1,66 @@
+{{- if .Values.monitoring.enabled }}
+{{- $sel := printf "namespace=%q, job=\"%s-backend\"" .Release.Namespace (include "shelfwise.fullname" .) }}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ include "shelfwise.fullname" . }}
+  labels:
+    {{- include "shelfwise.labels" . | nindent 4 }}
+spec:
+  groups:
+    - name: shelfwise.recording
+      rules:
+        - record: shelfwise:http_requests:rate5m
+          expr: sum by (namespace, status) (rate(http_requests_total{ {{- $sel -}} }[5m]))
+        - record: shelfwise:http_latency_p95:5m
+          expr: histogram_quantile(0.95, sum by (namespace, le) (rate(http_request_duration_seconds_bucket{ {{- $sel -}} }[5m])))
+
+    - name: shelfwise.availability
+      rules:
+        - alert: ShelfwiseBackendDown
+          expr: sum(up{ {{- $sel -}} }) == 0 or absent(up{ {{- $sel -}} })
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: No ShelfWise API pod is being scraped successfully
+            description: {{`"Prometheus has had no healthy backend target in {{ $labels.namespace }} for 2 minutes."`}}
+        - alert: ShelfwiseHighErrorRate
+          expr: |
+            sum(rate(http_requests_total{ {{- $sel -}}, status="5xx"}[5m]))
+              / clamp_min(sum(rate(http_requests_total{ {{- $sel -}} }[5m])), 1e-9) > 0.05
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: More than 5% of API requests are failing
+            description: {{`"5xx ratio is {{ $value | humanizePercentage }} over the last 5 minutes."`}}
+        - alert: ShelfwiseSlowResponses
+          expr: |
+            histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket{ {{- $sel -}} }[5m]))) > 0.5
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: API p95 latency above 500 ms
+            description: {{`"p95 latency is {{ $value | humanizeDuration }}."`}}
+
+    - name: shelfwise.business
+      rules:
+        - alert: ShelfwiseOverdueLoansHigh
+          expr: max(shelfwise_loans_overdue{ {{- $sel -}} }) > {{ .Values.monitoring.alerts.overdueLoansThreshold }}
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: Too many overdue loans
+            description: {{`"{{ $value }} loans are past their due date; time for reminder notices."`}}
+        - alert: ShelfwiseDatabaseUnreadable
+          expr: max(shelfwise_db_up{ {{- $sel -}} }) == 0
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: The API cannot read the library database
+            description: Metric scrapes report shelfwise_db_up 0 — check the PostgreSQL pod and credentials.
+{{- end }}

@@ -1,0 +1,87 @@
+{{- $name := printf "%s-frontend" (include "shelfwise.fullname" .) }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "shelfwise.labels" . | nindent 4 }}
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/version: {{ .Values.frontend.image.tag | trunc 12 | quote }}
+spec:
+  replicas: {{ .Values.frontend.replicas }}
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      {{- include "shelfwise.selector" (list . "frontend") | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "shelfwise.selector" (list . "frontend") | nindent 8 }}
+        app.kubernetes.io/version: {{ .Values.frontend.image.tag | trunc 12 | quote }}
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        {{- include "shelfwise.podSecurity" (dict "uid" 101) | nindent 8 }}
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              {{- include "shelfwise.selector" (list . "frontend") | nindent 14 }}
+      containers:
+        - name: web
+          image: {{ include "shelfwise.frontendImage" . }}
+          imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: BACKEND_URL  # used by nginx's /api proxy (port-forward, local runs)
+              value: http://{{ include "shelfwise.fullname" . }}-backend:8000
+          readinessProbe:
+            httpGet: { path: /healthz, port: http }
+            periodSeconds: 5
+          livenessProbe:
+            httpGet: { path: /healthz, port: http }
+            periodSeconds: 10
+          lifecycle:
+            preStop:
+              sleep: { seconds: 5 }
+          resources:
+            {{- toYaml .Values.frontend.resources | nindent 12 }}
+          securityContext:
+            {{- include "shelfwise.containerSecurity" . | nindent 12 }}
+          volumeMounts:
+            # Read-only root filesystem: nginx renders its config and keeps its
+            # pid/temp files in these two writable scratch volumes.
+            - name: nginx-conf
+              mountPath: /etc/nginx/conf.d
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: nginx-conf
+          emptyDir: {}
+        - name: tmp
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "shelfwise.labels" . | nindent 4 }}
+    app.kubernetes.io/component: frontend
+spec:
+  type: ClusterIP
+  selector:
+    {{- include "shelfwise.selector" (list . "frontend") | nindent 4 }}
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http

@@ -1,0 +1,34 @@
+# AWS EKS (terraform/). More headroom, a real hostname, and the database
+# password from a Secret synced out of AWS Secrets Manager (e.g. External Secrets).
+ingress:
+  className: traefik  # Traefik's Service type LoadBalancer gets an AWS NLB
+  host: shelfwise.example.com
+  tls:
+    - secretName: shelfwise-tls
+      hosts: [shelfwise.example.com]
+
+database:
+  existingSecret: shelfwise-db
+
+backend:
+  autoscaling:
+    minReplicas: 3
+    maxReplicas: 10
+  resources:
+    requests: { cpu: 250m, memory: 256Mi }
+    limits: { cpu: "1", memory: 512Mi }
+
+frontend:
+  replicas: 3
+
+postgres:
+  storage:
+    size: 20Gi
+    storageClassName: gp2  # EBS, via the aws-ebs-csi-driver add-on Terraform installs
+  resources:
+    requests: { cpu: 250m, memory: 512Mi }
+    limits: { cpu: "2", memory: 2Gi }
+
+monitoring:
+  alerts:
+    overdueLoansThreshold: 50

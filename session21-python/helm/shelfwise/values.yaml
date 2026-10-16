@@ -1,0 +1,82 @@
+# Defaults for every environment. values-dev / -staging / -prod and
+# gitops/values-gitops.yaml override what differs.
+
+# Image tags are commit SHAs written by CI. There is deliberately no default:
+# the chart refuses to render without one (see _helpers.tpl).
+backend:
+  image:
+    repository: ghcr.io/shubhamkumar9199/shelfwise-backend
+    tag: ""
+    pullPolicy: IfNotPresent
+  replicas: 2  # ignored while autoscaling.enabled; the HPA owns the count
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 6
+    targetCPUUtilizationPercentage: 60
+    scaleDownStabilizationSeconds: 60  # short, so a demo shows the scale-down too
+  resources:
+    requests: { cpu: 100m, memory: 160Mi }
+    limits: { cpu: 500m, memory: 320Mi }
+  logLevel: info
+
+frontend:
+  image:
+    repository: ghcr.io/shubhamkumar9199/shelfwise-frontend
+    tag: ""
+    pullPolicy: IfNotPresent
+  replicas: 2
+  resources:
+    requests: { cpu: 25m, memory: 32Mi }
+    limits: { cpu: 200m, memory: 96Mi }
+
+postgres:
+  image:
+    repository: postgres
+    tag: 17.11-alpine3.24@sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24
+    pullPolicy: IfNotPresent
+  storage:
+    size: 1Gi
+    storageClassName: ""  # "" = the cluster default (kind: standard, EKS: gp3)
+  resources:
+    requests: { cpu: 100m, memory: 192Mi }
+    limits: { cpu: "1", memory: 512Mi }
+
+database:
+  name: shelfwise
+  user: shelfwise
+  port: 5432
+  # Either name a Secret you created (key: password), which is what GitOps uses,
+  # or pass database.password on the command line. Nothing is generated: Argo CD
+  # renders without cluster access, so a random value would change every sync.
+  existingSecret: ""
+  existingSecretKey: password
+  password: ""
+
+library:
+  timezone: Asia/Kolkata
+
+ingress:
+  enabled: true
+  className: traefik
+  host: shelfwise.local
+  annotations: {}
+  tls: []  # e.g. [{ secretName: shelfwise-tls, hosts: [shelfwise.example.com] }]
+
+holdExpiry:
+  enabled: true
+  schedule: "*/30 * * * *"  # lapse uncollected holds every half hour
+
+podDisruptionBudget:
+  enabled: true
+  minAvailable: 1
+
+networkPolicy:
+  enabled: true  # only backend pods (and the hold-expiry job) may reach PostgreSQL
+
+monitoring:
+  enabled: true  # ServiceMonitor + PrometheusRule (needs the kube-prometheus-stack CRDs)
+  dashboard: true  # the Grafana dashboard ConfigMap; enable it in one release only (fixed dashboard uid)
+  scrapeInterval: 15s
+  alerts:
+    overdueLoansThreshold: 10

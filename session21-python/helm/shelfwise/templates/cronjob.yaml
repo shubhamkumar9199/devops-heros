@@ -1,0 +1,48 @@
+{{- if .Values.holdExpiry.enabled }}
+# A copy waits on the hold shelf for a limited time; this lapses uncollected
+# holds and passes the copy to the next member in the queue.
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "shelfwise.fullname" . }}-hold-expiry
+  labels:
+    {{- include "shelfwise.labels" . | nindent 4 }}
+    app.kubernetes.io/component: hold-expiry
+spec:
+  schedule: {{ .Values.holdExpiry.schedule | quote }}
+  timeZone: {{ .Values.library.timezone | quote }}
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 300
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      activeDeadlineSeconds: 300
+      ttlSecondsAfterFinished: 120  # finished job pods disappear quickly
+      template:
+        metadata:
+          labels:
+            {{- include "shelfwise.selector" (list . "hold-expiry") | nindent 12 }}
+            shelfwise.io/db-client: "true"
+        spec:
+          restartPolicy: Never
+          automountServiceAccountToken: false
+          securityContext:
+            {{- include "shelfwise.podSecurity" (dict "uid" 10001) | nindent 12 }}
+          containers:
+            - name: expire-holds
+              image: {{ include "shelfwise.backendImage" . }}
+              imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+              command: ["python", "-m", "app.expire_holds"]
+              envFrom:
+                - configMapRef:
+                    name: {{ include "shelfwise.fullname" . }}-config
+              env:
+                {{- include "shelfwise.backendEnv" . | nindent 16 }}
+              resources:
+                requests: { cpu: 10m, memory: 64Mi }
+                limits: { cpu: 200m, memory: 160Mi }
+              securityContext:
+                {{- include "shelfwise.containerSecurity" . | nindent 16 }}
+{{- end }}

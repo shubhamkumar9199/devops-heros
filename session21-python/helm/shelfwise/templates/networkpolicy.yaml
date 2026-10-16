@@ -1,0 +1,25 @@
+{{- if .Values.networkPolicy.enabled }}
+# PostgreSQL accepts connections only from pods labelled as database clients
+# (the API and the hold-expiry job). Everything else in the cluster is refused.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "shelfwise.fullname" . }}-postgres
+  labels:
+    {{- include "shelfwise.labels" . | nindent 4 }}
+    app.kubernetes.io/component: database
+spec:
+  podSelector:
+    matchLabels:
+      {{- include "shelfwise.selector" (list . "database") | nindent 6 }}
+  policyTypes: [Ingress]
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/instance: {{ .Release.Name }}
+              shelfwise.io/db-client: "true"
+      ports:
+        - protocol: TCP
+          port: 5432
+{{- end }}

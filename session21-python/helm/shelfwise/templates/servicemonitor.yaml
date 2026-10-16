@@ -1,0 +1,22 @@
+{{- if .Values.monitoring.enabled }}
+# Tells the Prometheus Operator (kube-prometheus-stack) to scrape every backend
+# pod's /metrics through the backend Service.
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "shelfwise.fullname" . }}-backend
+  labels:
+    {{- include "shelfwise.labels" . | nindent 4 }}
+    app.kubernetes.io/component: backend
+spec:
+  selector:
+    matchLabels:
+      {{- include "shelfwise.selector" (list . "backend") | nindent 6 }}
+  namespaceSelector:
+    matchNames: [{{ .Release.Namespace }}]
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: {{ .Values.monitoring.scrapeInterval }}
+      scrapeTimeout: 10s
+{{- end }}

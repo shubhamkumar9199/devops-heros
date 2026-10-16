@@ -1,0 +1,18 @@
+{{- if .Values.podDisruptionBudget.enabled }}
+{{- range $tier := list "backend" "frontend" }}
+---
+# A node drain may evict pods, but never the last ready {{ $tier }} pod.
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "shelfwise.fullname" $ }}-{{ $tier }}
+  labels:
+    {{- include "shelfwise.labels" $ | nindent 4 }}
+    app.kubernetes.io/component: {{ $tier }}
+spec:
+  minAvailable: {{ $.Values.podDisruptionBudget.minAvailable }}
+  selector:
+    matchLabels:
+      {{- include "shelfwise.selector" (list $ $tier) | nindent 6 }}
+{{- end }}
+{{- end }}
