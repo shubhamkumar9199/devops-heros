@@ -15,3 +15,6 @@ backend:
 postgres:
   storage:
     size: 1Gi
+
+tests:
+  enabled: false  # Argo CD does not run `helm test`; CI and staging do

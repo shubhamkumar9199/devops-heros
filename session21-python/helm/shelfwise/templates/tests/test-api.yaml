@@ -1,4 +1,6 @@
+{{- if .Values.tests.enabled }}
 # helm test: the API answers through its Service and reports the deployed build.
+# The pod is kept until the next test run so `helm test --logs` can read it.
 apiVersion: v1
 kind: Pod
 metadata:
@@ -8,7 +10,7 @@ metadata:
     app.kubernetes.io/component: test
   annotations:
     helm.sh/hook: test
-    helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+    helm.sh/hook-delete-policy: before-hook-creation
 spec:
   restartPolicy: Never
   automountServiceAccountToken: false
@@ -32,3 +34,4 @@ spec:
         limits: { cpu: 100m, memory: 96Mi }
       securityContext:
         {{- include "shelfwise.containerSecurity" . | nindent 8 }}
+{{- end }}

@@ -364,7 +364,8 @@ jobs:
       - name: Diagnostics on failure
         if: failure()
         run: |
-          kubectl -n shelfwise get all,events --sort-by=.lastTimestamp || true
+          kubectl -n shelfwise get all -o wide || true
+          kubectl -n shelfwise get events --sort-by=.lastTimestamp || true
           kubectl -n shelfwise describe pods || true
           kubectl -n shelfwise logs -l app.kubernetes.io/component=backend --tail=100 --all-containers || true
 

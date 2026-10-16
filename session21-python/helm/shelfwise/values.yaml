@@ -67,6 +67,9 @@ holdExpiry:
   enabled: true
   schedule: "*/30 * * * *"  # lapse uncollected holds every half hour
 
+tests:
+  enabled: true  # `helm test` pod; Argo CD does not run Helm tests, so values-dev turns it off
+
 podDisruptionBudget:
   enabled: true
   minAvailable: 1
