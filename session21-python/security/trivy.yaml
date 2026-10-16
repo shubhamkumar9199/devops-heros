@@ -1,7 +1,7 @@
 # Trivy gate used by CI for both images (and locally):
 #   trivy image --config security/trivy.yaml <image>
 # Fails (exit 1) on any HIGH or CRITICAL vulnerability that has a fix available,
-# and on any secret baked into an image layer.
+# and on any HIGH or CRITICAL secret finding baked into an image layer.
 severity:
   - HIGH
   - CRITICAL
