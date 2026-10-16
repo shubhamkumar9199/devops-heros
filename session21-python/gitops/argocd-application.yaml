@@ -1,0 +1,41 @@
+# GitOps: Argo CD keeps the shelfwise namespace equal to the Helm chart in Git.
+# CI never touches the cluster; its promote job commits the new image tags to
+# gitops/values-gitops.yaml, and Argo CD notices the commit and rolls it out.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: shelfwise
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/shubhamkumar9199/devops-heros.git
+    targetRevision: main
+    path: session21-python/helm/shelfwise
+    helm:
+      releaseName: shelfwise
+      valueFiles:
+        - values-dev.yaml
+        - ../../gitops/values-gitops.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: shelfwise  # created by k8s/namespace.yaml (Pod Security labels)
+  syncPolicy:
+    automated:
+      prune: true     # delete what was removed from Git
+      selfHeal: true  # undo manual kubectl edits
+    retry:
+      limit: 5
+      backoff:
+        duration: 10s
+        factor: 2
+        maxDuration: 3m
+  ignoreDifferences:
+    # The HPA owns the backend replica count; don't fight it on every sync.
+    - group: apps
+      kind: Deployment
+      name: shelfwise-backend
+      jsonPointers:
+        - /spec/replicas

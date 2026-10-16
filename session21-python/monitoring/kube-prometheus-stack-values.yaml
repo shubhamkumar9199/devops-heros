@@ -1,0 +1,64 @@
+# Prometheus + Grafana + Alertmanager: chart prometheus-community/kube-prometheus-stack 92.8.0
+#   helm upgrade --install monitoring prometheus-community/kube-prometheus-stack --version 92.8.0 \
+#     -n monitoring -f monitoring/kube-prometheus-stack-values.yaml --wait
+# scripts/cluster-up.sh does this (and creates the grafana-admin Secret first).
+
+prometheus:
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    hosts: [prometheus.shelfwise.local]
+    paths: [/]
+  prometheusSpec:
+    # Without these, Prometheus only picks up ServiceMonitors/rules from this
+    # Helm release and silently ignores the ShelfWise chart's.
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    ruleSelectorNilUsesHelmValues: false
+    probeSelectorNilUsesHelmValues: false
+    scrapeInterval: 15s
+    evaluationInterval: 15s
+    retention: 3d
+    resources:
+      requests: { cpu: 100m, memory: 400Mi }
+      limits: { memory: 1Gi }
+
+grafana:
+  admin:
+    existingSecret: grafana-admin  # created at install time, never committed
+    userKey: admin-user
+    passwordKey: admin-password
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    hosts: [grafana.shelfwise.local]
+  defaultDashboardsTimezone: browser
+  sidecar:
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+      labelValue: "1"
+      searchNamespace: ALL  # the ShelfWise chart ships its dashboard as a ConfigMap
+      folderAnnotation: grafana_folder
+      provider:
+        foldersFromFilesStructure: true
+  resources:
+    requests: { cpu: 50m, memory: 128Mi }
+    limits: { memory: 384Mi }
+
+alertmanager:
+  alertmanagerSpec:
+    resources:
+      requests: { cpu: 10m, memory: 32Mi }
+      limits: { memory: 128Mi }
+
+# kind runs these control-plane components on localhost-only ports; scraping
+# them fails and shows permanently-down targets and false alerts.
+kubeControllerManager:
+  enabled: false
+kubeScheduler:
+  enabled: false
+kubeProxy:
+  enabled: false
+kubeEtcd:
+  enabled: false

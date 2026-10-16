@@ -1,0 +1,27 @@
+# Argo CD v3.5: chart argo/argo-cd 10.10.5
+#   helm upgrade --install argocd argo/argo-cd --version 10.10.5 -n argocd --create-namespace \
+#     -f gitops/argocd-values.yaml --wait
+global:
+  domain: argocd.shelfwise.local
+
+configs:
+  params:
+    server.insecure: true  # plain HTTP behind Traefik on the local cluster
+  cm:
+    # Poll Git every minute (default 3) so a promotion shows up quickly in the demo.
+    timeout.reconciliation: 60s
+    timeout.reconciliation.jitter: 10s
+
+server:
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    hostname: argocd.shelfwise.local
+
+# Not needed here: SSO, notifications, ApplicationSets.
+dex:
+  enabled: false
+notifications:
+  enabled: false
+applicationSet:
+  enabled: false

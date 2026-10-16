@@ -1,0 +1,39 @@
+# Traefik as the Ingress controller (chart traefik/traefik 41.7.1, Traefik v3.7).
+# kubernetes/ingress-nginx was retired in March 2026 (repository archived, no
+# more security fixes), so this project uses Traefik with standard Ingress objects.
+#
+# On kind it runs on the control-plane node and takes host ports 80/443.
+# On EKS drop the hostPorts/nodeSelector and use service.type LoadBalancer (an NLB).
+deployment:
+  replicas: 1
+
+ports:
+  web:
+    port: 8000      # unprivileged container port...
+    hostPort: 80    # ...published on the node's port 80
+  websecure:
+    port: 8443
+    hostPort: 443
+
+service:
+  type: ClusterIP
+
+nodeSelector:
+  ingress-ready: "true"
+
+tolerations:
+  - key: node-role.kubernetes.io/control-plane
+    operator: Exists
+    effect: NoSchedule
+
+ingressClass:
+  enabled: true
+  isDefaultClass: true
+  name: traefik
+
+accessLog:  # chart 41.x: top-level accessLog (older charts used logs.access)
+  enabled: true
+
+resources:
+  requests: { cpu: 50m, memory: 64Mi }
+  limits: { cpu: 500m, memory: 256Mi }

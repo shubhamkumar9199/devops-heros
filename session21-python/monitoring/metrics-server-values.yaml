@@ -1,0 +1,5 @@
+# CPU/memory metrics for the HPA: chart metrics-server/metrics-server 3.14.0
+# kind's kubelets use self-signed serving certificates, hence --kubelet-insecure-tls
+# (local cluster only; EKS has metrics-server as a managed add-on or via this chart without it).
+args:
+  - --kubelet-insecure-tls
