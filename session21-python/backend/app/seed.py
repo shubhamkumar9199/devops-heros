@@ -19,12 +19,12 @@ import random
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
-from sqlalchemy import func, select, text
+from sqlalchemy import delete, func, select
 
 from app import clock, policy, services
 from app.config import settings
 from app.db import SessionLocal, engine
-from app.models import Book, Hold, Loan
+from app.models import Activity, Book, Copy, Hold, Loan, Member
 from app.schemas import BookCreate, MemberIn
 
 BOOKS = [  # title, author, genre, year, copies, popularity
@@ -101,8 +101,8 @@ def _try(action, db, *args, **kwargs):
 
 def reset() -> None:
     with engine.begin() as conn:
-        for table in ("activity", "holds", "loans", "copies", "members", "books"):
-            conn.execute(text(f"DELETE FROM {table}"))  # noqa: S608 (fixed table names)
+        for model in (Activity, Hold, Loan, Copy, Member, Book):  # children first
+            conn.execute(delete(model))
 
 
 def simulate(seed: int = 2110) -> dict:

@@ -20,12 +20,11 @@ os.environ.setdefault("APP_VERSION", "test")
 from alembic import command  # noqa: E402
 from alembic.config import Config  # noqa: E402
 from fastapi.testclient import TestClient  # noqa: E402
-from sqlalchemy import text  # noqa: E402
+from sqlalchemy import delete  # noqa: E402
 
 from app.db import engine  # noqa: E402
 from app.main import app  # noqa: E402
-
-TABLES = ("activity", "holds", "loans", "copies", "members", "books")  # children first
+from app.models import Activity, Book, Copy, Hold, Loan, Member  # noqa: E402
 
 
 def alembic_config() -> Config:
@@ -44,8 +43,8 @@ def migrated_db():
 @pytest.fixture(autouse=True)
 def empty_tables(migrated_db):
     with engine.begin() as conn:
-        for table in TABLES:
-            conn.execute(text(f"DELETE FROM {table}"))  # noqa: S608 (fixed table names)
+        for model in (Activity, Hold, Loan, Copy, Member, Book):  # children first
+            conn.execute(delete(model))
     yield
 
 
