@@ -395,7 +395,7 @@
       "id": 6,
       "type": "stat",
       "title": "Running build",
-      "description": "Image tag (commit SHA) reported by the backend pods. Two values = a rollout in progress.",
+      "description": "Image tag (commit SHA) the backend pods report right now (an instant query, so builds that ran earlier in the time range drop out). Two values = a rollout in progress.",
       "datasource": {
         "type": "prometheus",
         "uid": "${datasource}"
@@ -415,7 +415,8 @@
           "expr": "count by (version) (shelfwise_build_info{namespace=\"$namespace\"})",
           "legendFormat": "{{version}}",
           "refId": "A",
-          "range": true
+          "range": false,
+          "instant": true
         }
       ],
       "fieldConfig": {
