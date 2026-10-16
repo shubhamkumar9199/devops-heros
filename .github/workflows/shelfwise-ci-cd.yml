@@ -1,0 +1,407 @@
+# ShelfWise (session21-python/) — test, scan, build, push, deploy-test, promote.
+#
+#   push to main ─┬─ backend tests ─┐
+#                 ├─ integration ───┤
+#                 ├─ frontend ──────┼─ images (build + Trivy) ─ push to GHCR ─ deploy to kind ─ promote (GitOps)
+#                 ├─ security ──────┤        backend, frontend      :<sha>      smoke test       values-gitops.yaml
+#                 ├─ helm ──────────┤                                                                  │
+#                 └─ terraform ─────┘                                         Argo CD syncs the cluster ┘
+#
+# Any failing gate stops everything after it: no image is pushed unless every
+# test, scan and check passed, and the image pushed is the exact one scanned.
+# Third-party actions are pinned to full commit SHAs (tags can be moved; the
+# Trivy GitHub Action's were in March 2026, GHSA-69fq-xp46-6x23).
+name: ShelfWise CI/CD
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "session21-python/**"
+      - ".github/workflows/shelfwise-ci-cd.yml"
+      - "!session21-python/**/*.md"
+      - "!session21-python/screenshots/**"
+      - "!session21-python/demo/**"
+      - "!session21-python/docs/**"
+      - "!session21-python/task/**"
+      - "!session21-python/taskboard/**"
+      # The promote job commits this file; it must not start the pipeline again.
+      - "!session21-python/gitops/values-gitops.yaml"
+  pull_request:
+    paths:
+      - "session21-python/**"
+      - ".github/workflows/shelfwise-ci-cd.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash  # bash -eo pipefail: a failing command in a pipe fails the step
+
+concurrency:
+  group: shelfwise-${{ github.ref }}
+  cancel-in-progress: false  # never cut a promotion off half-way
+
+env:
+  APP: session21-python
+  PYTHON_VERSION: "3.12"
+  NODE_VERSION: "24"
+  TRIVY_IMAGE: aquasec/trivy:0.76.0@sha256:2416d1f74045b57274df1a340eee6b510cacd73c66a6ccb8da092b117eb7d222
+  POSTGRES_IMAGE: postgres:17.11-alpine3.24@sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24
+
+jobs:
+  backend-tests:
+    name: Backend tests (pytest + ruff)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: session21-python/backend
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97  # v7.0.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: session21-python/backend/requirements*.txt
+      - run: pip install -r requirements-dev.txt
+      - name: Lint and format check
+        run: |
+          ruff check .
+          ruff format --check .
+      - name: pytest (fails the build on any failing test)
+        run: python -m pytest -v --cov=app --cov-report=term-missing --junitxml=pytest-report.xml
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
+        if: always()
+        with:
+          name: pytest-report
+          path: session21-python/backend/pytest-report.xml
+          retention-days: 7
+
+  integration:
+    name: PostgreSQL integration (migrations, lock, races)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:17.11-alpine3.24@sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24
+        env:
+          POSTGRES_USER: ci
+          POSTGRES_PASSWORD: ci-only-password
+          POSTGRES_DB: shelfwise_ci
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U ci -d shelfwise_ci"
+          --health-interval 5s --health-timeout 3s --health-retries 20
+    env:
+      DATABASE_URL: postgresql+psycopg://ci:ci-only-password@localhost:5432/shelfwise_ci
+    defaults:
+      run:
+        working-directory: session21-python/backend
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97  # v7.0.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: session21-python/backend/requirements*.txt
+      - run: pip install -r requirements-dev.txt
+      - name: Migrations upgrade, downgrade, upgrade
+        run: |
+          alembic upgrade head
+          alembic downgrade base
+          alembic upgrade head
+      - name: Three replicas migrate at the same moment (advisory lock)
+        run: |
+          alembic downgrade base
+          pids=()
+          for i in 1 2 3; do
+            alembic upgrade head > "migrate-$i.log" 2>&1 & pids+=($!)
+          done
+          for pid in "${pids[@]}"; do wait "$pid"; done
+          grep -H "Running upgrade" migrate-*.log || true
+          migrators=$(grep -l "Running upgrade" migrate-*.log | wc -l)
+          echo "replicas that ran migrations: $migrators (expected exactly 1)"
+          test "$migrators" -eq 1
+          alembic current
+      - name: Whole test suite on PostgreSQL, including the multi-process races
+        env:
+          TEST_DATABASE_URL: ${{ env.DATABASE_URL }}
+        run: python -m pytest -v -p no:cacheprovider
+
+  frontend:
+    name: Frontend build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: session21-python/frontend
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: session21-python/frontend/package-lock.json
+      - run: npm ci
+      - name: Dependency audit (production dependencies)
+        run: npm audit --omit=dev --audit-level=high
+      - run: npm run build
+
+  security:
+    name: Secret scan, SAST, dependency audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          fetch-depth: 0  # gitleaks reads every commit, not just the last one
+      - name: Gitleaks (whole history of the capstone)
+        env:
+          GITLEAKS_VERSION: 8.30.1
+          GITLEAKS_SHA256: 551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb
+        run: |
+          curl -sSfL -o gitleaks.tgz "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          echo "${GITLEAKS_SHA256}  gitleaks.tgz" | sha256sum -c -
+          tar -xzf gitleaks.tgz gitleaks
+          ./gitleaks git . --log-opts="-- session21-python .github/workflows/shelfwise-ci-cd.yml" \
+            --config session21-python/security/.gitleaks.toml --redact --no-banner --verbose
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97  # v7.0.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Bandit (Python SAST)
+        run: |
+          pip install bandit==1.9.4
+          bandit -c session21-python/security/bandit.yaml -r session21-python/backend/app -ll
+      - name: pip-audit (known-vulnerable Python dependencies)
+        run: |
+          pip install pip-audit==2.10.0
+          pip-audit -r session21-python/backend/requirements.txt
+
+  helm:
+    name: Helm lint + manifest schemas
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: session21-python
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - name: Install kubeconform
+        env:
+          KUBECONFORM_SHA256: 9bc2bffbf71f261128533edaf912153948b7ff238f9a531ae6d34466ec287883
+        run: |
+          curl -sSfL -o kubeconform.tgz https://github.com/yannh/kubeconform/releases/download/v0.8.0/kubeconform-linux-amd64.tar.gz
+          echo "${KUBECONFORM_SHA256}  kubeconform.tgz" | sha256sum -c -
+          tar -xzf kubeconform.tgz kubeconform && sudo mv kubeconform /usr/local/bin/
+      - name: Lint and validate every environment
+        run: |
+          helm version
+          tags=(--set "backend.image.tag=${GITHUB_SHA}" --set "frontend.image.tag=${GITHUB_SHA}")
+          for env in dev staging prod; do
+            echo "::group::values-${env}.yaml"
+            helm lint helm/shelfwise -f "helm/shelfwise/values-${env}.yaml" "${tags[@]}"
+            helm template shelfwise helm/shelfwise -n shelfwise -f "helm/shelfwise/values-${env}.yaml" "${tags[@]}" \
+              | kubeconform -strict -summary -kubernetes-version 1.36.0 \
+                  -schema-location default \
+                  -schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json'
+            echo "::endgroup::"
+          done
+          kubeconform -strict -summary k8s/namespace.yaml k8s/namespace-staging.yaml
+      - name: Chart refuses to render without a commit SHA
+        run: |
+          if helm template t helm/shelfwise --set database.password=x > /dev/null 2>err.txt; then
+            echo "rendered without an image tag" && exit 1
+          fi
+          grep "image.tag is required" err.txt
+
+  terraform:
+    name: Terraform fmt + validate + IaC scan (Trivy)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: session21-python/terraform
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - uses: hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e  # v4.0.1
+        with:
+          terraform_version: 1.15.8
+      - run: terraform fmt -check -recursive -diff
+      - run: terraform init -backend=false -input=false
+      - run: terraform validate
+      - name: Trivy misconfiguration scan (gate; accepted findings are justified in .trivyignore.yaml)
+        run: |
+          docker run --rm -v "$PWD:/src:ro" "$TRIVY_IMAGE" config --severity HIGH,CRITICAL \
+            --ignorefile /src/.trivyignore.yaml --exit-code 1 /src
+
+  images:
+    name: Build + Trivy scan (${{ matrix.component }})
+    needs: [backend-tests, integration, frontend, security, helm, terraform]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: true
+      matrix:
+        component: [backend, frontend]
+    defaults:
+      run:
+        working-directory: session21-python
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - name: Image name (lowercase owner, tag = full commit SHA)
+        run: echo "IMAGE=ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/shelfwise-${{ matrix.component }}:${GITHUB_SHA}" >> "$GITHUB_ENV"
+      - name: Build
+        run: docker build --pull --build-arg "APP_VERSION=${GITHUB_SHA::12}" -t "$IMAGE" "${{ matrix.component }}"
+      - name: Cache the Trivy vulnerability database
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9  # v6.1.0
+        with:
+          path: ~/.cache/trivy
+          key: trivy-db-${{ github.run_id }}
+          restore-keys: trivy-db-
+      - name: Trivy scan (fails on fixable HIGH/CRITICAL CVEs and on secrets)
+        run: |
+          mkdir -p ~/.cache/trivy
+          docker run --rm \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            -v "$HOME/.cache/trivy:/root/.cache/trivy" \
+            -v "$PWD/security:/cfg:ro" \
+            "$TRIVY_IMAGE" image --config /cfg/trivy.yaml --no-progress "$IMAGE" | tee "trivy-${{ matrix.component }}.txt"
+          exit "${PIPESTATUS[0]}"
+      - name: Scan summary
+        if: always()
+        run: |
+          {
+            echo "### Trivy: shelfwise-${{ matrix.component }} \`${GITHUB_SHA::7}\`"
+            echo '```'
+            sed -n '/Report Summary/,$p' "trivy-${{ matrix.component }}.txt" | head -60
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Save the scanned image (the push job pushes exactly this)
+        run: docker save "$IMAGE" | gzip -1 > "image-${{ matrix.component }}.tar.gz"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
+        with:
+          name: image-${{ matrix.component }}
+          path: |
+            session21-python/image-${{ matrix.component }}.tar.gz
+            session21-python/trivy-${{ matrix.component }}.txt
+          retention-days: 1
+
+  push:
+    name: Push to GHCR (${{ matrix.component }})
+    needs: images
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      matrix:
+        component: [backend, frontend]
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333  # v8.0.2
+        with:
+          name: image-${{ matrix.component }}
+      - name: Load the image that passed the scan
+        run: |
+          echo "IMAGE=ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/shelfwise-${{ matrix.component }}:${GITHUB_SHA}" >> "$GITHUB_ENV"
+          docker load < "image-${{ matrix.component }}.tar.gz"
+      - name: Log in to GHCR with the workflow's own token
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+      - name: Push
+        run: |
+          docker push "$IMAGE"
+          digest=$(docker inspect --format '{{index .RepoDigests 0}}' "$IMAGE")
+          echo "Pushed \`$IMAGE\` → \`$digest\`" >> "$GITHUB_STEP_SUMMARY"
+
+  deploy-test:
+    name: Deploy to an ephemeral kind cluster (Helm + smoke test)
+    needs: push
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      packages: read
+    defaults:
+      run:
+        working-directory: session21-python
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - uses: helm/kind-action@1544676c07bb3570fcb70166beaa07c4528fd4aa  # v1.15.1
+        with:
+          cluster_name: ci
+      - name: Namespace with Pod Security "restricted" + registry credentials
+        run: |
+          kubectl apply -f k8s/namespace.yaml
+          kubectl -n shelfwise create secret docker-registry ghcr --docker-server=ghcr.io \
+            --docker-username="${{ github.actor }}" --docker-password="${{ secrets.GITHUB_TOKEN }}"
+          kubectl -n shelfwise patch serviceaccount default -p '{"imagePullSecrets":[{"name":"ghcr"}]}'
+          kubectl -n shelfwise create secret generic shelfwise-db --from-literal=password="$(openssl rand -hex 16)"
+      - name: helm upgrade --install (images from GHCR, tag = this commit)
+        run: |
+          helm upgrade --install shelfwise helm/shelfwise -n shelfwise \
+            --set backend.image.tag="${GITHUB_SHA}" --set frontend.image.tag="${GITHUB_SHA}" \
+            --set database.existingSecret=shelfwise-db \
+            --set ingress.enabled=false --set monitoring.enabled=false \
+            --wait --timeout 6m
+          kubectl -n shelfwise get pods,svc,hpa,pdb -o wide
+      - name: helm test
+        run: helm test shelfwise -n shelfwise --logs
+      - name: Smoke test through the backend Service
+        run: |
+          kubectl -n shelfwise port-forward svc/shelfwise-backend 8000:8000 > /dev/null 2>&1 &
+          for _ in $(seq 1 30); do curl -sf localhost:8000/health > /dev/null && break; sleep 1; done
+          set -x
+          curl -sf localhost:8000/api/info | tee info.json
+          python3 -c "import json,os,sys; v=json.load(open('info.json'))['version']; sys.exit(v != os.environ['GITHUB_SHA'][:12])"
+          book='{"isbn":"978-0-13-235088-4","title":"Clean Code","author":"Robert C. Martin","genre":"Technology","copies":1}'
+          test "$(curl -s -o /dev/null -w '%{http_code}' -H 'Content-Type: application/json' -d "$book" localhost:8000/api/books)" = 201
+          test "$(curl -s -o /dev/null -w '%{http_code}' -H 'Content-Type: application/json' -d "$book" localhost:8000/api/books)" = 409
+          curl -sf localhost:8000/metrics | grep -E '^shelfwise_books 1.0'
+      - name: Diagnostics on failure
+        if: failure()
+        run: |
+          kubectl -n shelfwise get all,events --sort-by=.lastTimestamp || true
+          kubectl -n shelfwise describe pods || true
+          kubectl -n shelfwise logs -l app.kubernetes.io/component=backend --tail=100 --all-containers || true
+
+  promote:
+    name: Promote to GitOps (Argo CD picks it up)
+    needs: deploy-test
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          ref: main
+      - name: Write the new image tags to gitops/values-gitops.yaml
+        run: |
+          cat > session21-python/gitops/values-gitops.yaml <<EOF
+          # Written by the promote job of the ShelfWise CI/CD workflow: the newest commit whose
+          # images passed tests, scans and the kind smoke test. Argo CD deploys these tags.
+          # Source run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
+          backend:
+            image:
+              tag: "${GITHUB_SHA}"
+          frontend:
+            image:
+              tag: "${GITHUB_SHA}"
+          EOF
+          git diff --stat
+      - name: Commit and push (retry if main moved meanwhile)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add session21-python/gitops/values-gitops.yaml
+          git diff --cached --quiet && { echo "already promoted"; exit 0; }
+          git commit -m "gitops: promote shelfwise ${GITHUB_SHA::7}" -m "Images ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/shelfwise-{backend,frontend}:${GITHUB_SHA} passed CI run ${GITHUB_RUN_ID}."
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((attempt * 5))
+          done
+          exit 1
