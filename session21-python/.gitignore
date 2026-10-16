@@ -1,0 +1,34 @@
+# ShelfWise capstone. The repository root .gitignore already covers OS/editor
+# files, node_modules/, __pycache__/, .venv/, .env and .env.* ; these add to it.
+
+# Keep the documented example env file (the root rule .env.* would hide it)
+!.env.example
+
+# Python
+.pytest_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+*.egg-info/
+
+# Frontend build output
+frontend/dist/
+.vite/
+
+# Terraform: state, plans, real variable files and local overrides never go to Git
+terraform/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+tfplan
+crash.log
+*.tfvars
+!*.tfvars.example
+*_override.tf
+.terraform.tfstate.lock.info
+
+# Local Kubernetes / tooling scratch
+*.kubeconfig
+kind-*.log
+demo/raw/

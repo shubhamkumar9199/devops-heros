@@ -1,0 +1,72 @@
+# ShelfWise on one machine: docker compose up --build  ->  http://localhost:3000
+# Optional: cp .env.example .env to set your own database password.
+name: shelfwise
+
+x-hardening: &hardening
+  read_only: true
+  cap_drop: [ALL]
+  security_opt: ["no-new-privileges:true"]
+
+services:
+  postgres:
+    image: postgres:17.11-alpine3.24@sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24
+    environment:
+      POSTGRES_DB: shelfwise
+      POSTGRES_USER: shelfwise
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-shelfwise-local-only}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U shelfwise -d shelfwise"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+      args:
+        APP_VERSION: local
+    image: shelfwise-backend:local
+    <<: *hardening
+    tmpfs: [/tmp]
+    environment:
+      DATABASE_URL: postgresql+psycopg://shelfwise:${POSTGRES_PASSWORD:-shelfwise-local-only}@postgres:5432/shelfwise
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8000:8000"  # API + Swagger UI at http://localhost:8000/api/docs
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys, urllib.request; sys.exit(urllib.request.urlopen('http://127.0.0.1:8000/ready', timeout=3).status != 200)"]
+      interval: 5s
+      timeout: 5s
+      retries: 24
+      start_period: 10s
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        APP_VERSION: local
+    image: shelfwise-frontend:local
+    <<: *hardening
+    # A tmpfs keeps the directory's mode but is owned by root, so hand conf.d to
+    # nginx's UID or envsubst cannot write the rendered config (nginx then starts
+    # with no server block at all).
+    tmpfs:
+      - /tmp
+      - /etc/nginx/conf.d:uid=101,gid=101,mode=0755
+    environment:
+      BACKEND_URL: http://backend:8000
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "${FRONTEND_PORT:-3000}:8080"  # http://localhost:3000 (FRONTEND_PORT=3001 if 3000 is taken)
+    restart: unless-stopped
+
+volumes:
+  pgdata:

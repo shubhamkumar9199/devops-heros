@@ -1,0 +1,18 @@
+# Only app/, alembic/, alembic.ini, requirements.txt and the entrypoint go into the image.
+.venv/
+**/__pycache__/
+**/*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+tests/
+requirements-dev.txt
+requirements.in
+ruff.toml
+pytest.ini
+.env
+.env.*
+Dockerfile
+.dockerignore
