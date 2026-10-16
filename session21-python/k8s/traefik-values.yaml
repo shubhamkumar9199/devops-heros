@@ -7,6 +7,14 @@
 deployment:
   replicas: 1
 
+# With hostPorts the new pod can't start while the old one still holds 80/443,
+# so a surge-first rollout deadlocks. Replace in place instead.
+updateStrategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxUnavailable: 1
+    maxSurge: 0
+
 ports:
   web:
     port: 8000      # unprivileged container port...
@@ -25,6 +33,16 @@ tolerations:
   - key: node-role.kubernetes.io/control-plane
     operator: Exists
     effect: NoSchedule
+
+# Write 127.0.0.1 into every Ingress's status. With hostPorts there is no load
+# balancer to copy an address from, and without one Argo CD keeps the Ingress
+# (and so the whole app) "Progressing" forever.
+providers:
+  kubernetesIngress:
+    publishedService:
+      enabled: false
+    ingressEndpoint:
+      ip: 127.0.0.1
 
 ingressClass:
   enabled: true
