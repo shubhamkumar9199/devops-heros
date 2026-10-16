@@ -1,0 +1,7 @@
+# Sandbox for the troubleshooting labs: kubectl apply -f troubleshooting/
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: shelfwise-labs
+  labels:
+    pod-security.kubernetes.io/enforce: restricted

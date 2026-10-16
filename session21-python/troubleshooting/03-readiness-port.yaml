@@ -1,0 +1,28 @@
+# Lab 3: the pod is Running but never Ready (READY 0/1), so it gets no traffic.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lab-ready
+  namespace: shelfwise-labs
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app: lab-ready }
+  template:
+    metadata:
+      labels: { app: lab-ready }
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 101
+        seccompProfile: { type: RuntimeDefault }
+      containers:
+        - name: web
+          image: nginxinc/nginx-unprivileged:1.31.7-alpine3.24
+          ports: [{ containerPort: 8080 }]
+          readinessProbe:
+            httpGet: { path: /, port: 8081 }  # BUG: nginx listens on 8080
+            periodSeconds: 5
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: { drop: ["ALL"] }

@@ -1,0 +1,25 @@
+# Lab 1: the pod never starts. Symptom: ErrImagePull / ImagePullBackOff.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lab-image
+  namespace: shelfwise-labs
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app: lab-image }
+  template:
+    metadata:
+      labels: { app: lab-image }
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 101
+        seccompProfile: { type: RuntimeDefault }
+      containers:
+        - name: web
+          image: nginxinc/nginx-unprivileged:1.31.7-alpne3.24  # BUG: "alpne"
+          ports: [{ containerPort: 8080 }]
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: { drop: ["ALL"] }
