@@ -475,7 +475,7 @@ Real problems hit while building this, and what fixed them:
 | [`demo/ShelfWise-demo.mp4`](demo/ShelfWise-demo.mp4) | 12 min captioned walkthrough (no voice-over), in the order SUBMISSION.md asks |
 | [`demo/ShelfWise-presentation.pdf`](demo/ShelfWise-presentation.pdf) · [`.pptx`](demo/ShelfWise-presentation.pptx) | 15 slides: overview, tech stack, architecture, rules, testing, CI/CD, DevSecOps, Terraform, Kubernetes + GitOps, autoscaling, observability, learnings, limitations |
 
-Video chapters: `0:00` slides · `2:45` codebase · `4:04` CI/CD: the push · `4:45` the Actions run, start and finish · `5:41` Terraform plan and the AWS Console · `8:57` Argo CD · `9:40` Kubernetes · `10:30` Prometheus · `11:04` Grafana during a load test
+Video chapters: `0:00` slides · `2:56` codebase · `4:22` CI/CD: the push · `5:04` the Actions run, start and finish · `6:00` Terraform plan and the AWS Console · `9:16` Argo CD · `9:59` Kubernetes · `10:49` Prometheus · `11:23` Grafana during a load test
 
 Live demo script (what the video shows): change the dashboard's date line →
 `git commit` → `git push` → the Actions run (gates → build + Trivy → GHCR → kind smoke
