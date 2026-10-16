@@ -1,0 +1,6 @@
+# Test and lint tools. CI installs this file; the Docker image does not.
+-r requirements.txt
+pytest==9.1.1
+pytest-cov==7.1.0
+httpx2==2.13.1  # Starlette 1.x's TestClient requires httpx2
+ruff==0.17.1
