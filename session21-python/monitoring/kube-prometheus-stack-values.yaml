@@ -42,9 +42,11 @@ grafana:
       folderAnnotation: grafana_folder
       provider:
         foldersFromFilesStructure: true
+  # Grafana 13 idles at ~350Mi; at 384Mi it was OOMKilled whenever a dashboard
+  # with a 30-minute range was open during a load test.
   resources:
-    requests: { cpu: 50m, memory: 128Mi }
-    limits: { memory: 384Mi }
+    requests: { cpu: 50m, memory: 256Mi }
+    limits: { memory: 1Gi }
 
 alertmanager:
   alertmanagerSpec:
