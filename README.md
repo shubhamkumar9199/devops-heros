@@ -18,6 +18,13 @@ My notes and homework for the DevOps Heros sessions.
 | 11 | Kubernetes Services | [service.md](session-11-kubernetes-services/service.md) | [task](session-11-kubernetes-services/task/) - *write-up only* |
 | 12 | Ingress, ConfigMaps & Secrets | [lab.md](session-12-ingress-configmaps-secrets/lab.md) | [task](session-12-ingress-configmaps-secrets/task/) - *write-up only* |
 
+## Final capstone (Session 21)
+
+**[ShelfWise — a library lending desk, from laptop to a monitored Kubernetes cluster](session21-python/README.md)**:
+FastAPI + React + PostgreSQL, 74 tests, Docker, a 10-job GitHub Actions pipeline with Trivy
+and GHCR, Terraform (AWS VPC + EKS), Helm, Argo CD, Prometheus and Grafana — with the demo
+video and slides in [`session21-python/demo/`](session21-python/demo/).
+
 ## Submission links
 
 Direct links to each task write-up, for the homework form:

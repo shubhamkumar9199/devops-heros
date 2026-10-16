@@ -15,5 +15,6 @@ Existing sessions 1–12 are unchanged. New homework continues below.
 | 19 | [Terraform Web Infrastructure](session19-cloud-terraform/task/README.md) | Validated; AWS pending |
 | 20 | [Monitoring and GitOps](session20-monitoring-observability-gitops/task/README.md) | Monitoring and GitOps passed |
 | 21 | [StudySprint Reference Application](session21-python/task/README.md) | Local and CI tests passed |
+| 21 | [Final capstone: ShelfWise](session21-python/README.md) | CI/CD green, deployed by Argo CD, AWS VPC + EKS applied and destroyed |
 
-AWS creation and cleanup require the intended lab credentials.
+AWS creation and cleanup for sessions 18 and 19 require the intended lab credentials; the capstone's AWS run is documented in its README.
