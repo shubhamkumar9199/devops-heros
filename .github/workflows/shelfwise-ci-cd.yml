@@ -54,7 +54,7 @@ env:
 jobs:
   backend-tests:
     name: Backend tests (pytest + ruff)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     defaults:
       run:
@@ -82,7 +82,7 @@ jobs:
 
   integration:
     name: PostgreSQL integration (migrations, lock, races)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     services:
       postgres:
@@ -133,7 +133,7 @@ jobs:
 
   frontend:
     name: Frontend build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     defaults:
       run:
@@ -152,7 +152,7 @@ jobs:
 
   security:
     name: Secret scan, SAST, dependency audit
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
@@ -182,7 +182,7 @@ jobs:
 
   helm:
     name: Helm lint + manifest schemas
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     defaults:
       run:
@@ -219,7 +219,7 @@ jobs:
 
   terraform:
     name: Terraform fmt + validate + IaC scan (Trivy)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     defaults:
       run:
@@ -240,7 +240,7 @@ jobs:
   images:
     name: Build + Trivy scan (${{ matrix.component }})
     needs: [backend-tests, integration, frontend, security, helm, terraform]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     strategy:
       fail-fast: true
@@ -296,7 +296,7 @@ jobs:
     name: Push to GHCR (${{ matrix.component }})
     needs: images
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     permissions:
       contents: read
@@ -323,7 +323,7 @@ jobs:
   deploy-test:
     name: Deploy to an ephemeral kind cluster (Helm + smoke test)
     needs: push
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     permissions:
       contents: read
@@ -375,7 +375,7 @@ jobs:
   promote:
     name: Promote to GitOps (Argo CD picks it up)
     needs: deploy-test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
     permissions:
       contents: write
