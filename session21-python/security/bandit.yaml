@@ -1,0 +1,5 @@
+# Bandit (Python SAST) for the backend: bandit -c security/bandit.yaml -r backend/app -ll
+exclude_dirs:
+  - tests
+  - alembic/versions
+  - .venv

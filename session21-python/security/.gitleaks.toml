@@ -1,0 +1,16 @@
+# Gitleaks config for the capstone. CI scans session21-python/ history with it:
+#   gitleaks git --log-opts="-- session21-python" --config session21-python/security/.gitleaks.toml
+title = "shelfwise"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Documented local-only demo values"
+regexes = [
+  # The docker compose fallback password (compose.yaml, .env.example). Local machines only.
+  '''shelfwise-local-only''',
+]
+paths = [
+  '''session21-python/taskboard/''',  # earlier course homework, not part of the capstone
+]

@@ -1,0 +1,18 @@
+# Trivy gate used by CI for both images (and locally):
+#   trivy image --config security/trivy.yaml <image>
+# Fails (exit 1) on any HIGH or CRITICAL vulnerability that has a fix available,
+# and on any secret baked into an image layer.
+severity:
+  - HIGH
+  - CRITICAL
+exit-code: 1
+scan:
+  scanners:
+    - vuln
+    - secret
+vulnerability:
+  # Must sit under `vulnerability:`; at the top level Trivy silently ignores it.
+  # Unfixed CVEs can't be patched by rebuilding; they are reported, not gating.
+  ignore-unfixed: true
+format: table
+timeout: 10m
