@@ -66,7 +66,7 @@ export default function Dashboard() {
   return (
     <div className="page">
       <PageHeader
-        eyebrow={formatLongDay(now())}
+        eyebrow={`Main library · ${formatLongDay(now())}`}
         title={greeting()}
         sub={
           <>
