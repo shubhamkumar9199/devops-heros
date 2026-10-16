@@ -270,6 +270,9 @@ jobs:
             -v "$PWD/security:/cfg:ro" \
             "$TRIVY_IMAGE" image --config /cfg/trivy.yaml --no-progress "$IMAGE" | tee "trivy-${{ matrix.component }}.txt"
           exit "${PIPESTATUS[0]}"
+      - name: Hand the Trivy cache back to the runner user (the scan container wrote it as root)
+        if: always()
+        run: sudo chown -R "$(id -u):$(id -g)" ~/.cache/trivy
       - name: Scan summary
         if: always()
         run: |
