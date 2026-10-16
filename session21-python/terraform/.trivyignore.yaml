@@ -1,0 +1,22 @@
+# Accepted Trivy misconfiguration findings for this classroom EKS stack.
+# CI fails on any other HIGH/CRITICAL finding. Each entry says why it stays.
+misconfigurations:
+  - id: AWS-0040
+    paths: ["eks.tf"]
+    statement: >-
+      Public API endpoint: needed so the operator's laptop can run kubectl. It is
+      limited to var.api_allowed_cidrs (the operator's /32) and the private
+      endpoint is enabled for the nodes. Production: private endpoint + VPN.
+  - id: AWS-0039
+    paths: ["eks.tf"]
+    statement: >-
+      Secret encryption with a customer-managed KMS key: EKS envelope-encrypts
+      Kubernetes API data with AWS-owned keys by default (EKS 1.28+, as
+      understood when this was written). A customer key adds a monthly charge and a
+      7-30 day deletion wait for a one-hour cluster. Production: add encryption_config.
+  - id: AWS-0164
+    paths: ["network.tf"]
+    statement: >-
+      Public IPs on launch in the public subnets are intended: they only hold the
+      NAT gateway and internet-facing load balancers. Worker nodes run in the
+      private subnets.

@@ -1,0 +1,19 @@
+# Copy to terraform.tfvars (git-ignored) and adjust. No credentials go here:
+# Terraform reads them from your AWS CLI profile (AWS_PROFILE=...).
+
+region      = "ap-south-1"
+project     = "shelfwise"
+environment = "dev"
+
+# Your public IP as /32 (curl -s https://checkip.amazonaws.com). Only these
+# addresses can reach the cluster's public API endpoint.
+api_allowed_cidrs = ["203.0.113.10/32"]
+
+kubernetes_version  = "1.35"
+node_instance_types = ["t3.medium"] # t3.small if the account's vCPU quota is tight
+node_desired_size   = 2
+node_min_size       = 1
+node_max_size       = 3
+
+# false = no NAT gateway or Elastic IP (cheaper; nodes then use the public subnets)
+enable_nat_gateway = true
