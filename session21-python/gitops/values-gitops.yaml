@@ -1,9 +1,9 @@
 # Written by the promote job of the ShelfWise CI/CD workflow: the newest commit whose
 # images passed tests, scans and the kind smoke test. Argo CD deploys these tags.
-# Source run: https://github.com/shubhamkumar9199/devops-heros/actions/runs/38906605671
+# Source run: https://github.com/shubhamkumar9199/devops-heros/actions/runs/38907145629
 backend:
   image:
-    tag: "f6feadd2ea2f7abcb9ad4ec1b6dcee0634cf2069"
+    tag: "bbf1c06f6434512eee2b2f8a8ac0a8a0e3f0129d"
 frontend:
   image:
-    tag: "f6feadd2ea2f7abcb9ad4ec1b6dcee0634cf2069"
+    tag: "bbf1c06f6434512eee2b2f8a8ac0a8a0e3f0129d"
